@@ -1,0 +1,6 @@
+#!/usr/bin/env perl
+
+use utf8;
+use v5.40;
+
+say time

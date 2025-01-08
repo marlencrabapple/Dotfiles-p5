@@ -1,0 +1,53 @@
+#!/usr/bin/env perl
+
+use utf8;
+use v5.40;
+
+use Encode qw(encode decode);
+use Carp;
+use IPC::Run3;
+use Path::Tiny;
+use Data::Printer;
+use Getopt::Long qw(:config no_ignore_case bundling);
+use Text::Markdown::Hoedown;
+
+our %opts;
+
+run();
+
+sub run {
+  use constant OPTION_DISPATCH => (
+    '<>' => sub { _handle_barearg($_[0]) }
+  );
+
+  GetOptions(
+    \%opts,
+    'inline-css|css=s',
+    '<>' => sub ($in) {
+       say md2html($in)
+     }
+  )
+}
+
+sub md2html ($mdin, %args) {
+  my ($mdstr, $mdfile, $mdfh);
+
+  if (-e $mdin) {
+    $mdfile = path($mdin);
+    $mdstr = $mdfile->slurp_utf8;
+  }
+  else {
+    $mdstr = $mdin
+  }
+
+  my $htmlout = markdown(encode('UTF-8', $mdstr)
+    , html_options => HOEDOWN_HTML_HARD_WRAP|HOEDOWN_HTML_ESCAPE,
+      extensions => HOEDOWN_EXT_TABLES|HOEDOWN_EXT_FENCED_CODE
+        |HOEDOWN_EXT_FOOTNOTES|HOEDOWN_EXT_AUTOLINK|HOEDOWN_EXT_STRIKETHROUGH
+        |HOEDOWN_EXT_UNDERLINE|HOEDOWN_EXT_HIGHLIGHT|HOEDOWN_EXT_QUOTE
+        |HOEDOWN_EXT_SUPERSCRIPT|HOEDOWN_EXT_MATH);
+
+  $args{html_out}
+    ? path($args{html_out})->spew_utf8($htmlout)
+    : "<html><head><title>asdf</title><head><body>$htmlout</body></html>"
+}
