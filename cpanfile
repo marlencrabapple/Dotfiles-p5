@@ -16,6 +16,7 @@ requires 'DBIx::Connector';
 requires 'Inline';
 requires 'Inline::C';
 requires 'Object::Pad';
+requires 'Time::HiRes';
 requires 'Syntax::Keyword::Try';
 requires 'Syntax::Keyword::Defer';
 requires 'Syntax::Keyword::MultiSub';
@@ -38,6 +39,10 @@ requires 'Future::AsyncAwait';
 requires 'IO::Async';
 requires 'IO::Async::SSL';
 requires 'Const::Fast';
+
+requires 'FFmpeg::Inline',
+  url => "file://$ENV{HOME}/FFmpeg-Inline/FFmpeg-Inline-0.01.tar.gz",
+  dist => 'CRABAPP/FFmpeg-Inline-0.01-TRIAL.tar.gz';
 
 on 'test' => sub {
   requires 'Test::More', '0.98';
