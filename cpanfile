@@ -40,7 +40,7 @@ requires 'IO::Async';
 requires 'IO::Async::SSL';
 requires 'Const::Fast';
 
-requires 'FFmpeg::Inline',
+requires 'FFmpeg::Inline', '0.01',
   url => "file://$ENV{HOME}/FFmpeg-Inline/FFmpeg-Inline-0.01.tar.gz",
   dist => 'CRABAPP/FFmpeg-Inline-0.01-TRIAL.tar.gz';
 

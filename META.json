@@ -43,7 +43,7 @@
       },
       "configure" : {
          "requires" : {
-            "Module::Build::Tiny" : "0.035"
+            "Module::Build" : "0.4005"
          }
       },
       "develop" : {
@@ -75,7 +75,7 @@
             "DBI" : "0",
             "DBIx::Connector" : "0",
             "Data::Printer" : "0",
-            "FFmpeg::Inline" : "0",
+            "FFmpeg::Inline" : "0.01",
             "File::chdir" : "0",
             "Future::AsyncAwait" : "0",
             "Getopt::Long" : "0",
