@@ -1075,15 +1075,6 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Net::SSLeay 1.46
       Scalar::Util 0
-  IO-Tty-1.20
-    pathname: T/TO/TODDR/IO-Tty-1.20.tar.gz
-    provides:
-      IO::Pty 1.20
-      IO::Tty 1.20
-      IO::Tty::Constant 1.20
-    requirements:
-      ExtUtils::MakeMaker 0
-      Test::More 0
   IPC-Run-20231003.0
     pathname: T/TO/TODDR/IPC-Run-20231003.0.tar.gz
     provides:
@@ -1097,7 +1088,6 @@ DISTRIBUTIONS
       IPC::Run::Win32Pump 20231003.0
     requirements:
       ExtUtils::MakeMaker 0
-      IO::Pty 1.08
       Test::More 0.47
   IPC-Run3-0.049
     pathname: R/RJ/RJBS/IPC-Run3-0.049.tar.gz

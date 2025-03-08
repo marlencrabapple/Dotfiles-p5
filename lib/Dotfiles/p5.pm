@@ -1,13 +1,12 @@
 package Dotfiles::p5;
-use 5.008001;
-use strict;
-use warnings;
+
+use utf8;
+use v5.40;
 
 our $VERSION = "0.01";
 
 
 
-1;
 __END__
 
 =encoding utf-8

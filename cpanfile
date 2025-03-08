@@ -1,5 +1,13 @@
+use utf8;
+use v5.40;
+
+use Cwd 'abs_path';
+
+use constant PWD => abs_path;
+
 requires 'perl', 'v5.40';
 
+requires 'Object::Pad';
 requires 'Path::Tiny';
 requires 'Getopt::Long';
 requires 'List::AllUtils';
@@ -41,8 +49,8 @@ requires 'IO::Async::SSL';
 requires 'Const::Fast';
 
 requires 'FFmpeg::Inline', '0.01',
-  url => "file://$ENV{HOME}/FFmpeg-Inline/FFmpeg-Inline-0.01.tar.gz",
-  dist => 'CRABAPP/FFmpeg-Inline-0.01-TRIAL.tar.gz';
+  url => "file://" . PWD . "/vendor/cache/FFmpeg-Inline-0.01.tar.gz",
+  dist => 'CRABAPP/FFmpeg-Inline-0.01.tar.gz';
 
 on 'test' => sub {
   requires 'Test::More', '0.98';
@@ -67,5 +75,5 @@ use constant DEV_PREREQS => sub {
 };
 
 on 'build' => DEV_PREREQS;
-on 'develop' => DEV_PREREQS;
+on 'develop' => DEV_PREREQS
 
