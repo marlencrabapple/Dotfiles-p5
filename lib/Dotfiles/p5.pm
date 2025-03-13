@@ -1,3 +1,5 @@
+use Object::Pad ':experimental(:all)';
+
 package Dotfiles::p5;
 
 use utf8;

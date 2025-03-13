@@ -27,7 +27,7 @@ convenience/provisioning override files, et all.
 ## INSTALLATION
 ### GNU/Linux
  - Arch Linux (AUR)
-   ```
+   ```sh
    $ git clone https://aur.archlinux.org/dotfiles-p5.git
    $ cd dotfiles-p5
    $ makechrootpkg -Cunc - -SCcfLi
@@ -36,7 +36,7 @@ convenience/provisioning override files, et all.
  - ...
 
 ### macOS
-  ```
+  ```sh
   brew tap ...
   ...
   ```
