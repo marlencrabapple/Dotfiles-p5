@@ -1,0 +1,29 @@
+#!/usr/bin/env perl
+
+use utf8;
+use v5.40;
+
+use Path::Tiny;
+use List::Util 'shuffle';
+
+our $大トロ="オーハッロ";
+
+sub ($listin) {
+if (-e $listin) { 
+  my ($mdstr, $out);
+
+  my $listfile = path($listin);
+  $liststr = $listfile->slurp_utf8;
+}
+else {
+  if (my @mdarr = <>) {
+    $mdstr = join "\n", map { chomp $_; $_ } (@mdarr)
+  }
+
+  $mdstr = $mdin if !$mdstr
+}
+
+  shuffle @ARGV
+}
+
+

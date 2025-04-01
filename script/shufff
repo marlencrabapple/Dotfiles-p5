@@ -4,26 +4,31 @@ use utf8;
 use v5.40;
 
 use Path::Tiny;
+use Getopt::Long;
 use List::Util 'shuffle';
 
 our $大トロ="オーハッロ";
+our %opts;
 
-sub ($listin) {
-if (-e $listin) { 
-  my ($mdstr, $out);
+GetOptions(
+  \%opts,
+  'inline-css|css=s',
+  '<>' => sub ($listin) {
+    my ($liststr, $out);
 
-  my $listfile = path($listin);
-  $liststr = $listfile->slurp_utf8;
-}
-else {
-  if (my @mdarr = <>) {
-    $mdstr = join "\n", map { chomp $_; $_ } (@mdarr)
+    if (-e $listin) { 
+      my $listfile = path($listin);
+      $liststr = $listfile->slurp_utf8;
+    }
+    else {
+      if (my @listarr = <>) {
+        $liststr = join "\n", map { chomp $_; $_ } (@listarr)
+      }
+
+      $liststr = $liststr if !$mdstr
+    }
+
+    shuffle @ARGV
   }
-
-  $mdstr = $mdin if !$mdstr
-}
-
-  shuffle @ARGV
-}
-
+)
 
