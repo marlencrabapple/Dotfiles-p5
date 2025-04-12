@@ -1,9 +1,10 @@
 use utf8;
 use v5.40;
 
+use Const::Fast;
 use Cwd 'abs_path';
 
-use constant PWD => abs_path;
+const our $PWD => abs_path;
 
 requires 'perl', 'v5.40';
 
@@ -48,8 +49,16 @@ requires 'IO::Async';
 requires 'IO::Async::SSL';
 requires 'Const::Fast';
 
+requires 'Plack', '1.0053',
+  url => "file://$PWD/vendor/Plack-1.0053-TRIAL.tar.gz",
+  dist => "CRABAPP/Plack-1.0053-TRIAL.tar.gz";
+
+requires 'Frame', '0.01.4',
+  url => "file://$PWD/vendor/Frame-0.01.4-TRIAL.tar.gz ",
+  dist => 'CRABAPP/Frame-0.01.4-TRIAL.tar.gz';
+
 requires 'FFmpeg::Inline', '0.01',
-  url => "file://" . PWD . "/vendor/cache/FFmpeg-Inline-0.01.tar.gz",
+  url => "file://$PWD/vendor/cache/FFmpeg-Inline-0.01.tar.gz",
   dist => 'CRABAPP/FFmpeg-Inline-0.01.tar.gz';
 
 on 'test' => sub {
@@ -76,4 +85,3 @@ use constant DEV_PREREQS => sub {
 
 on 'build' => DEV_PREREQS;
 on 'develop' => DEV_PREREQS
-
