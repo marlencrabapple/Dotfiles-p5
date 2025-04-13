@@ -31,3 +31,10 @@ MYMETA.*
 
 /Dotfiles-p5-*
 
+*.pem
+*.key
+*.crt
+*.db
+*.sqlite3
+
+._*

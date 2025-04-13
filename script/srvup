@@ -5,16 +5,20 @@ use v5.40;
 
 use lib 'lib';
 
+use Data::Dumper;
 use File::Basename;
 use Plack::Builder;
 use Plack::App::File;
 use Plack::App::Directory;
 use Plack::Middleware::Static;
+use Syntax::Keyword::Dynamically;
 use Plack::Middleware::Auth::Basic;
 use Crypt::Argon2 qw(argon2id_pass argon2_verify);
 
-our $srvpath = $ARGV[0] // "./";
-our $mount = $ARGV[1];
+say Dumper(\@ARGV, __PACKAGE__);
+
+our $srvpath = $ENV{SRV_SRV} // "./";
+our $mount = $ENV{SRV_MOUNT} // "/";
 
 our $builder = Plack::Builder->new;
 
@@ -24,10 +28,13 @@ sub valid_user ($user, $pass, $env) {
 }
 
 sub serve_file ($file, %args) {
-  ($args{builder} // $builder)->mount($args{uri} // basename($file)
-    ,Plack::App::File->new(
-      file => $file
-    )->to_app)
+  dynamically $builder = $args{builder}
+    if ref $args{builder} && $args{builder} eq 'Plack::Builder';
+  
+  $builder->mount($args{uri} // basename($file)
+    , Plack::App::File->new(
+        file => $file
+      )->to_app)
 }
 
 our $app = -f $srvpath
@@ -35,10 +42,11 @@ our $app = -f $srvpath
       , uri => $mount // basename($srvpath)
       , builder => $builder)
     : -d $srvpath
-  ? Plack::App::Directory->new({ root => "$srvpath" })->to_app
+  ? $builder->mount($mount
+      , Plack::App::Directory->new({ root => "$srvpath" })->to_app)
     : die "Path '$srvpath' does not appear to be a file or directory.";
 
-$builder->mount($mount // '/', $app);
+#$builder->mount($mount // '/', $app);
 
 $builder->add_middleware('Auth::Basic', authenticator => sub (@args) {
     valid_user(@args)
@@ -51,7 +59,7 @@ $app = $builder->to_app;
 
 unless (caller) {
   require Plack::Runner;
-  Plack::Runner->parse_options(@ARGV)->run($app);
+  Plack::Runner->new->parse_options(@ARGV)->run($app);
   exit ($? // 0)
 }
 

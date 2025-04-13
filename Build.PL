@@ -29,7 +29,6 @@ my %args = (
         'DBI' => '0',
         'DBIx::Connector' => '0',
         'Data::Printer' => '0',
-        'FFmpeg::Inline' => '0.01',
         'File::chdir' => '0',
         'Frame' => 'v0.1.4',
         'Future::AsyncAwait' => '0',

@@ -5,57 +5,62 @@ use v5.40;
 
 use Encode qw(encode decode);
 use Path::Tiny;
+use Data::Dumper;
 use Getopt::Long qw(:config no_ignore_case bundling);
 use Text::Markdown::Hoedown;
 
 run();
 
 sub run {
-  my %opts;
+    my %opts;
 
-  use constant OPTION_DISPATCH => (
-    '<>' => sub { _handle_barearg($_[0]) }
-  );
+    use constant OPTION_DISPATCH =>
+      ( '<>' => sub { _handle_barearg( $_[0] ) } );
 
-  GetOptions(
-    \%opts,
-    'inline-css|css=s',
-    '<>' => sub ($in) {
-      say md2html($in)
-    }
-  );
+    GetOptions(
+        \%opts,
+        'inline-css|css=s',
+        '<>' => sub ($in) {
+            say md2html($in);
+        }
+    );
 }
 
-sub md2html ($mdin = undef, %args) {
-  my ($mdstr, $out);
+sub md2html ( $mdin = undef, %args ) {
+    my ( $mdstr, $out );
 
-  if (-e $mdin) {
-    my $mdfile = path($mdin);
-    $mdstr = $mdfile->slurp_utf8;
-  }
-  else {
-    if (my @mdarr = <>) {
-      $mdstr = join "\n", map { chomp $_; $_ } (@mdarr)
+    if ( -e $mdin ) {
+        my $mdfile = path($mdin);
+        $mdstr = $mdfile->slurp_utf8;
+    }
+    else {
+        if ( my @mdarr = <> ) {
+            $mdstr = join "\n", map { chomp $_; $_ } (@mdarr);
+        }
+
+        $mdstr = $mdin if !$mdstr;
     }
 
-    $mdstr = $mdin if !$mdstr
-  }
+    say Dumper( $mdin, $mdstr, $out, \%args );
 
-  use constant FILEEXT_RE => qr/\.(md|mkd)$/i;
+    use constant FILEEXT_RE => qr/\.(md|mkd)$/i;
 
-  if (!$mdin || $mdin =~ FILEEXT_RE) {
-    $out = markdown(encode('UTF-8', $mdstr)
-      , html_options => HOEDOWN_HTML_HARD_WRAP|HOEDOWN_HTML_ESCAPE,
-        extensions => HOEDOWN_EXT_TABLES|HOEDOWN_EXT_FENCED_CODE
-          |HOEDOWN_EXT_FOOTNOTES|HOEDOWN_EXT_AUTOLINK|HOEDOWN_EXT_STRIKETHROUGH
-          |HOEDOWN_EXT_UNDERLINE|HOEDOWN_EXT_HIGHLIGHT|HOEDOWN_EXT_QUOTE
-          |HOEDOWN_EXT_SUPERSCRIPT|HOEDOWN_EXT_MATH);
-  }
-  else {
-    ($out) = map { "<pre>$_</pre>" } ($mdstr // $mdin)
-  }
+    if ( !$mdin || $mdin =~ FILEEXT_RE ) {
+        $out = markdown(
+            encode( 'UTF-8', $mdstr ),
+            html_options => HOEDOWN_HTML_HARD_WRAP | HOEDOWN_HTML_ESCAPE,
+            extensions   => HOEDOWN_EXT_TABLES | HOEDOWN_EXT_FENCED_CODE |
+              HOEDOWN_EXT_FOOTNOTES | HOEDOWN_EXT_AUTOLINK |
+              HOEDOWN_EXT_STRIKETHROUGH | HOEDOWN_EXT_UNDERLINE |
+              HOEDOWN_EXT_HIGHLIGHT | HOEDOWN_EXT_QUOTE |
+              HOEDOWN_EXT_SUPERSCRIPT | HOEDOWN_EXT_MATH
+        );
+    }
+    else {
+        ($out) = map { "<pre>$_</pre>" } ( $mdstr // $mdin );
+    }
 
-  $args{html_out}
-    ? path($args{html_out})->spew_utf8($out)
-    : $out
+    $args{html_out}
+      ? path( $args{html_out} )->spew_utf8($out)
+      : $out;
 }

@@ -54,12 +54,12 @@ requires 'Plack', '1.0053',
   dist => "CRABAPP/Plack-1.0053-TRIAL.tar.gz";
 
 requires 'Frame', '0.01.4',
-  url => "file://$PWD/vendor/Frame-0.01.4-TRIAL.tar.gz ",
+  url => "file://$PWD/vendor/Frame-0.01.4-TRIAL.tar.gz",
   dist => 'CRABAPP/Frame-0.01.4-TRIAL.tar.gz';
 
-requires 'FFmpeg::Inline', '0.01',
-  url => "file://$PWD/vendor/cache/FFmpeg-Inline-0.01.tar.gz",
-  dist => 'CRABAPP/FFmpeg-Inline-0.01.tar.gz';
+# requires 'FFmpeg::Inline', '0.01',
+#   url => "file://$PWD/vendor/FFmpeg-Inline-0.01.tar.gz",
+#   dist => 'CRABAPP/FFmpeg-Inline-0.01.tar.gz';
 
 on 'test' => sub {
   requires 'Test::More', '0.98';
