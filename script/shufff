@@ -7,28 +7,27 @@ use Path::Tiny;
 use Getopt::Long;
 use List::Util 'shuffle';
 
-our $大トロ="オーハッロ";
+our $大トロ = "オーハッロ";
 our %opts;
 
 GetOptions(
-  \%opts,
-  'inline-css|css=s',
-  '<>' => sub ($listin) {
-    my ($liststr, $out);
+    \%opts,
+    'inline-css|css=s',
+    '<>' => sub ($listin) {
+        my ( $liststr, $out );
 
-    if (-e $listin) { 
-      my $listfile = path($listin);
-      $liststr = $listfile->slurp_utf8;
+        if ( -e $listin ) {
+            my $listfile = path($listin);
+            $liststr = $listfile->slurp_utf8;
+        }
+        else {
+            if ( my @listarr = <> ) {
+                $liststr = join "\n", map { chomp $_; $_ } (@listarr);
+            }
+
+            $liststr = $liststr if !$liststr;
+        }
+
+        shuffle @ARGV;
     }
-    else {
-      if (my @listarr = <>) {
-        $liststr = join "\n", map { chomp $_; $_ } (@listarr)
-      }
-
-      $liststr = $liststr if !$mdstr
-    }
-
-    shuffle @ARGV
-  }
-)
-
+  )

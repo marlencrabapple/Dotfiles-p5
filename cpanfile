@@ -50,37 +50,36 @@ requires 'IO::Async::SSL';
 requires 'Const::Fast';
 
 requires 'Plack', '1.0053',
-  url => "file://$PWD/vendor/Plack-1.0053-TRIAL.tar.gz",
+  url  => "file://$PWD/vendor/Plack-1.0053-TRIAL.tar.gz",
   dist => "CRABAPP/Plack-1.0053-TRIAL.tar.gz";
 
 requires 'Frame', '0.01.4',
-  url => "file://$PWD/vendor/Frame-0.01.4-TRIAL.tar.gz",
+  url  => "file://$PWD/vendor/Frame-0.01.4-TRIAL.tar.gz",
   dist => 'CRABAPP/Frame-0.01.4-TRIAL.tar.gz';
 
-# requires 'FFmpeg::Inline', '0.01',
-#   url => "file://$PWD/vendor/FFmpeg-Inline-0.01.tar.gz",
-#   dist => 'CRABAPP/FFmpeg-Inline-0.01.tar.gz';
+requires 'FFmpeg::Inline', '0.01',
+  url  => "file://$PWD/vendor/FFmpeg-Inline-0.01.tar.gz",
+  dist => 'CRABAPP/FFmpeg-Inline-0.01.tar.gz';
 
 on 'test' => sub {
-  requires 'Test::More', '0.98';
-  requires 'Test::CPAN::Meta', '0.25',
-  requires 'Test::PAUSE::Permissions';
-  requires 'Test::Spellunker';
-  requires 'Test::MinimumVersion::Fast';
+    requires 'Test::More', '0.98';
+    requires 'Test::CPAN::Meta', '0.25', requires 'Test::PAUSE::Permissions';
+    requires 'Test::Spellunker';
+    requires 'Test::MinimumVersion::Fast';
 };
 
 use constant DEV_PREREQS => sub {
-  requires 'App::cpm';
-  requires 'Minilla';
-  requires 'Minilla::Profile::ModuleBuildTiny';
-  requires 'Perl::Critic';
-  requires 'Perl::Tidy';
-  requires 'App::perlimports';
-  requires 'Perl::Critic::Community';
-  requires 'Inline';
-  requires 'Inline::C';
-  requires 'Inline::MakeMaker';
-  requires 'ExtUtils::MakeMaker'
+    requires 'App::cpm';
+    requires 'Minilla';
+    requires 'Minilla::Profile::ModuleBuildTiny';
+    requires 'Perl::Critic';
+    requires 'Perl::Tidy';
+    requires 'App::perlimports';
+    requires 'Perl::Critic::Community';
+    requires 'Inline';
+    requires 'Inline::C';
+    requires 'Inline::MakeMaker';
+    requires 'ExtUtils::MakeMaker';
 };
 
 on 'build' => DEV_PREREQS;

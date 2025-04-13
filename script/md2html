@@ -5,49 +5,58 @@ use v5.40;
 
 use Encode qw(encode decode);
 use Path::Tiny;
-use Data::Dumper;
+use Const::Fast;
 use Getopt::Long qw(:config no_ignore_case bundling);
+use Data::Dumper;
 use Text::Markdown::Hoedown;
+
+const our $DEBUG => $ENV{DEBUG};
 
 run();
 
 sub run {
     my %opts;
 
-    use constant OPTION_DISPATCH =>
-      ( '<>' => sub { _handle_barearg( $_[0] ) } );
-
     GetOptions(
         \%opts,
-        'inline-css|css=s',
+        'css|stylesheet|style=s',
+        'out|o=s',
         '<>' => sub ($in) {
-            say md2html($in);
+            say md2html( $in, %opts );
         }
     );
 }
 
 sub md2html ( $mdin = undef, %args ) {
-    my ( $mdstr, $out );
+    my ( $mdfile, $mdstr, $out );
+
+    const state $SEPRE => qr/^\s*-{1,2}\s*$/;
 
     if ( -e $mdin ) {
-        my $mdfile = path($mdin);
-        $mdstr = $mdfile->slurp_utf8;
+        $mdfile = path($mdin);
+        $mdstr  = $mdfile->slurp_utf8;
+        say Dumper( $mdin, $mdfile ) if $DEBUG;
     }
-    else {
+    elsif ( $mdin =~ s/$SEPRE// ) {
         if ( my @mdarr = <> ) {
             $mdstr = join "\n", map { chomp $_; $_ } (@mdarr);
         }
 
-        $mdstr = $mdin if !$mdstr;
+        say Dumper( $mdin, $mdstr ) if $DEBUG;
     }
 
-    say Dumper( $mdin, $mdstr, $out, \%args );
+    if ( $args{css} ) {
+        $out =
+          -e $args{css}
+          ? path( $args{css} )->slurp_utf8
+          : "<style>$args{css}</style>";
+    }
 
-    use constant FILEEXT_RE => qr/\.(md|mkd)$/i;
+    const our $FILEEXT_RE => qr/\.(md|mkd)$/i;
 
-    if ( !$mdin || $mdin =~ FILEEXT_RE ) {
-        $out = markdown(
-            encode( 'UTF-8', $mdstr ),
+    if ( !$mdfile || $mdin =~ $FILEEXT_RE ) {
+        $out .= markdown(
+            encode( 'UTF-8', $mdstr // $mdin ),
             html_options => HOEDOWN_HTML_HARD_WRAP | HOEDOWN_HTML_ESCAPE,
             extensions   => HOEDOWN_EXT_TABLES | HOEDOWN_EXT_FENCED_CODE |
               HOEDOWN_EXT_FOOTNOTES | HOEDOWN_EXT_AUTOLINK |
@@ -60,7 +69,8 @@ sub md2html ( $mdin = undef, %args ) {
         ($out) = map { "<pre>$_</pre>" } ( $mdstr // $mdin );
     }
 
-    $args{html_out}
-      ? path( $args{html_out} )->spew_utf8($out)
+    $args{out}
+      ? sub { path( $args{out} )->spew_utf8($out); exit $? }
+      ->()
       : $out;
 }
