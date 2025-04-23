@@ -7,8 +7,6 @@ use v5.40;
 
 our $VERSION = "0.01";
 
-
-
 __END__
 
 =encoding utf-8
@@ -37,4 +35,3 @@ it under the same terms as Perl itself.
 Ian P Bradley E<lt>ian.bradley@studiocrabapple.comE<gt>
 
 =cut
-
