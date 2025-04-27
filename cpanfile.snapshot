@@ -17,10 +17,10 @@ DISTRIBUTIONS
       POSIX::strftime::Compiler 0.30
       Time::Local 0
       perl 5.008001
-  App-cpanminus-1.7048
-    pathname: M/MI/MIYAGAWA/App-cpanminus-1.7048.tar.gz
+  App-cpanminus-1.7907-TRIAL
+    pathname: M/MI/MIYAGAWA/App-cpanminus-1.7907-TRIAL.tar.gz
     provides:
-      App::cpanminus 1.7048
+      App::cpanminus 1.7907
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.008001
@@ -81,18 +81,18 @@ DISTRIBUTIONS
       parent 0
       perl 5.008001
       version 0.77
-  App-perlimports-0.000056
-    pathname: O/OA/OALDERS/App-perlimports-0.000056.tar.gz
+  App-perlimports-0.000057
+    pathname: O/OA/OALDERS/App-perlimports-0.000057.tar.gz
     provides:
-      App::perlimports 0.000056
-      App::perlimports::Annotations 0.000056
-      App::perlimports::CLI 0.000056
-      App::perlimports::Config 0.000056
-      App::perlimports::Document 0.000056
-      App::perlimports::ExportInspector 0.000056
-      App::perlimports::Include 0.000056
-      App::perlimports::Role::Logger 0.000056
-      App::perlimports::Sandbox 0.000056
+      App::perlimports 0.000057
+      App::perlimports::Annotations 0.000057
+      App::perlimports::CLI 0.000057
+      App::perlimports::Config 0.000057
+      App::perlimports::Document 0.000057
+      App::perlimports::ExportInspector 0.000057
+      App::perlimports::Include 0.000057
+      App::perlimports::Role::Logger 0.000057
+      App::perlimports::Sandbox 0.000057
     requirements:
       Capture::Tiny 0
       Class::Inspector 1.36
@@ -129,7 +129,7 @@ DISTRIBUTIONS
       Try::Tiny 0
       Types::Standard 0
       feature 0
-      perl v5.18.0
+      perl 5.018000
       strict 0
       utf8 0
       warnings 0
@@ -216,10 +216,10 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
-  CPAN-DistnameInfo-0.12
-    pathname: G/GB/GBARR/CPAN-DistnameInfo-0.12.tar.gz
+  CPAN-DistnameInfo-0.12_01
+    pathname: R/RJ/RJBS/CPAN-DistnameInfo-0.12_01.tar.gz
     provides:
-      CPAN::DistnameInfo 0.12
+      CPAN::DistnameInfo 0.12_01
     requirements:
       ExtUtils::MakeMaker 0
       Test::More 0
@@ -336,18 +336,17 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Storable 0
       perl 5.008001
-  Command-Runner-0.200
-    pathname: S/SK/SKAJI/Command-Runner-0.200.tar.gz
+  Command-Runner-0.201
+    pathname: S/SK/SKAJI/Command-Runner-0.201.tar.gz
     provides:
-      Command::Runner 0.200
-      Command::Runner::Format undef
+      Command::Runner 0.201
       Command::Runner::LineBuffer undef
       Command::Runner::Quote undef
       Command::Runner::Timeout undef
     requirements:
       Capture::Tiny 0
       File::pushd 0
-      Module::Build::Tiny 0.034
+      Module::Build::Tiny 0.051
       String::ShellQuote 0
       Win32::ShellQuote 0
       perl 5.008001
@@ -445,12 +444,15 @@ DISTRIBUTIONS
       overload 0
       strict 0
       warnings 0
-  Crypt-Argon2-0.029
-    pathname: L/LE/LEONT/Crypt-Argon2-0.029.tar.gz
+  Crypt-Argon2-0.030
+    pathname: L/LE/LEONT/Crypt-Argon2-0.030.tar.gz
     provides:
-      Crypt::Argon2 0.029
+      Crypt::Argon2 0.030
     requirements:
-      Dist::Build 0.010
+      Dist::Build 0.020
+      Dist::Build::Core 0
+      Dist::Build::XS 0
+      Dist::Build::XS::Conf 0
       Exporter 5.57
       Time::HiRes 0
       XSLoader 0
@@ -603,6 +605,20 @@ DISTRIBUTIONS
     requirements:
       Module::Build::Tiny 0.051
       perl v5.8.1
+  Data-Dump-1.25
+    pathname: G/GA/GARU/Data-Dump-1.25.tar.gz
+    provides:
+      Data::Dump 1.25
+      Data::Dump::FilterContext undef
+      Data::Dump::Filtered undef
+      Data::Dump::Trace 0.02
+      Data::Dump::Trace::Call 0.02
+      Data::Dump::Trace::Wrapper 0.02
+    requirements:
+      ExtUtils::MakeMaker 0
+      Symbol 0
+      Test 0
+      perl 5.006
   Data-Flow-1.02
     pathname: I/IL/ILYAZ/modules/Data-Flow-1.02.tar.gz
     provides:
@@ -748,20 +764,20 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 6.59
       PadWalker 1.98
       perl 5.008001
-  Dist-Build-0.019
-    pathname: L/LE/LEONT/Dist-Build-0.019.tar.gz
+  Dist-Build-0.020
+    pathname: L/LE/LEONT/Dist-Build-0.020.tar.gz
     provides:
-      Dist::Build 0.019
-      Dist::Build::Core 0.019
-      Dist::Build::DynamicPrereqs 0.019
-      Dist::Build::Serializer 0.019
-      Dist::Build::ShareDir 0.019
-      Dist::Build::XS 0.019
-      Dist::Build::XS::Alien 0.019
-      Dist::Build::XS::Conf 0.019
-      Dist::Build::XS::Export 0.019
-      Dist::Build::XS::Import 0.019
-      Dist::Build::XS::WriteConstants 0.019
+      Dist::Build 0.020
+      Dist::Build::Core 0.020
+      Dist::Build::DynamicPrereqs 0.020
+      Dist::Build::Serializer 0.020
+      Dist::Build::ShareDir 0.020
+      Dist::Build::XS 0.020
+      Dist::Build::XS::Alien 0.020
+      Dist::Build::XS::Conf 0.020
+      Dist::Build::XS::Export 0.020
+      Dist::Build::XS::Import 0.020
+      Dist::Build::XS::WriteConstants 0.020
     requirements:
       CPAN::Meta 0
       CPAN::Meta::Merge 0
@@ -899,31 +915,31 @@ DISTRIBUTIONS
       strict 0
       version 0
       warnings 0
-  ExtUtils-Builder-Compiler-0.028
-    pathname: L/LE/LEONT/ExtUtils-Builder-Compiler-0.028.tar.gz
+  ExtUtils-Builder-Compiler-0.031
+    pathname: L/LE/LEONT/ExtUtils-Builder-Compiler-0.031.tar.gz
     provides:
-      ExtUtils::Builder::ArgumentCollector 0.028
-      ExtUtils::Builder::AutoDetect::C 0.028
-      ExtUtils::Builder::AutoDetect::Cpp 0.028
-      ExtUtils::Builder::Binary 0.028
-      ExtUtils::Builder::Compiler 0.028
-      ExtUtils::Builder::Compiler::MSVC 0.028
-      ExtUtils::Builder::Compiler::Unixy 0.028
-      ExtUtils::Builder::Compiler::VMS 0.028
-      ExtUtils::Builder::Conf 0.028
-      ExtUtils::Builder::Linker 0.028
-      ExtUtils::Builder::Linker::Ar 0.028
-      ExtUtils::Builder::Linker::COFF 0.028
-      ExtUtils::Builder::Linker::ELF::Any 0.028
-      ExtUtils::Builder::Linker::ELF::GCC 0.028
-      ExtUtils::Builder::Linker::Mach::GCC 0.028
-      ExtUtils::Builder::Linker::PE::GCC 0.028
-      ExtUtils::Builder::Linker::PE::MSVC 0.028
-      ExtUtils::Builder::Linker::Unixy 0.028
-      ExtUtils::Builder::Linker::XCOFF 0.028
-      ExtUtils::Builder::MultiLingual 0.028
-      ExtUtils::Builder::ParseXS 0.028
-      ExtUtils::Builder::Profile::Perl 0.028
+      ExtUtils::Builder::ArgumentCollector 0.031
+      ExtUtils::Builder::AutoDetect::C 0.031
+      ExtUtils::Builder::AutoDetect::Cpp 0.031
+      ExtUtils::Builder::Binary 0.031
+      ExtUtils::Builder::Compiler 0.031
+      ExtUtils::Builder::Compiler::MSVC 0.031
+      ExtUtils::Builder::Compiler::Unixy 0.031
+      ExtUtils::Builder::Compiler::VMS 0.031
+      ExtUtils::Builder::Conf 0.031
+      ExtUtils::Builder::Linker 0.031
+      ExtUtils::Builder::Linker::Ar 0.031
+      ExtUtils::Builder::Linker::COFF 0.031
+      ExtUtils::Builder::Linker::ELF::Any 0.031
+      ExtUtils::Builder::Linker::ELF::GCC 0.031
+      ExtUtils::Builder::Linker::Mach::GCC 0.031
+      ExtUtils::Builder::Linker::PE::GCC 0.031
+      ExtUtils::Builder::Linker::PE::MSVC 0.031
+      ExtUtils::Builder::Linker::Unixy 0.031
+      ExtUtils::Builder::Linker::XCOFF 0.031
+      ExtUtils::Builder::MultiLingual 0.031
+      ExtUtils::Builder::ParseXS 0.031
+      ExtUtils::Builder::Profile::Perl 0.031
     requirements:
       Carp 0
       DynaLoader 0
@@ -1620,10 +1636,10 @@ DISTRIBUTIONS
       File::Spec 0.8
       perl 5.008001
       version 0.82
-  Inline-C-0.82
-    pathname: E/ET/ETJ/Inline-C-0.82.tar.gz
+  Inline-C-0.82_001
+    pathname: E/ET/ETJ/Inline-C-0.82_001.tar.gz
     provides:
-      Inline::C 0.82
+      Inline::C 0.82_001
     requirements:
       ExtUtils::MakeMaker 7.00
       File::ShareDir::Install 0.06
@@ -1978,34 +1994,35 @@ DISTRIBUTIONS
       parent 0
       perl 5.010001
       version 0
-  Module-Build-0.4234
-    pathname: L/LE/LEONT/Module-Build-0.4234.tar.gz
+  Module-Build-0.42_35
+    pathname: L/LE/LEONT/Module-Build-0.42_35.tar.gz
     provides:
-      Module::Build 0.4234
-      Module::Build::Base 0.4234
-      Module::Build::Compat 0.4234
-      Module::Build::Config 0.4234
-      Module::Build::Cookbook 0.4234
-      Module::Build::Dumper 0.4234
-      Module::Build::Notes 0.4234
-      Module::Build::PPMMaker 0.4234
-      Module::Build::Platform::Default 0.4234
-      Module::Build::Platform::MacOS 0.4234
-      Module::Build::Platform::Unix 0.4234
-      Module::Build::Platform::VMS 0.4234
-      Module::Build::Platform::VOS 0.4234
-      Module::Build::Platform::Windows 0.4234
-      Module::Build::Platform::aix 0.4234
-      Module::Build::Platform::cygwin 0.4234
-      Module::Build::Platform::darwin 0.4234
-      Module::Build::Platform::os2 0.4234
-      Module::Build::PodParser 0.4234
+      Module::Build 0.42_35
+      Module::Build::Base 0.42_35
+      Module::Build::Compat 0.42_35
+      Module::Build::Config 0.42_35
+      Module::Build::Cookbook 0.42_35
+      Module::Build::Dumper 0.42_35
+      Module::Build::Notes 0.42_35
+      Module::Build::PPMMaker 0.42_35
+      Module::Build::Platform::Default 0.42_35
+      Module::Build::Platform::MacOS 0.42_35
+      Module::Build::Platform::Unix 0.42_35
+      Module::Build::Platform::VMS 0.42_35
+      Module::Build::Platform::VOS 0.42_35
+      Module::Build::Platform::Windows 0.42_35
+      Module::Build::Platform::aix 0.42_35
+      Module::Build::Platform::cygwin 0.42_35
+      Module::Build::Platform::darwin 0.42_35
+      Module::Build::Platform::os2 0.42_35
+      Module::Build::PodParser 0.42_35
     requirements:
       CPAN::Meta 2.142060
       Cwd 0
       Data::Dumper 0
       ExtUtils::CBuilder 0.27
       ExtUtils::Install 0
+      ExtUtils::InstallPaths 0.003
       ExtUtils::Manifest 0
       ExtUtils::Mkbootstrap 0
       ExtUtils::ParseXS 2.21
@@ -2452,101 +2469,101 @@ DISTRIBUTIONS
       POSIX 0
       Time::Local 0
       perl 5.008001
-  PPI-1.281
-    pathname: M/MI/MITHALDU/PPI-1.281.tar.gz
+  PPI-1.282-TRIAL
+    pathname: M/MI/MITHALDU/PPI-1.282-TRIAL.tar.gz
     provides:
-      PPI 1.281
-      PPI::Cache 1.281
-      PPI::Document 1.281
-      PPI::Document::File 1.281
-      PPI::Document::Fragment 1.281
-      PPI::Document::Normalized 1.281
-      PPI::Dumper 1.281
-      PPI::Element 1.281
-      PPI::Exception 1.281
-      PPI::Exception::ParserRejection 1.281
-      PPI::Find 1.281
-      PPI::Lexer 1.281
-      PPI::Node 1.281
-      PPI::Normal 1.281
-      PPI::Normal::Standard 1.281
-      PPI::Singletons 1.281
-      PPI::Statement 1.281
-      PPI::Statement::Break 1.281
-      PPI::Statement::Compound 1.281
-      PPI::Statement::Data 1.281
-      PPI::Statement::End 1.281
-      PPI::Statement::Expression 1.281
-      PPI::Statement::Given 1.281
-      PPI::Statement::Include 1.281
-      PPI::Statement::Include::Perl6 1.281
-      PPI::Statement::Null 1.281
-      PPI::Statement::Package 1.281
-      PPI::Statement::Scheduled 1.281
-      PPI::Statement::Sub 1.281
-      PPI::Statement::Unknown 1.281
-      PPI::Statement::UnmatchedBrace 1.281
-      PPI::Statement::Variable 1.281
-      PPI::Statement::When 1.281
-      PPI::Structure 1.281
-      PPI::Structure::Block 1.281
-      PPI::Structure::Condition 1.281
-      PPI::Structure::Constructor 1.281
-      PPI::Structure::For 1.281
-      PPI::Structure::Given 1.281
-      PPI::Structure::List 1.281
-      PPI::Structure::Signature 1.281
-      PPI::Structure::Subscript 1.281
-      PPI::Structure::Unknown 1.281
-      PPI::Structure::When 1.281
-      PPI::Token 1.281
-      PPI::Token::ArrayIndex 1.281
-      PPI::Token::Attribute 1.281
-      PPI::Token::BOM 1.281
-      PPI::Token::Cast 1.281
-      PPI::Token::Comment 1.281
-      PPI::Token::DashedWord 1.281
-      PPI::Token::Data 1.281
-      PPI::Token::End 1.281
-      PPI::Token::HereDoc 1.281
-      PPI::Token::Label 1.281
-      PPI::Token::Magic 1.281
-      PPI::Token::Number 1.281
-      PPI::Token::Number::Binary 1.281
-      PPI::Token::Number::Exp 1.281
-      PPI::Token::Number::Float 1.281
-      PPI::Token::Number::Hex 1.281
-      PPI::Token::Number::Octal 1.281
-      PPI::Token::Number::Version 1.281
-      PPI::Token::Operator 1.281
-      PPI::Token::Pod 1.281
-      PPI::Token::Prototype 1.281
-      PPI::Token::Quote 1.281
-      PPI::Token::Quote::Double 1.281
-      PPI::Token::Quote::Interpolate 1.281
-      PPI::Token::Quote::Literal 1.281
-      PPI::Token::Quote::Single 1.281
-      PPI::Token::QuoteLike 1.281
-      PPI::Token::QuoteLike::Backtick 1.281
-      PPI::Token::QuoteLike::Command 1.281
-      PPI::Token::QuoteLike::Readline 1.281
-      PPI::Token::QuoteLike::Regexp 1.281
-      PPI::Token::QuoteLike::Words 1.281
-      PPI::Token::Regexp 1.281
-      PPI::Token::Regexp::Match 1.281
-      PPI::Token::Regexp::Substitute 1.281
-      PPI::Token::Regexp::Transliterate 1.281
-      PPI::Token::Separator 1.281
-      PPI::Token::Structure 1.281
-      PPI::Token::Symbol 1.281
-      PPI::Token::Unknown 1.281
-      PPI::Token::Whitespace 1.281
-      PPI::Token::Word 1.281
-      PPI::Tokenizer 1.281
-      PPI::Transform 1.281
-      PPI::Transform::UpdateCopyright 1.281
-      PPI::Util 1.281
-      PPI::XSAccessor 1.281
+      PPI 1.282
+      PPI::Cache 1.282
+      PPI::Document 1.282
+      PPI::Document::File 1.282
+      PPI::Document::Fragment 1.282
+      PPI::Document::Normalized 1.282
+      PPI::Dumper 1.282
+      PPI::Element 1.282
+      PPI::Exception 1.282
+      PPI::Exception::ParserRejection 1.282
+      PPI::Find 1.282
+      PPI::Lexer 1.282
+      PPI::Node 1.282
+      PPI::Normal 1.282
+      PPI::Normal::Standard 1.282
+      PPI::Singletons 1.282
+      PPI::Statement 1.282
+      PPI::Statement::Break 1.282
+      PPI::Statement::Compound 1.282
+      PPI::Statement::Data 1.282
+      PPI::Statement::End 1.282
+      PPI::Statement::Expression 1.282
+      PPI::Statement::Given 1.282
+      PPI::Statement::Include 1.282
+      PPI::Statement::Include::Perl6 1.282
+      PPI::Statement::Null 1.282
+      PPI::Statement::Package 1.282
+      PPI::Statement::Scheduled 1.282
+      PPI::Statement::Sub 1.282
+      PPI::Statement::Unknown 1.282
+      PPI::Statement::UnmatchedBrace 1.282
+      PPI::Statement::Variable 1.282
+      PPI::Statement::When 1.282
+      PPI::Structure 1.282
+      PPI::Structure::Block 1.282
+      PPI::Structure::Condition 1.282
+      PPI::Structure::Constructor 1.282
+      PPI::Structure::For 1.282
+      PPI::Structure::Given 1.282
+      PPI::Structure::List 1.282
+      PPI::Structure::Signature 1.282
+      PPI::Structure::Subscript 1.282
+      PPI::Structure::Unknown 1.282
+      PPI::Structure::When 1.282
+      PPI::Token 1.282
+      PPI::Token::ArrayIndex 1.282
+      PPI::Token::Attribute 1.282
+      PPI::Token::BOM 1.282
+      PPI::Token::Cast 1.282
+      PPI::Token::Comment 1.282
+      PPI::Token::DashedWord 1.282
+      PPI::Token::Data 1.282
+      PPI::Token::End 1.282
+      PPI::Token::HereDoc 1.282
+      PPI::Token::Label 1.282
+      PPI::Token::Magic 1.282
+      PPI::Token::Number 1.282
+      PPI::Token::Number::Binary 1.282
+      PPI::Token::Number::Exp 1.282
+      PPI::Token::Number::Float 1.282
+      PPI::Token::Number::Hex 1.282
+      PPI::Token::Number::Octal 1.282
+      PPI::Token::Number::Version 1.282
+      PPI::Token::Operator 1.282
+      PPI::Token::Pod 1.282
+      PPI::Token::Prototype 1.282
+      PPI::Token::Quote 1.282
+      PPI::Token::Quote::Double 1.282
+      PPI::Token::Quote::Interpolate 1.282
+      PPI::Token::Quote::Literal 1.282
+      PPI::Token::Quote::Single 1.282
+      PPI::Token::QuoteLike 1.282
+      PPI::Token::QuoteLike::Backtick 1.282
+      PPI::Token::QuoteLike::Command 1.282
+      PPI::Token::QuoteLike::Readline 1.282
+      PPI::Token::QuoteLike::Regexp 1.282
+      PPI::Token::QuoteLike::Words 1.282
+      PPI::Token::Regexp 1.282
+      PPI::Token::Regexp::Match 1.282
+      PPI::Token::Regexp::Substitute 1.282
+      PPI::Token::Regexp::Transliterate 1.282
+      PPI::Token::Separator 1.282
+      PPI::Token::Structure 1.282
+      PPI::Token::Symbol 1.282
+      PPI::Token::Unknown 1.282
+      PPI::Token::Whitespace 1.282
+      PPI::Token::Word 1.282
+      PPI::Tokenizer 1.282
+      PPI::Transform 1.282
+      PPI::Transform::UpdateCopyright 1.282
+      PPI::Util 1.282
+      PPI::XSAccessor 1.282
     requirements:
       Carp 0
       Clone 0.30
@@ -3281,6 +3298,30 @@ DISTRIBUTIONS
       List::Util 1.33
       Perl::Critic 1.126
       parent 0
+  Perl-MinimumVersion-1.44
+    pathname: D/DB/DBOOK/Perl-MinimumVersion-1.44.tar.gz
+    provides:
+      Perl::MinimumVersion 1.44
+      Perl::MinimumVersion::Reason 1.44
+    requirements:
+      Carp 0
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      File::Find::Rule 0
+      File::Find::Rule::Perl 0
+      File::Spec 0
+      Getopt::Long 0
+      List::Util 1.20
+      PPI 1.252
+      PPI::Util 0
+      PPIx::Regexp 0.051
+      PPIx::Utils 0
+      Params::Util 0.25
+      perl 5.006
+      strict 0
+      vars 0
+      version 0.76
+      warnings 0
   Perl-MinimumVersion-Fast-0.22
     pathname: B/BD/BDFOY/Perl-MinimumVersion-Fast-0.22.tar.gz
     provides:
@@ -4000,6 +4041,18 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Test::More 0.88
       Text::Diff 1.43
+  Test-FailWarnings-0.008
+    pathname: D/DA/DAGOLDEN/Test-FailWarnings-0.008.tar.gz
+    provides:
+      Test::FailWarnings 0.008
+    requirements:
+      Carp 0
+      Cwd 0
+      ExtUtils::MakeMaker 6.17
+      File::Spec 0
+      Test::More 0.86
+      strict 0
+      warnings 0
   Test-Fatal-0.017
     pathname: R/RJ/RJBS/Test-Fatal-0.017.tar.gz
     provides:
@@ -4012,6 +4065,14 @@ DISTRIBUTIONS
       Try::Tiny 0.07
       strict 0
       warnings 0
+  Test-File-1.995
+    pathname: B/BR/BRIANDFOY/Test-File-1.995.tar.gz
+    provides:
+      Test::File 1.995
+    requirements:
+      ExtUtils::MakeMaker 6.64
+      File::Spec::Functions 0
+      perl 5.008
   Test-LongString-0.17
     pathname: R/RG/RGARCIA/Test-LongString-0.17.tar.gz
     provides:
@@ -4020,6 +4081,23 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Test::Builder 0.12
       Test::Builder::Tester 1.04
+  Test-MinimumVersion-0.101083
+    pathname: R/RJ/RJBS/Test-MinimumVersion-0.101083.tar.gz
+    provides:
+      Test::MinimumVersion 0.101083
+    requirements:
+      CPAN::Meta 0
+      Exporter 0
+      ExtUtils::MakeMaker 6.78
+      File::Find::Rule 0
+      File::Find::Rule::Perl 0
+      Perl::MinimumVersion 1.32
+      Test::Builder 0
+      base 0
+      perl 5.008000
+      strict 0
+      version 0.70
+      warnings 0
   Test-MinimumVersion-Fast-0.04
     pathname: T/TO/TOKUHIROM/Test-MinimumVersion-Fast-0.04.tar.gz
     provides:
@@ -4036,6 +4114,19 @@ DISTRIBUTIONS
       parent 0
       perl 5.008005
       version 0.70
+  Test-Number-Delta-1.06
+    pathname: D/DA/DAGOLDEN/Test-Number-Delta-1.06.tar.gz
+    provides:
+      Test::Number::Delta 1.06
+    requirements:
+      Carp 0
+      Exporter 0
+      ExtUtils::MakeMaker 6.17
+      Test::Builder 0
+      perl 5.006
+      strict 0
+      vars 0
+      warnings 0
   Test-PAUSE-Permissions-0.07
     pathname: S/SK/SKAJI/Test-PAUSE-Permissions-0.07.tar.gz
     provides:
@@ -4087,6 +4178,42 @@ DISTRIBUTIONS
       Test::SharedFork 0.29
       Time::HiRes 0
       perl 5.008001
+  Test-Trap-v0.3.5
+    pathname: E/EB/EBHANSSEN/Test-Trap-v0.3.5.tar.gz
+    provides:
+      Test::Trap v0.3.5
+      Test::Trap::Builder v0.3.5
+      Test::Trap::Builder::PerlIO v0.3.5
+      Test::Trap::Builder::SystemSafe v0.3.5
+      Test::Trap::Builder::TempFile v0.3.5
+    requirements:
+      Carp 0
+      Config 0
+      Data::Dump 0
+      Exporter 0
+      File::Temp 0
+      IO::Handle 0
+      Module::Build 0
+      Test::Builder 0
+      Test::More 0
+      Test::Tester 0.107
+      base 0
+      constant 0
+      lib 0
+      perl v5.6.2
+      strict 0
+      version 0
+      warnings 0
+  Test-UseAllModules-0.17
+    pathname: I/IS/ISHIGAKI/Test-UseAllModules-0.17.tar.gz
+    provides:
+      Test::UseAllModules 0.17
+    requirements:
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      ExtUtils::Manifest 0
+      Test::Builder 0.30
+      Test::More 0.60
   Test-Warn-0.37
     pathname: B/BI/BIGJ/Test-Warn-0.37.tar.gz
     provides:
@@ -4098,6 +4225,20 @@ DISTRIBUTIONS
       Test::Builder 0.13
       Test::Builder::Tester 1.02
       perl 5.006
+  Test-Warnings-0.038
+    pathname: E/ET/ETHER/Test-Warnings-0.038.tar.gz
+    provides:
+      Test2::Warnings 0.038
+      Test::Warnings 0.038
+    requirements:
+      Carp 0
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      Test::Builder 0
+      parent 0
+      perl 5.006
+      strict 0
+      warnings 0
   Text-Diff-1.45
     pathname: N/NE/NEILB/Text-Diff-1.45.tar.gz
     provides:
@@ -4204,6 +4345,17 @@ DISTRIBUTIONS
       Tie::Handle 0
       perl 5.006
       strict 0
+  Time-Duration-1.21
+    pathname: N/NE/NEILB/Time-Duration-1.21.tar.gz
+    provides:
+      Time::Duration 1.21
+    requirements:
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      constant 0
+      perl 5.006
+      strict 0
+      warnings 0
   Time-Duration-Parse-0.16
     pathname: N/NE/NEILB/Time-Duration-Parse-0.16.tar.gz
     provides:
@@ -4215,6 +4367,22 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
+  Time-Moment-0.44
+    pathname: C/CH/CHANSEN/Time-Moment-0.44.tar.gz
+    provides:
+      Time::Moment 0.44
+      Time::Moment::Adjusters 0.44
+    requirements:
+      Carp 0
+      ExtUtils::MakeMaker 6.59
+      ExtUtils::ParseXS 3.18
+      Test::Fatal 0.006
+      Test::More 0.88
+      Test::Number::Delta 1.06
+      Test::Requires 0
+      Time::HiRes 0
+      XSLoader 0.02
+      perl 5.008001
   TimeDate-2.33
     pathname: A/AT/ATOOMIC/TimeDate-2.33.tar.gz
     provides:
@@ -4272,60 +4440,60 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  Type-Tiny-2.008001
-    pathname: T/TO/TOBYINK/Type-Tiny-2.008001.tar.gz
+  Type-Tiny-2.008002
+    pathname: T/TO/TOBYINK/Type-Tiny-2.008002.tar.gz
     provides:
-      Devel::TypeTiny::Perl58Compat 2.008001
-      Error::TypeTiny 2.008001
-      Error::TypeTiny::Assertion 2.008001
-      Error::TypeTiny::Compilation 2.008001
-      Error::TypeTiny::WrongNumberOfParameters 2.008001
-      Eval::TypeTiny 2.008001
-      Eval::TypeTiny::CodeAccumulator 2.008001
-      Reply::Plugin::TypeTiny 2.008001
-      Test::TypeTiny 2.008001
-      Type::Coercion 2.008001
-      Type::Coercion::FromMoose 2.008001
-      Type::Coercion::Union 2.008001
-      Type::Library 2.008001
-      Type::Params 2.008001
-      Type::Params::Alternatives 2.008001
-      Type::Params::Parameter 2.008001
-      Type::Params::Signature 2.008001
-      Type::Parser 2.008001
-      Type::Parser::AstBuilder 2.008001
-      Type::Parser::Token 2.008001
-      Type::Parser::TokenStream 2.008001
-      Type::Registry 2.008001
-      Type::Tie 2.008001
-      Type::Tie::ARRAY 2.008001
-      Type::Tie::BASE 2.008001
-      Type::Tie::HASH 2.008001
-      Type::Tie::SCALAR 2.008001
-      Type::Tiny 2.008001
-      Type::Tiny::Bitfield 2.008001
-      Type::Tiny::Class 2.008001
-      Type::Tiny::ConstrainedObject 2.008001
-      Type::Tiny::Duck 2.008001
-      Type::Tiny::Enum 2.008001
-      Type::Tiny::Intersection 2.008001
-      Type::Tiny::Role 2.008001
-      Type::Tiny::Union 2.008001
-      Type::Utils 2.008001
-      Types::Common 2.008001
-      Types::Common::Numeric 2.008001
-      Types::Common::String 2.008001
-      Types::Standard 2.008001
-      Types::Standard::ArrayRef 2.008001
-      Types::Standard::CycleTuple 2.008001
-      Types::Standard::Dict 2.008001
-      Types::Standard::HashRef 2.008001
-      Types::Standard::Map 2.008001
-      Types::Standard::ScalarRef 2.008001
-      Types::Standard::StrMatch 2.008001
-      Types::Standard::Tied 2.008001
-      Types::Standard::Tuple 2.008001
-      Types::TypeTiny 2.008001
+      Devel::TypeTiny::Perl58Compat 2.008002
+      Error::TypeTiny 2.008002
+      Error::TypeTiny::Assertion 2.008002
+      Error::TypeTiny::Compilation 2.008002
+      Error::TypeTiny::WrongNumberOfParameters 2.008002
+      Eval::TypeTiny 2.008002
+      Eval::TypeTiny::CodeAccumulator 2.008002
+      Reply::Plugin::TypeTiny 2.008002
+      Test::TypeTiny 2.008002
+      Type::Coercion 2.008002
+      Type::Coercion::FromMoose 2.008002
+      Type::Coercion::Union 2.008002
+      Type::Library 2.008002
+      Type::Params 2.008002
+      Type::Params::Alternatives 2.008002
+      Type::Params::Parameter 2.008002
+      Type::Params::Signature 2.008002
+      Type::Parser 2.008002
+      Type::Parser::AstBuilder 2.008002
+      Type::Parser::Token 2.008002
+      Type::Parser::TokenStream 2.008002
+      Type::Registry 2.008002
+      Type::Tie 2.008002
+      Type::Tie::ARRAY 2.008002
+      Type::Tie::BASE 2.008002
+      Type::Tie::HASH 2.008002
+      Type::Tie::SCALAR 2.008002
+      Type::Tiny 2.008002
+      Type::Tiny::Bitfield 2.008002
+      Type::Tiny::Class 2.008002
+      Type::Tiny::ConstrainedObject 2.008002
+      Type::Tiny::Duck 2.008002
+      Type::Tiny::Enum 2.008002
+      Type::Tiny::Intersection 2.008002
+      Type::Tiny::Role 2.008002
+      Type::Tiny::Union 2.008002
+      Type::Utils 2.008002
+      Types::Common 2.008002
+      Types::Common::Numeric 2.008002
+      Types::Common::String 2.008002
+      Types::Standard 2.008002
+      Types::Standard::ArrayRef 2.008002
+      Types::Standard::CycleTuple 2.008002
+      Types::Standard::Dict 2.008002
+      Types::Standard::HashRef 2.008002
+      Types::Standard::Map 2.008002
+      Types::Standard::ScalarRef 2.008002
+      Types::Standard::StrMatch 2.008002
+      Types::Standard::Tied 2.008002
+      Types::Standard::Tuple 2.008002
+      Types::TypeTiny 2.008002
     requirements:
       Exporter::Tiny 1.006000
       ExtUtils::MakeMaker 6.17
@@ -4697,10 +4865,10 @@ DISTRIBUTIONS
       local::lib 2.000029
     requirements:
       perl 5.006
-  meta-0.012
-    pathname: P/PE/PEVANS/meta-0.012.tar.gz
+  meta-0.013
+    pathname: P/PE/PEVANS/meta-0.013.tar.gz
     provides:
-      meta 0.012
+      meta 0.013
     requirements:
       ExtUtils::CBuilder 0
       Module::Build 0.4004

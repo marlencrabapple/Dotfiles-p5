@@ -4,7 +4,7 @@
       "Ian P Bradley <ian.bradley@studiocrabapple.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v3.1.25, CPAN::Meta::Converter version 2.150010",
+   "generated_by" : "Minilla/v3.1.26, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "perl_5"
    ],
@@ -75,6 +75,7 @@
             "DBI" : "0",
             "DBIx::Connector" : "0",
             "Data::Printer" : "0",
+            "FFmpeg::Inline" : "0.01",
             "File::chdir" : "0",
             "Frame" : "v0.1.4",
             "Future::AsyncAwait" : "0",

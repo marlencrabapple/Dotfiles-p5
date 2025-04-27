@@ -1,4 +1,9 @@
 #!/usr/bin/env perl
+use Object::Pad ':experimental(:all)';
+
+package srv;
+
+class srv : does(Frame::Base);
 
 use utf8;
 use v5.40;
@@ -25,33 +30,56 @@ say Dumper( $srvpath, $mount, \@ARGV, ( $ARGV[-1] =~ $MOUNTRE ) ) if $DEBUG;
 
 our $builder = Plack::Builder->new;
 
+#method callstack : common {
+#    my @callstack;
+#    my $i = 0;
+
+#    while ( my @caller = caller $i ) {
+#        {
+#            no strict 'refs';
+#            push @caller, \%{"$caller[0]\::"};
+#            push @caller, $caller[0]->META() if ${"$caller[0]\::"}{META}
+#        }
+
+#        push @callstack, \@caller;
+#    }
+#    continue { $i++ }
+
+#    @callstack;
+#}
+
 sub valid_user ( $user, $pass, $env ) {
     $user eq $ENV{SRV_USER}
       && argon2_verify( $ENV{SRVPATH_PWHASH}, $pass );
 }
 
 sub serve_directory ( $path, %args ) {
-    dynamically $builder = $args{builder}
-      if ref $args{builder} && $args{builder} eq 'Plack::Builder';
+    (
+        Plack::App::Directory->new( { root => $path } )->to_app,
+        $args{uri} // '/',
 
-    $builder->mount( $args{uri} // '/',
-        Plack::App::Directory->new( { root => "$path" } )->to_app );
+    );
 }
 
 sub serve_file ( $file, %args ) {
-    dynamically $builder = $args{builder}
-      if ref $args{builder} && $args{builder} eq 'Plack::Builder';
+    (
+        Plack::App::File->new( file => $file )->to_app,
+        map { s/^([^\/]{1}.+)$/\/$1/r } ( $args{uri} // basename($file) ),
 
-    $builder->mount( $args{uri} // basename($file),
-        Plack::App::File->new( file => $file )->to_app );
+    );
 }
 
 sub init ( $path = path( $srvpath // getcwd ), $uri = $mount // undef ) {
     say Dumper( $path, $uri, \@ARGV, ( $ARGV[-1] =~ $MOUNTRE ) ) if $DEBUG;
 
-        -f $path ? serve_file( $path, uri => $uri, builder => $builder )
-      : -d $path ? serve_directory( $path, uri => $uri, builder => $builder )
+    my ( $app, $mount ) =
+        -f $path ? serve_file( $path, uri => $uri )
+      : -d $path ? serve_directory( $path, uri => $uri )
       :   die "Path '$path' does not appear to be a file or directory.";
+
+    Frame::Base::dmsg( mount => $mount, app => $app );
+
+    $builder->mount( $mount => $app );
 }
 
 $builder->add_middleware(

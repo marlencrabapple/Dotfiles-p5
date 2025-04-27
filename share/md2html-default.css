@@ -1,0 +1,9 @@
+body {
+    font-family: "IBM Plex Sans";
+}
+
+pre,
+code,
+pre > code {
+    font-family: "Fira Code";
+}
