@@ -1,0 +1,113 @@
+#!/usr/bin/env perl
+
+use utf8;
+use v5.40;
+
+<<<<<<< HEAD
+use lib 'lib';
+
+=======
+>>>>>>> 24d9ecc (script/md2html: Fix regression and finish implementing CLI args, misc)
+use Data::Dumper;
+use File::Basename;
+use Plack::Builder;
+use Plack::App::File;
+use Plack::App::Directory;
+use Plack::Middleware::Static;
+use Syntax::Keyword::Dynamically;
+use Plack::Middleware::Auth::Basic;
+use Crypt::Argon2 qw(argon2id_pass argon2_verify);
+
+<<<<<<< HEAD
+say Dumper(\@ARGV, __PACKAGE__);
+
+our $srvpath = $ENV{SRV_SRV} // "./";
+our $mount = $ENV{SRV_MOUNT} // "/";
+=======
+say Dumper( \@ARGV, __PACKAGE__ );
+
+our $srvpath = $ENV{SRVPATH_PATH}  // "./";
+our $mount   = $ENV{SRVPATH_MOUNT} // "/";
+>>>>>>> 24d9ecc (script/md2html: Fix regression and finish implementing CLI args, misc)
+
+our $builder = Plack::Builder->new;
+
+sub valid_user ( $user, $pass, $env ) {
+    $user eq $ENV{SRV_USER}
+      && argon2_verify( $ENV{SRVPATH_PWHASH}, $pass );
+}
+
+<<<<<<< HEAD
+sub serve_file ($file, %args) {
+  dynamically $builder = $args{builder}
+    if ref $args{builder} && $args{builder} eq 'Plack::Builder';
+  
+  $builder->mount($args{uri} // basename($file)
+    , Plack::App::File->new(
+        file => $file
+      )->to_app)
+}
+
+our $app = -f $srvpath
+    ? serve_file($srvpath
+      , uri => $mount // basename($srvpath)
+      , builder => $builder)
+    : -d $srvpath
+  ? $builder->mount($mount
+      , Plack::App::Directory->new({ root => "$srvpath" })->to_app)
+    : die "Path '$srvpath' does not appear to be a file or directory.";
+=======
+sub serve_file ( $file, %args ) {
+    dynamically $builder = $args{builder}
+      if ref $args{builder} && $args{builder} eq 'Plack::Builder';
+
+    $builder->mount(
+        $args{uri} // basename($file),
+        Plack::App::File->new(
+            file => $file
+        )->to_app
+    );
+}
+
+our $app =
+  -f $srvpath ? serve_file(
+    $srvpath,
+    uri     => $mount // basename($srvpath),
+    builder => $builder
+  )
+  : -d $srvpath ? $builder->mount( $mount,
+    Plack::App::Directory->new( { root => "$srvpath" } )->to_app )
+  : die "Path '$srvpath' does not appear to be a file or directory.";
+>>>>>>> 24d9ecc (script/md2html: Fix regression and finish implementing CLI args, misc)
+
+#$builder->mount($mount // '/', $app);
+
+$builder->add_middleware(
+    'Auth::Basic',
+    authenticator => sub (@args) {
+        valid_user(@args);
+    }
+) unless $ENV{SRVPATH_NOLOGIN};
+
+$builder->add_middleware('Debug') if $ENV{DEVELOPMENT};
+$builder->app_middleware('REPL')  if $ENV{REPLWARNING};
+
+$app = $builder->to_app;
+
+unless (caller) {
+<<<<<<< HEAD
+  require Plack::Runner;
+  Plack::Runner->new->parse_options(@ARGV)->run($app);
+  exit ($? // 0)
+=======
+    require Plack::Runner;
+    my $runner = Plack::Runner->new;
+    $runner->parse_options( qw(-s Frame::Server), @ARGV )
+      ;    # TODO: subclass this and have it return
+           # the invoking object for chaining
+    $runner->run($app);
+    exit( $? // 0 );
+>>>>>>> 24d9ecc (script/md2html: Fix regression and finish implementing CLI args, misc)
+}
+
+$app

@@ -1,9 +1,9 @@
 #!/usr/bin/env perl
 use Object::Pad ':experimental(:all)';
 
-package srv;
+package ppan;
 
-class srv : does(Frame);
+class App::ppan : does(Frame);
 
 use utf8;
 use v5.40;
@@ -12,17 +12,11 @@ use Cwd;
 use List::Util 'any';
 use Path::Tiny;
 use Const::Fast;
-use File::Basename;
-use Plack::Builder;
-use Plack::App::File;
-use Plack::Middleware::Static;
-use Syntax::Keyword::Dynamically;
-use Plack::Middleware::Auth::Basic;
-use Crypt::Argon2 qw(argon2id_pass argon2_verify);
 
 class DirIndex : isa(Plack::App::Directory) {
 
     use Const::Fast;
+    use Const::Fast::Exporter;
 
     const our $dir_page => <<'...';
 <!DOCTYPE html>
@@ -98,6 +92,8 @@ sub serve_file ( $file, %args ) {
     );
 }
 
+use Data::Dumper;
+
 sub init ( $path = path( $srvpath // getcwd ), $uri = $mount // undef ) {
     $builder->add_middleware('Debug')
       unless any { $_ } @ENV{qw'NODEBUG PRODUCTION'};
@@ -114,6 +110,8 @@ sub init ( $path = path( $srvpath // getcwd ), $uri = $mount // undef ) {
         -f $path ? serve_file( $path, uri => $uri )
       : -d $path ? serve_directory( $path, uri => $uri )
       :   die "Path '$path' does not appear to be a file or directory.";
+
+    #dmsg { mount => $mount, app => $app };
 
     $builder->mount( $mount => $app );
     $builder->mount( '/www' => './www' );
