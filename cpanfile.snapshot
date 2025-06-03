@@ -322,10 +322,10 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  Clone-0.47
-    pathname: A/AT/ATOOMIC/Clone-0.47.tar.gz
+  Clone-0.48_01
+    pathname: A/AT/ATOOMIC/Clone-0.48_01.tar.gz
     provides:
-      Clone 0.47
+      Clone 0.48_01
     requirements:
       ExtUtils::MakeMaker 0
   Clone-Choose-0.010
@@ -605,20 +605,6 @@ DISTRIBUTIONS
     requirements:
       Module::Build::Tiny 0.051
       perl v5.8.1
-  Data-Dump-1.25
-    pathname: G/GA/GARU/Data-Dump-1.25.tar.gz
-    provides:
-      Data::Dump 1.25
-      Data::Dump::FilterContext undef
-      Data::Dump::Filtered undef
-      Data::Dump::Trace 0.02
-      Data::Dump::Trace::Call 0.02
-      Data::Dump::Trace::Wrapper 0.02
-    requirements:
-      ExtUtils::MakeMaker 0
-      Symbol 0
-      Test 0
-      perl 5.006
   Data-Flow-1.02
     pathname: I/IL/ILYAZ/modules/Data-Flow-1.02.tar.gz
     provides:
@@ -915,31 +901,31 @@ DISTRIBUTIONS
       strict 0
       version 0
       warnings 0
-  ExtUtils-Builder-Compiler-0.031
-    pathname: L/LE/LEONT/ExtUtils-Builder-Compiler-0.031.tar.gz
+  ExtUtils-Builder-Compiler-0.032
+    pathname: L/LE/LEONT/ExtUtils-Builder-Compiler-0.032.tar.gz
     provides:
-      ExtUtils::Builder::ArgumentCollector 0.031
-      ExtUtils::Builder::AutoDetect::C 0.031
-      ExtUtils::Builder::AutoDetect::Cpp 0.031
-      ExtUtils::Builder::Binary 0.031
-      ExtUtils::Builder::Compiler 0.031
-      ExtUtils::Builder::Compiler::MSVC 0.031
-      ExtUtils::Builder::Compiler::Unixy 0.031
-      ExtUtils::Builder::Compiler::VMS 0.031
-      ExtUtils::Builder::Conf 0.031
-      ExtUtils::Builder::Linker 0.031
-      ExtUtils::Builder::Linker::Ar 0.031
-      ExtUtils::Builder::Linker::COFF 0.031
-      ExtUtils::Builder::Linker::ELF::Any 0.031
-      ExtUtils::Builder::Linker::ELF::GCC 0.031
-      ExtUtils::Builder::Linker::Mach::GCC 0.031
-      ExtUtils::Builder::Linker::PE::GCC 0.031
-      ExtUtils::Builder::Linker::PE::MSVC 0.031
-      ExtUtils::Builder::Linker::Unixy 0.031
-      ExtUtils::Builder::Linker::XCOFF 0.031
-      ExtUtils::Builder::MultiLingual 0.031
-      ExtUtils::Builder::ParseXS 0.031
-      ExtUtils::Builder::Profile::Perl 0.031
+      ExtUtils::Builder::ArgumentCollector 0.032
+      ExtUtils::Builder::AutoDetect::C 0.032
+      ExtUtils::Builder::AutoDetect::Cpp 0.032
+      ExtUtils::Builder::Binary 0.032
+      ExtUtils::Builder::Compiler 0.032
+      ExtUtils::Builder::Compiler::MSVC 0.032
+      ExtUtils::Builder::Compiler::Unixy 0.032
+      ExtUtils::Builder::Compiler::VMS 0.032
+      ExtUtils::Builder::Conf 0.032
+      ExtUtils::Builder::Linker 0.032
+      ExtUtils::Builder::Linker::Ar 0.032
+      ExtUtils::Builder::Linker::COFF 0.032
+      ExtUtils::Builder::Linker::ELF::Any 0.032
+      ExtUtils::Builder::Linker::ELF::GCC 0.032
+      ExtUtils::Builder::Linker::Mach::GCC 0.032
+      ExtUtils::Builder::Linker::PE::GCC 0.032
+      ExtUtils::Builder::Linker::PE::MSVC 0.032
+      ExtUtils::Builder::Linker::Unixy 0.032
+      ExtUtils::Builder::Linker::XCOFF 0.032
+      ExtUtils::Builder::MultiLingual 0.032
+      ExtUtils::Builder::ParseXS 0.032
+      ExtUtils::Builder::Profile::Perl 0.032
     requirements:
       Carp 0
       DynaLoader 0
@@ -1916,10 +1902,10 @@ DISTRIBUTIONS
       List::Util 1.29
       Module::Build 0.4004
       perl 5.014
-  Minilla-v3.1.25
-    pathname: S/SK/SKAJI/Minilla-v3.1.25.tar.gz
+  Minilla-v3.1.26
+    pathname: S/SK/SKAJI/Minilla-v3.1.26.tar.gz
     provides:
-      Minilla v3.1.25
+      Minilla v3.1.26
       Minilla::CLI undef
       Minilla::CLI::Build undef
       Minilla::CLI::Clean undef
@@ -2085,10 +2071,10 @@ DISTRIBUTIONS
       Test::Requires 0
       parent 0
       perl 5.008001
-  Module-Build-Tiny-0.051
-    pathname: L/LE/LEONT/Module-Build-Tiny-0.051.tar.gz
+  Module-Build-Tiny-0.052
+    pathname: L/LE/LEONT/Module-Build-Tiny-0.052.tar.gz
     provides:
-      Module::Build::Tiny 0.051
+      Module::Build::Tiny 0.052
     requirements:
       CPAN::Meta 0
       DynaLoader 0
@@ -2469,101 +2455,101 @@ DISTRIBUTIONS
       POSIX 0
       Time::Local 0
       perl 5.008001
-  PPI-1.282-TRIAL
-    pathname: M/MI/MITHALDU/PPI-1.282-TRIAL.tar.gz
+  PPI-1.283
+    pathname: M/MI/MITHALDU/PPI-1.283.tar.gz
     provides:
-      PPI 1.282
-      PPI::Cache 1.282
-      PPI::Document 1.282
-      PPI::Document::File 1.282
-      PPI::Document::Fragment 1.282
-      PPI::Document::Normalized 1.282
-      PPI::Dumper 1.282
-      PPI::Element 1.282
-      PPI::Exception 1.282
-      PPI::Exception::ParserRejection 1.282
-      PPI::Find 1.282
-      PPI::Lexer 1.282
-      PPI::Node 1.282
-      PPI::Normal 1.282
-      PPI::Normal::Standard 1.282
-      PPI::Singletons 1.282
-      PPI::Statement 1.282
-      PPI::Statement::Break 1.282
-      PPI::Statement::Compound 1.282
-      PPI::Statement::Data 1.282
-      PPI::Statement::End 1.282
-      PPI::Statement::Expression 1.282
-      PPI::Statement::Given 1.282
-      PPI::Statement::Include 1.282
-      PPI::Statement::Include::Perl6 1.282
-      PPI::Statement::Null 1.282
-      PPI::Statement::Package 1.282
-      PPI::Statement::Scheduled 1.282
-      PPI::Statement::Sub 1.282
-      PPI::Statement::Unknown 1.282
-      PPI::Statement::UnmatchedBrace 1.282
-      PPI::Statement::Variable 1.282
-      PPI::Statement::When 1.282
-      PPI::Structure 1.282
-      PPI::Structure::Block 1.282
-      PPI::Structure::Condition 1.282
-      PPI::Structure::Constructor 1.282
-      PPI::Structure::For 1.282
-      PPI::Structure::Given 1.282
-      PPI::Structure::List 1.282
-      PPI::Structure::Signature 1.282
-      PPI::Structure::Subscript 1.282
-      PPI::Structure::Unknown 1.282
-      PPI::Structure::When 1.282
-      PPI::Token 1.282
-      PPI::Token::ArrayIndex 1.282
-      PPI::Token::Attribute 1.282
-      PPI::Token::BOM 1.282
-      PPI::Token::Cast 1.282
-      PPI::Token::Comment 1.282
-      PPI::Token::DashedWord 1.282
-      PPI::Token::Data 1.282
-      PPI::Token::End 1.282
-      PPI::Token::HereDoc 1.282
-      PPI::Token::Label 1.282
-      PPI::Token::Magic 1.282
-      PPI::Token::Number 1.282
-      PPI::Token::Number::Binary 1.282
-      PPI::Token::Number::Exp 1.282
-      PPI::Token::Number::Float 1.282
-      PPI::Token::Number::Hex 1.282
-      PPI::Token::Number::Octal 1.282
-      PPI::Token::Number::Version 1.282
-      PPI::Token::Operator 1.282
-      PPI::Token::Pod 1.282
-      PPI::Token::Prototype 1.282
-      PPI::Token::Quote 1.282
-      PPI::Token::Quote::Double 1.282
-      PPI::Token::Quote::Interpolate 1.282
-      PPI::Token::Quote::Literal 1.282
-      PPI::Token::Quote::Single 1.282
-      PPI::Token::QuoteLike 1.282
-      PPI::Token::QuoteLike::Backtick 1.282
-      PPI::Token::QuoteLike::Command 1.282
-      PPI::Token::QuoteLike::Readline 1.282
-      PPI::Token::QuoteLike::Regexp 1.282
-      PPI::Token::QuoteLike::Words 1.282
-      PPI::Token::Regexp 1.282
-      PPI::Token::Regexp::Match 1.282
-      PPI::Token::Regexp::Substitute 1.282
-      PPI::Token::Regexp::Transliterate 1.282
-      PPI::Token::Separator 1.282
-      PPI::Token::Structure 1.282
-      PPI::Token::Symbol 1.282
-      PPI::Token::Unknown 1.282
-      PPI::Token::Whitespace 1.282
-      PPI::Token::Word 1.282
-      PPI::Tokenizer 1.282
-      PPI::Transform 1.282
-      PPI::Transform::UpdateCopyright 1.282
-      PPI::Util 1.282
-      PPI::XSAccessor 1.282
+      PPI 1.283
+      PPI::Cache 1.283
+      PPI::Document 1.283
+      PPI::Document::File 1.283
+      PPI::Document::Fragment 1.283
+      PPI::Document::Normalized 1.283
+      PPI::Dumper 1.283
+      PPI::Element 1.283
+      PPI::Exception 1.283
+      PPI::Exception::ParserRejection 1.283
+      PPI::Find 1.283
+      PPI::Lexer 1.283
+      PPI::Node 1.283
+      PPI::Normal 1.283
+      PPI::Normal::Standard 1.283
+      PPI::Singletons 1.283
+      PPI::Statement 1.283
+      PPI::Statement::Break 1.283
+      PPI::Statement::Compound 1.283
+      PPI::Statement::Data 1.283
+      PPI::Statement::End 1.283
+      PPI::Statement::Expression 1.283
+      PPI::Statement::Given 1.283
+      PPI::Statement::Include 1.283
+      PPI::Statement::Include::Perl6 1.283
+      PPI::Statement::Null 1.283
+      PPI::Statement::Package 1.283
+      PPI::Statement::Scheduled 1.283
+      PPI::Statement::Sub 1.283
+      PPI::Statement::Unknown 1.283
+      PPI::Statement::UnmatchedBrace 1.283
+      PPI::Statement::Variable 1.283
+      PPI::Statement::When 1.283
+      PPI::Structure 1.283
+      PPI::Structure::Block 1.283
+      PPI::Structure::Condition 1.283
+      PPI::Structure::Constructor 1.283
+      PPI::Structure::For 1.283
+      PPI::Structure::Given 1.283
+      PPI::Structure::List 1.283
+      PPI::Structure::Signature 1.283
+      PPI::Structure::Subscript 1.283
+      PPI::Structure::Unknown 1.283
+      PPI::Structure::When 1.283
+      PPI::Token 1.283
+      PPI::Token::ArrayIndex 1.283
+      PPI::Token::Attribute 1.283
+      PPI::Token::BOM 1.283
+      PPI::Token::Cast 1.283
+      PPI::Token::Comment 1.283
+      PPI::Token::DashedWord 1.283
+      PPI::Token::Data 1.283
+      PPI::Token::End 1.283
+      PPI::Token::HereDoc 1.283
+      PPI::Token::Label 1.283
+      PPI::Token::Magic 1.283
+      PPI::Token::Number 1.283
+      PPI::Token::Number::Binary 1.283
+      PPI::Token::Number::Exp 1.283
+      PPI::Token::Number::Float 1.283
+      PPI::Token::Number::Hex 1.283
+      PPI::Token::Number::Octal 1.283
+      PPI::Token::Number::Version 1.283
+      PPI::Token::Operator 1.283
+      PPI::Token::Pod 1.283
+      PPI::Token::Prototype 1.283
+      PPI::Token::Quote 1.283
+      PPI::Token::Quote::Double 1.283
+      PPI::Token::Quote::Interpolate 1.283
+      PPI::Token::Quote::Literal 1.283
+      PPI::Token::Quote::Single 1.283
+      PPI::Token::QuoteLike 1.283
+      PPI::Token::QuoteLike::Backtick 1.283
+      PPI::Token::QuoteLike::Command 1.283
+      PPI::Token::QuoteLike::Readline 1.283
+      PPI::Token::QuoteLike::Regexp 1.283
+      PPI::Token::QuoteLike::Words 1.283
+      PPI::Token::Regexp 1.283
+      PPI::Token::Regexp::Match 1.283
+      PPI::Token::Regexp::Substitute 1.283
+      PPI::Token::Regexp::Transliterate 1.283
+      PPI::Token::Separator 1.283
+      PPI::Token::Structure 1.283
+      PPI::Token::Symbol 1.283
+      PPI::Token::Unknown 1.283
+      PPI::Token::Whitespace 1.283
+      PPI::Token::Word 1.283
+      PPI::Tokenizer 1.283
+      PPI::Transform 1.283
+      PPI::Transform::UpdateCopyright 1.283
+      PPI::Util 1.283
+      PPI::XSAccessor 1.283
     requirements:
       Carp 0
       Clone 0.30
@@ -2618,75 +2604,75 @@ DISTRIBUTIONS
       re 0
       strict 0
       warnings 0
-  PPIx-Regexp-0.088
-    pathname: W/WY/WYANT/PPIx-Regexp-0.088.tar.gz
+  PPIx-Regexp-0.088_01
+    pathname: W/WY/WYANT/PPIx-Regexp-0.088_01.tar.gz
     provides:
-      PPIx::Regexp 0.088
+      PPIx::Regexp 0.088_01
       PPIx::Regexp::Constant 0.085_04
-      PPIx::Regexp::Constant::Inf 0.088
-      PPIx::Regexp::Dumper 0.088
-      PPIx::Regexp::Element 0.088
-      PPIx::Regexp::Lexer 0.088
-      PPIx::Regexp::Node 0.088
-      PPIx::Regexp::Node::Range 0.088
-      PPIx::Regexp::Node::Unknown 0.088
-      PPIx::Regexp::Structure 0.088
-      PPIx::Regexp::Structure::Assertion 0.088
-      PPIx::Regexp::Structure::Atomic_Script_Run 0.088
-      PPIx::Regexp::Structure::BranchReset 0.088
-      PPIx::Regexp::Structure::Capture 0.088
-      PPIx::Regexp::Structure::CharClass 0.088
-      PPIx::Regexp::Structure::Code 0.088
-      PPIx::Regexp::Structure::Main 0.088
-      PPIx::Regexp::Structure::Modifier 0.088
-      PPIx::Regexp::Structure::NamedCapture 0.088
-      PPIx::Regexp::Structure::Quantifier 0.088
-      PPIx::Regexp::Structure::RegexSet 0.088
-      PPIx::Regexp::Structure::Regexp 0.088
-      PPIx::Regexp::Structure::Replacement 0.088
-      PPIx::Regexp::Structure::Script_Run 0.088
-      PPIx::Regexp::Structure::Subexpression 0.088
-      PPIx::Regexp::Structure::Switch 0.088
-      PPIx::Regexp::Structure::Unknown 0.088
-      PPIx::Regexp::Support 0.088
-      PPIx::Regexp::Token 0.088
-      PPIx::Regexp::Token::Assertion 0.088
-      PPIx::Regexp::Token::Backreference 0.088
-      PPIx::Regexp::Token::Backtrack 0.088
-      PPIx::Regexp::Token::CharClass 0.088
-      PPIx::Regexp::Token::CharClass::POSIX 0.088
-      PPIx::Regexp::Token::CharClass::POSIX::Unknown 0.088
-      PPIx::Regexp::Token::CharClass::Simple 0.088
-      PPIx::Regexp::Token::Code 0.088
-      PPIx::Regexp::Token::Comment 0.088
-      PPIx::Regexp::Token::Condition 0.088
-      PPIx::Regexp::Token::Control 0.088
-      PPIx::Regexp::Token::Delimiter 0.088
-      PPIx::Regexp::Token::Greediness 0.088
-      PPIx::Regexp::Token::GroupType 0.088
-      PPIx::Regexp::Token::GroupType::Assertion 0.088
-      PPIx::Regexp::Token::GroupType::Atomic_Script_Run 0.088
-      PPIx::Regexp::Token::GroupType::BranchReset 0.088
-      PPIx::Regexp::Token::GroupType::Code 0.088
-      PPIx::Regexp::Token::GroupType::Modifier 0.088
-      PPIx::Regexp::Token::GroupType::NamedCapture 0.088
-      PPIx::Regexp::Token::GroupType::Script_Run 0.088
-      PPIx::Regexp::Token::GroupType::Subexpression 0.088
-      PPIx::Regexp::Token::GroupType::Switch 0.088
-      PPIx::Regexp::Token::Interpolation 0.088
-      PPIx::Regexp::Token::Literal 0.088
-      PPIx::Regexp::Token::Modifier 0.088
-      PPIx::Regexp::Token::NoOp 0.088
-      PPIx::Regexp::Token::Operator 0.088
-      PPIx::Regexp::Token::Quantifier 0.088
-      PPIx::Regexp::Token::Recursion 0.088
-      PPIx::Regexp::Token::Reference 0.088
-      PPIx::Regexp::Token::Structure 0.088
-      PPIx::Regexp::Token::Unknown 0.088
-      PPIx::Regexp::Token::Unmatched 0.088
-      PPIx::Regexp::Token::Whitespace 0.088
-      PPIx::Regexp::Tokenizer 0.088
-      PPIx::Regexp::Util 0.088
+      PPIx::Regexp::Constant::Inf 0.088_01
+      PPIx::Regexp::Dumper 0.088_01
+      PPIx::Regexp::Element 0.088_01
+      PPIx::Regexp::Lexer 0.088_01
+      PPIx::Regexp::Node 0.088_01
+      PPIx::Regexp::Node::Range 0.088_01
+      PPIx::Regexp::Node::Unknown 0.088_01
+      PPIx::Regexp::Structure 0.088_01
+      PPIx::Regexp::Structure::Assertion 0.088_01
+      PPIx::Regexp::Structure::Atomic_Script_Run 0.088_01
+      PPIx::Regexp::Structure::BranchReset 0.088_01
+      PPIx::Regexp::Structure::Capture 0.088_01
+      PPIx::Regexp::Structure::CharClass 0.088_01
+      PPIx::Regexp::Structure::Code 0.088_01
+      PPIx::Regexp::Structure::Main 0.088_01
+      PPIx::Regexp::Structure::Modifier 0.088_01
+      PPIx::Regexp::Structure::NamedCapture 0.088_01
+      PPIx::Regexp::Structure::Quantifier 0.088_01
+      PPIx::Regexp::Structure::RegexSet 0.088_01
+      PPIx::Regexp::Structure::Regexp 0.088_01
+      PPIx::Regexp::Structure::Replacement 0.088_01
+      PPIx::Regexp::Structure::Script_Run 0.088_01
+      PPIx::Regexp::Structure::Subexpression 0.088_01
+      PPIx::Regexp::Structure::Switch 0.088_01
+      PPIx::Regexp::Structure::Unknown 0.088_01
+      PPIx::Regexp::Support 0.088_01
+      PPIx::Regexp::Token 0.088_01
+      PPIx::Regexp::Token::Assertion 0.088_01
+      PPIx::Regexp::Token::Backreference 0.088_01
+      PPIx::Regexp::Token::Backtrack 0.088_01
+      PPIx::Regexp::Token::CharClass 0.088_01
+      PPIx::Regexp::Token::CharClass::POSIX 0.088_01
+      PPIx::Regexp::Token::CharClass::POSIX::Unknown 0.088_01
+      PPIx::Regexp::Token::CharClass::Simple 0.088_01
+      PPIx::Regexp::Token::Code 0.088_01
+      PPIx::Regexp::Token::Comment 0.088_01
+      PPIx::Regexp::Token::Condition 0.088_01
+      PPIx::Regexp::Token::Control 0.088_01
+      PPIx::Regexp::Token::Delimiter 0.088_01
+      PPIx::Regexp::Token::Greediness 0.088_01
+      PPIx::Regexp::Token::GroupType 0.088_01
+      PPIx::Regexp::Token::GroupType::Assertion 0.088_01
+      PPIx::Regexp::Token::GroupType::Atomic_Script_Run 0.088_01
+      PPIx::Regexp::Token::GroupType::BranchReset 0.088_01
+      PPIx::Regexp::Token::GroupType::Code 0.088_01
+      PPIx::Regexp::Token::GroupType::Modifier 0.088_01
+      PPIx::Regexp::Token::GroupType::NamedCapture 0.088_01
+      PPIx::Regexp::Token::GroupType::Script_Run 0.088_01
+      PPIx::Regexp::Token::GroupType::Subexpression 0.088_01
+      PPIx::Regexp::Token::GroupType::Switch 0.088_01
+      PPIx::Regexp::Token::Interpolation 0.088_01
+      PPIx::Regexp::Token::Literal 0.088_01
+      PPIx::Regexp::Token::Modifier 0.088_01
+      PPIx::Regexp::Token::NoOp 0.088_01
+      PPIx::Regexp::Token::Operator 0.088_01
+      PPIx::Regexp::Token::Quantifier 0.088_01
+      PPIx::Regexp::Token::Recursion 0.088_01
+      PPIx::Regexp::Token::Reference 0.088_01
+      PPIx::Regexp::Token::Structure 0.088_01
+      PPIx::Regexp::Token::Unknown 0.088_01
+      PPIx::Regexp::Token::Unmatched 0.088_01
+      PPIx::Regexp::Token::Whitespace 0.088_01
+      PPIx::Regexp::Tokenizer 0.088_01
+      PPIx::Regexp::Util 0.088_01
     requirements:
       Carp 0
       Encode 0
@@ -2705,13 +2691,13 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  PPIx-Utils-0.003
-    pathname: D/DB/DBOOK/PPIx-Utils-0.003.tar.gz
+  PPIx-Utils-0.004
+    pathname: D/DB/DBOOK/PPIx-Utils-0.004.tar.gz
     provides:
-      PPIx::Utils 0.003
-      PPIx::Utils::Classification 0.003
-      PPIx::Utils::Language 0.003
-      PPIx::Utils::Traversal 0.003
+      PPIx::Utils 0.004
+      PPIx::Utils::Classification 0.004
+      PPIx::Utils::Language 0.004
+      PPIx::Utils::Traversal 0.004
     requirements:
       B::Keywords 1.09
       Exporter 0
@@ -3298,30 +3284,6 @@ DISTRIBUTIONS
       List::Util 1.33
       Perl::Critic 1.126
       parent 0
-  Perl-MinimumVersion-1.44
-    pathname: D/DB/DBOOK/Perl-MinimumVersion-1.44.tar.gz
-    provides:
-      Perl::MinimumVersion 1.44
-      Perl::MinimumVersion::Reason 1.44
-    requirements:
-      Carp 0
-      Exporter 0
-      ExtUtils::MakeMaker 0
-      File::Find::Rule 0
-      File::Find::Rule::Perl 0
-      File::Spec 0
-      Getopt::Long 0
-      List::Util 1.20
-      PPI 1.252
-      PPI::Util 0
-      PPIx::Regexp 0.051
-      PPIx::Utils 0
-      Params::Util 0.25
-      perl 5.006
-      strict 0
-      vars 0
-      version 0.76
-      warnings 0
   Perl-MinimumVersion-Fast-0.22
     pathname: B/BD/BDFOY/Perl-MinimumVersion-Fast-0.22.tar.gz
     provides:
@@ -4041,18 +4003,6 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Test::More 0.88
       Text::Diff 1.43
-  Test-FailWarnings-0.008
-    pathname: D/DA/DAGOLDEN/Test-FailWarnings-0.008.tar.gz
-    provides:
-      Test::FailWarnings 0.008
-    requirements:
-      Carp 0
-      Cwd 0
-      ExtUtils::MakeMaker 6.17
-      File::Spec 0
-      Test::More 0.86
-      strict 0
-      warnings 0
   Test-Fatal-0.017
     pathname: R/RJ/RJBS/Test-Fatal-0.017.tar.gz
     provides:
@@ -4065,14 +4015,6 @@ DISTRIBUTIONS
       Try::Tiny 0.07
       strict 0
       warnings 0
-  Test-File-1.995
-    pathname: B/BR/BRIANDFOY/Test-File-1.995.tar.gz
-    provides:
-      Test::File 1.995
-    requirements:
-      ExtUtils::MakeMaker 6.64
-      File::Spec::Functions 0
-      perl 5.008
   Test-LongString-0.17
     pathname: R/RG/RGARCIA/Test-LongString-0.17.tar.gz
     provides:
@@ -4081,23 +4023,6 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       Test::Builder 0.12
       Test::Builder::Tester 1.04
-  Test-MinimumVersion-0.101083
-    pathname: R/RJ/RJBS/Test-MinimumVersion-0.101083.tar.gz
-    provides:
-      Test::MinimumVersion 0.101083
-    requirements:
-      CPAN::Meta 0
-      Exporter 0
-      ExtUtils::MakeMaker 6.78
-      File::Find::Rule 0
-      File::Find::Rule::Perl 0
-      Perl::MinimumVersion 1.32
-      Test::Builder 0
-      base 0
-      perl 5.008000
-      strict 0
-      version 0.70
-      warnings 0
   Test-MinimumVersion-Fast-0.04
     pathname: T/TO/TOKUHIROM/Test-MinimumVersion-Fast-0.04.tar.gz
     provides:
@@ -4141,6 +4066,17 @@ DISTRIBUTIONS
       Parse::LocalDistribution 0.08
       Parse::PMFile 0.15
       parent 0
+  Test-Pod-1.52
+    pathname: E/ET/ETHER/Test-Pod-1.52.tar.gz
+    provides:
+      Test::Pod 1.52
+    requirements:
+      ExtUtils::MakeMaker 0
+      File::Find 0
+      Pod::Simple 3.05
+      Test::Builder::Tester 1.02
+      Test::More 0.62
+      perl 5.008
   Test-Requires-0.11
     pathname: T/TO/TOKUHIROM/Test-Requires-0.11.tar.gz
     provides:
@@ -4178,42 +4114,6 @@ DISTRIBUTIONS
       Test::SharedFork 0.29
       Time::HiRes 0
       perl 5.008001
-  Test-Trap-v0.3.5
-    pathname: E/EB/EBHANSSEN/Test-Trap-v0.3.5.tar.gz
-    provides:
-      Test::Trap v0.3.5
-      Test::Trap::Builder v0.3.5
-      Test::Trap::Builder::PerlIO v0.3.5
-      Test::Trap::Builder::SystemSafe v0.3.5
-      Test::Trap::Builder::TempFile v0.3.5
-    requirements:
-      Carp 0
-      Config 0
-      Data::Dump 0
-      Exporter 0
-      File::Temp 0
-      IO::Handle 0
-      Module::Build 0
-      Test::Builder 0
-      Test::More 0
-      Test::Tester 0.107
-      base 0
-      constant 0
-      lib 0
-      perl v5.6.2
-      strict 0
-      version 0
-      warnings 0
-  Test-UseAllModules-0.17
-    pathname: I/IS/ISHIGAKI/Test-UseAllModules-0.17.tar.gz
-    provides:
-      Test::UseAllModules 0.17
-    requirements:
-      Exporter 0
-      ExtUtils::MakeMaker 0
-      ExtUtils::Manifest 0
-      Test::Builder 0.30
-      Test::More 0.60
   Test-Warn-0.37
     pathname: B/BI/BIGJ/Test-Warn-0.37.tar.gz
     provides:
@@ -4225,20 +4125,6 @@ DISTRIBUTIONS
       Test::Builder 0.13
       Test::Builder::Tester 1.02
       perl 5.006
-  Test-Warnings-0.038
-    pathname: E/ET/ETHER/Test-Warnings-0.038.tar.gz
-    provides:
-      Test2::Warnings 0.038
-      Test::Warnings 0.038
-    requirements:
-      Carp 0
-      Exporter 0
-      ExtUtils::MakeMaker 0
-      Test::Builder 0
-      parent 0
-      perl 5.006
-      strict 0
-      warnings 0
   Text-Diff-1.45
     pathname: N/NE/NEILB/Text-Diff-1.45.tar.gz
     provides:
@@ -4345,17 +4231,6 @@ DISTRIBUTIONS
       Tie::Handle 0
       perl 5.006
       strict 0
-  Time-Duration-1.21
-    pathname: N/NE/NEILB/Time-Duration-1.21.tar.gz
-    provides:
-      Time::Duration 1.21
-    requirements:
-      Exporter 0
-      ExtUtils::MakeMaker 0
-      constant 0
-      perl 5.006
-      strict 0
-      warnings 0
   Time-Duration-Parse-0.16
     pathname: N/NE/NEILB/Time-Duration-Parse-0.16.tar.gz
     provides:
@@ -4508,62 +4383,63 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       common::sense 0
-  URI-5.31
-    pathname: O/OA/OALDERS/URI-5.31.tar.gz
+  URI-5.32
+    pathname: O/OA/OALDERS/URI-5.32.tar.gz
     provides:
-      URI 5.31
-      URI::Escape 5.31
-      URI::Heuristic 5.31
-      URI::IRI 5.31
-      URI::QueryParam 5.31
-      URI::Split 5.31
-      URI::URL 5.31
-      URI::WithBase 5.31
-      URI::data 5.31
-      URI::file 5.31
-      URI::file::Base 5.31
-      URI::file::FAT 5.31
-      URI::file::Mac 5.31
-      URI::file::OS2 5.31
-      URI::file::QNX 5.31
-      URI::file::Unix 5.31
-      URI::file::Win32 5.31
-      URI::ftp 5.31
-      URI::ftpes 5.31
-      URI::ftps 5.31
-      URI::geo 5.31
-      URI::gopher 5.31
-      URI::http 5.31
-      URI::https 5.31
-      URI::icap 5.31
-      URI::icaps 5.31
-      URI::irc 5.31
-      URI::ircs 5.31
-      URI::ldap 5.31
-      URI::ldapi 5.31
-      URI::ldaps 5.31
-      URI::mailto 5.31
-      URI::mms 5.31
-      URI::news 5.31
-      URI::nntp 5.31
-      URI::nntps 5.31
-      URI::otpauth 5.31
-      URI::pop 5.31
-      URI::rlogin 5.31
-      URI::rsync 5.31
-      URI::rtsp 5.31
-      URI::rtspu 5.31
-      URI::scp 5.31
-      URI::sftp 5.31
-      URI::sip 5.31
-      URI::sips 5.31
-      URI::snews 5.31
-      URI::ssh 5.31
-      URI::telnet 5.31
-      URI::tn3270 5.31
-      URI::urn 5.31
-      URI::urn::isbn 5.31
-      URI::urn::oid 5.31
+      URI 5.32
+      URI::Escape 5.32
+      URI::Heuristic 5.32
+      URI::IRI 5.32
+      URI::QueryParam 5.32
+      URI::Split 5.32
+      URI::URL 5.32
+      URI::WithBase 5.32
+      URI::data 5.32
+      URI::file 5.32
+      URI::file::Base 5.32
+      URI::file::FAT 5.32
+      URI::file::Mac 5.32
+      URI::file::OS2 5.32
+      URI::file::QNX 5.32
+      URI::file::Unix 5.32
+      URI::file::Win32 5.32
+      URI::ftp 5.32
+      URI::ftpes 5.32
+      URI::ftps 5.32
+      URI::geo 5.32
+      URI::gopher 5.32
+      URI::http 5.32
+      URI::https 5.32
+      URI::icap 5.32
+      URI::icaps 5.32
+      URI::irc 5.32
+      URI::ircs 5.32
+      URI::ldap 5.32
+      URI::ldapi 5.32
+      URI::ldaps 5.32
+      URI::mailto 5.32
+      URI::mms 5.32
+      URI::news 5.32
+      URI::nntp 5.32
+      URI::nntps 5.32
+      URI::otpauth 5.32
+      URI::pop 5.32
+      URI::rlogin 5.32
+      URI::rsync 5.32
+      URI::rtsp 5.32
+      URI::rtspu 5.32
+      URI::scp 5.32
+      URI::sftp 5.32
+      URI::sip 5.32
+      URI::sips 5.32
+      URI::smb 5.32
+      URI::snews 5.32
+      URI::ssh 5.32
+      URI::telnet 5.32
+      URI::tn3270 5.32
+      URI::urn 5.32
+      URI::urn::isbn 5.32
+      URI::urn::oid 5.32
     requirements:
       Carp 0
       Cwd 0

@@ -1,0 +1,69 @@
+#!usr/bin/env perl
+
+use utf8;
+use v5.40;
+
+use File::chrdir;
+use IPC::Run3;
+use Const::Fast;
+use Data::Printer;  
+use Getopt::Long;
+
+const my $srere => qr/^(?:s\/(.+)\/)?(.+)$/;
+const my $debug //= $ENV{DEBUG} // 0;
+
+our @sr = ();
+our %cliopts = ();
+
+# Usage;
+
+# Name ideas:
+# - byfsize_sr
+# - du-filter
+# - sr_byfs
+
+sub setup_options ($argv = \@ARGV, @opts) {
+  GetOptions($argv, @opts)
+}
+
+sub run {
+  setup_options(\@ARGV,
+    'sudo|runuser|run-as|uid=%d',
+    'debug+',
+    '<>' => sub add_pattern ($pattern) {
+              my ($pattern, $rep) =~ $rere;
+              push @sr, { pattern => qr/$pattern/
+                        , rep     => $rep // undef }
+            });
+
+
+  $CWD = $ARGV[0] && -d $ARGV[0];
+
+  my @runargs = (qw(du -h), $CWD);
+  push @runargs, ($sudo = 1 ? 'sudo' : $sudo) if $sudo;
+
+  my @out;
+  run3(\@runargs, \undef, \@out, \@err);
+
+  if ($? || $err) {
+    $err
+    printf "%d %s" $? @err
+  }
+
+  while(my ($line) = shift @out) {
+    warn np $line if $DEBUG
+  
+    say $line if any {
+        my ($pattern, $rep) = %$_{qw(pattern rep)}
+        warn np $pattern, $rep if $DEBUG;
+
+        $line =~ ($rep ? $pattern : s/$pattern/$rep/)
+        warn np ($rep ? $pattern : s/$pattern/$rep/) if $DEBUG
+      } @sr
+  }
+}
+
+#'use v5.40; use File::chdir; $CWD = $ARGV[0] if $ARGV[0] && -d $ARGV[0]; while
+# (my $line = `sudo du -sh .`) { chomp $line; $line =~ /[0-9]+G\s+/ && say 
+#$line }' 
+

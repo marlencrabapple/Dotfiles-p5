@@ -1,6 +1,9 @@
 use utf8;
 use v5.40;
 
+requires 'Const::Fast';
+requires 'Cwd';
+
 use Const::Fast;
 use Cwd 'abs_path';
 

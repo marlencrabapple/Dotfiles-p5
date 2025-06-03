@@ -6,7 +6,7 @@ use v5.40;
 use Encode qw(encode decode);
 use Path::Tiny;
 use Const::Fast;
-use Getopt::Long qw(:config no_ignore_case bundling);
+use Getopt::Long qw(:config no_ignore_case bundling pass_through);
 use Data::Dumper;
 use Text::Markdown::Hoedown;
 
@@ -30,7 +30,7 @@ sub run {
 sub md2html ( $mdin = undef, %args ) {
     my ( $mdfile, $mdstr, $out );
 
-    const state $SEPRE => qr/^\s*-{1,2}\s*$/;
+    const state $SEPRE => qr/^\s*-{1}\s*$/;
 
     if ( -e $mdin ) {
         $mdfile = path($mdin);

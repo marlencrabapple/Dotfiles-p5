@@ -25,6 +25,7 @@ my %args = (
         'App::cpm' => '0',
         'Carp' => '0',
         'Const::Fast' => '0',
+        'Cwd' => '0',
         'DBD::SQLite' => '0',
         'DBI' => '0',
         'DBIx::Connector' => '0',
