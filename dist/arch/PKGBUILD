@@ -1,50 +1,51 @@
-
 # Maintainer: Ian Bradley <crabapp@hikki.tech>
-pkgname=perl-dofiles-p5
-_perl_namespace=Dotfiles
-_perl_module=p5
-pkgver=0.01.1
+pkgname=perl-app-bs
+_distname=App-BS
+pkgver=0
 pkgrel=1
-pkgdesc="A collection of tools in the same vein as configuration files,
-convenience/provisioning override files, et all."
+pkgdesc="Build system for PKGBUILD based Linux distributions"
 arch=(x86_64 x86_64_v3 aarch64)
 license=('Artistic-1.0-Perl' 'GPL-1.0-or-later')
-depends=('perl')
-makedepends=('perl-syntax-keyword-try' 'perl-cpanel-json-xs' 'perl-module-build' 'perl-dbi' 'cpanminus' 'perl-inline-c' 'perl-path-tiny' 'perl-net-ssleay')
+depends=('perl' 'arch-rebuild-order' 'devtools' 'pacman-contrib' 'pacutils')
+makedepends=('perl-syntax-keyword-try' 'perl-cpanel-json-xs' 'perl-module-build' 'perl-module-' 'perl-dbi' 'cpanminus' 'perl-inline-c' 'perl-path-tiny' 'perl-net-ssleay')
 optdepends=('perl-cpanel-json-xs: Using Cpanel-JSON-XS')
 options=('!emptydirs')
 url="https://github.com/marlencrabapple/App-bs"
-source=("https://cpan.metacpan.org/authors/id/C/CR/CRABAPP/${_perl_namespace}-${_perl_module}-${pkgver}.tar.gz")
-b2sums=(dffsdf)
+
+_commit=fc5432ef1450850999ee99a55602756b5d951db3
+source=($pkgname::git+$url#commit=$_commit)
+b2sums=('03788833622c532c8ad8913a067b2a37d880fc312ca7f523cc8dfcb5a926037d7da7e61348b8b11f757b77bc5nvim e2ad366f9793c7e41861f50c62dc21786cf98b8')
 sha512sum=('cd3937afa78831f80a2ad5abab6c51b9e82fca4c31e5856ea208d598db5dc867')
 validpgpkeys=(4D8733704B740FC4B330EF5E8FFAD8B7BA73987)
 
 prepare() {
-  cd "${_perl_namespace}-${_perl_module}-${pkgver}"
-  unset PERL5LIB PERL_MM_OPT PERL_MB_OPT PERL_LOCAL_LIB_ROOT
+  cd "$_distname/src/$_distname"
 
-  cpanm -Llocal --save-dists . --verbose \
+  unset PERL5LIB PERL_LOCAL_LIB_ROOT
+  export PERL5LIB="$_distname/src/$_distname/local/lib/perl5"
+  local cpanm_sharedopts=(-Llocal --save-dist . --verbose)
+
+  cpanm "${cpanm_sharedopts[@]}" Net::SSLeay
+  cpanm "${cpanm_sharedopts[@]}" \
     vendor/{Plack,Frame,Dotfiles-p5}*.tar.gz
 
-  cpanm -Llocal --save-dists . --installdeps --verbose .
+  cpanm "${cpanm_sharedopts[@]}" --installdeps .
 
   perl Build.PL
 }
 
 build() {
+  cd "$_distname/src/$_distname"
   ./Build build
 }
 
 check() {
-  cd "${_perl_namespace}-${_perl_module}-${pkgver}"
-  unset PERL5LIB PERL_MM_OPT PERL_MB_OPT PERL_LOCAL_LIB_ROOT
-  export PERL_MM_USE_DEFAULT=1
+  cd "$_distname/src/$_distname"
   ./Build testall
 }
 
 package() {
-  cd "${_perl_namespace}-${_perl_module}-${pkgver}"
-  unset PERL5LIB PERL_MM_OPT PERL_MB_OPT PERL_LOCAL_LIB_ROOT
+  cd "$_distname/src/$_distname"
 
   ./Build install
   find "${pkgdir}" -name '.packlist' -delete

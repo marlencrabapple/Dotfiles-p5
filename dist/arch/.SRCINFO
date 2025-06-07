@@ -1,0 +1,26 @@
+pkgbase = perl-dofiles-p5
+	pkgdesc = A collection of tools in the same vein as configuration files, convenience/provisioning override files, et all.
+	pkgver = 0.01
+	pkgrel = 1
+	url = https://github.com/marlencrabapple/App-bs
+	arch = x86_64
+	arch = x86_64_v3
+	arch = aarch64
+	license = Artistic-1.0-Perl
+	license = GPL-1.0-or-later
+	makedepends = perl-syntax-keyword-try
+	makedepends = perl-cpanel-json-xs
+	makedepends = perl-module-build
+	makedepends = perl-dbi
+	makedepends = cpanminus
+	makedepends = perl-inline-c
+	makedepends = perl-path-tiny
+	makedepends = perl-net-ssleay
+	depends = perl
+	optdepends = perl-cpanel-json-xs: Using Cpanel-JSON-XS
+	options = !emptydirs
+	source = https://cpan.metacpan.org/authors/id/C/CR/CRABAPP/Dotfiles-p5-0.01.tar.gz
+	validpgpkeys = 4D8733704B740FC4B330EF5E8FFAD8B7BA73987
+	b2sums = dffsdf
+
+pkgname = perl-dofiles-p5
