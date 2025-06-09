@@ -52,13 +52,9 @@ requires 'IO::Async';
 requires 'IO::Async::SSL';
 requires 'Const::Fast';
 
-requires 'Plack', '1.0053',
-  url  => "file://$PWD/vendor/Plack-1.0053-TRIAL.tar.gz",
-  dist => "CRABAPP/Plack-1.0053-TRIAL.tar.gz";
-
-requires 'Frame', '0.01.4',
-  url  => "file://$PWD/vendor/Frame-0.01.4-TRIAL.tar.gz",
-  dist => 'CRABAPP/Frame-0.01.4-TRIAL.tar.gz';
+requires 'Frame', '0.01.5',
+  url  => "file://$PWD/vendor/Frame-0.01.5-TRIAL.tar.gz",
+  dist => 'CRABAPP/Frame-0.01.5-TRIAL.tar.gz';
 
 requires 'FFmpeg::Inline', '0.01',
   url  => "file://$PWD/vendor/FFmpeg-Inline-0.01.tar.gz",

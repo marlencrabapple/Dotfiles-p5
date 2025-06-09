@@ -19,7 +19,7 @@ convenience/provisioning override files, et all.
    The script is supported by a library `use`-able with APIs supporting out-of-
    the box usage in mostexisting imperative, functional, and OOP paradigms
 
- - 
+ - ...
 
 ## DESCRIPTION
 ...
@@ -50,7 +50,7 @@ convenience/provisioning override files, et all.
 
 ### Build From Repo
 Install plenv, a perl version mananger similar to its many cross-language
-contemporaries pyenv, nvm, rustup, etc.  
+contemporaries pyenv, nvm, rustup, etc.
 
 ```
 $ plenv install <version>
@@ -66,4 +66,3 @@ Install the bundled dependencies in ./vendor with Carton, Carmel, or App::cpm
 Or in the case only cpam is available, you can make due with it alone.
 
 `$ cpanm -L local --from "$PWD/vendor/cache" --installdeps .`
-

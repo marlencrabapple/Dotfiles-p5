@@ -1063,10 +1063,10 @@ DISTRIBUTIONS
       File::Copy 0
       File::Glob 0
       File::Spec 0
-  File-Find-Rule-0.34
-    pathname: R/RC/RCLAMP/File-Find-Rule-0.34.tar.gz
+  File-Find-Rule-0.35
+    pathname: R/RC/RCLAMP/File-Find-Rule-0.35.tar.gz
     provides:
-      File::Find::Rule 0.34
+      File::Find::Rule 0.35
       File::Find::Rule::Test::ATeam undef
     requirements:
       ExtUtils::MakeMaker 0
@@ -1563,23 +1563,32 @@ DISTRIBUTIONS
       Exporter 5.57
       ExtUtils::MakeMaker 0
       perl 5.008
-  IO-Socket-SSL-2.089
-    pathname: S/SU/SULLR/IO-Socket-SSL-2.089.tar.gz
+  IO-Socket-SSL-2.090
+    pathname: S/SU/SULLR/IO-Socket-SSL-2.090.tar.gz
     provides:
-      IO::Socket::SSL 2.089
+      IO::Socket::SSL 2.090
       IO::Socket::SSL::Intercept 2.056
-      IO::Socket::SSL::OCSP_Cache 2.089
-      IO::Socket::SSL::OCSP_Resolver 2.089
+      IO::Socket::SSL::OCSP_Cache 2.090
+      IO::Socket::SSL::OCSP_Resolver 2.090
       IO::Socket::SSL::PublicSuffix undef
-      IO::Socket::SSL::SSL_Context 2.089
-      IO::Socket::SSL::SSL_HANDLE 2.089
-      IO::Socket::SSL::Session_Cache 2.089
-      IO::Socket::SSL::Trace 2.089
+      IO::Socket::SSL::SSL_Context 2.090
+      IO::Socket::SSL::SSL_HANDLE 2.090
+      IO::Socket::SSL::Session_Cache 2.090
+      IO::Socket::SSL::Trace 2.090
       IO::Socket::SSL::Utils 2.015
     requirements:
       ExtUtils::MakeMaker 0
       Net::SSLeay 1.46
       Scalar::Util 0
+  IO-Tty-1.20
+    pathname: T/TO/TODDR/IO-Tty-1.20.tar.gz
+    provides:
+      IO::Pty 1.20
+      IO::Tty 1.20
+      IO::Tty::Constant 1.20
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::More 0
   IPC-Run-20231003.0
     pathname: T/TO/TODDR/IPC-Run-20231003.0.tar.gz
     provides:
@@ -1593,6 +1602,7 @@ DISTRIBUTIONS
       IPC::Run::Win32Pump 20231003.0
     requirements:
       ExtUtils::MakeMaker 0
+      IO::Pty 1.08
       Test::More 0.47
   IPC-Run3-0.049
     pathname: R/RJ/RJBS/IPC-Run3-0.049.tar.gz
@@ -1826,6 +1836,18 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 6.42
       Test::More 0
       perl 5.005
+  MIME-Types-2.28
+    pathname: M/MA/MARKOV/MIME-Types-2.28.tar.gz
+    provides:
+      MIME::Type 2.28
+      MIME::Types 2.28
+      MojoX::MIME::Types 2.28
+    requirements:
+      ExtUtils::MakeMaker 0
+      File::Basename 0
+      File::Spec 0
+      List::Util 0
+      Test::More 0.47
   MRO-Compat-0.15
     pathname: H/HA/HAARG/MRO-Compat-0.15.tar.gz
     provides:
@@ -2299,10 +2321,10 @@ DISTRIBUTIONS
       Scalar::Util 1.14
       XSLoader 0.02
       perl 5.008005
-  Mozilla-CA-20250202
-    pathname: L/LW/LWP/Mozilla-CA-20250202.tar.gz
+  Mozilla-CA-20250602
+    pathname: L/LW/LWP/Mozilla-CA-20250602.tar.gz
     provides:
-      Mozilla::CA 20250202
+      Mozilla::CA 20250602
     requirements:
       ExtUtils::MakeMaker 0
   Net-Async-HTTP-0.50
@@ -2604,75 +2626,75 @@ DISTRIBUTIONS
       re 0
       strict 0
       warnings 0
-  PPIx-Regexp-0.088_01
-    pathname: W/WY/WYANT/PPIx-Regexp-0.088_01.tar.gz
+  PPIx-Regexp-0.089
+    pathname: W/WY/WYANT/PPIx-Regexp-0.089.tar.gz
     provides:
-      PPIx::Regexp 0.088_01
+      PPIx::Regexp 0.089
       PPIx::Regexp::Constant 0.085_04
-      PPIx::Regexp::Constant::Inf 0.088_01
-      PPIx::Regexp::Dumper 0.088_01
-      PPIx::Regexp::Element 0.088_01
-      PPIx::Regexp::Lexer 0.088_01
-      PPIx::Regexp::Node 0.088_01
-      PPIx::Regexp::Node::Range 0.088_01
-      PPIx::Regexp::Node::Unknown 0.088_01
-      PPIx::Regexp::Structure 0.088_01
-      PPIx::Regexp::Structure::Assertion 0.088_01
-      PPIx::Regexp::Structure::Atomic_Script_Run 0.088_01
-      PPIx::Regexp::Structure::BranchReset 0.088_01
-      PPIx::Regexp::Structure::Capture 0.088_01
-      PPIx::Regexp::Structure::CharClass 0.088_01
-      PPIx::Regexp::Structure::Code 0.088_01
-      PPIx::Regexp::Structure::Main 0.088_01
-      PPIx::Regexp::Structure::Modifier 0.088_01
-      PPIx::Regexp::Structure::NamedCapture 0.088_01
-      PPIx::Regexp::Structure::Quantifier 0.088_01
-      PPIx::Regexp::Structure::RegexSet 0.088_01
-      PPIx::Regexp::Structure::Regexp 0.088_01
-      PPIx::Regexp::Structure::Replacement 0.088_01
-      PPIx::Regexp::Structure::Script_Run 0.088_01
-      PPIx::Regexp::Structure::Subexpression 0.088_01
-      PPIx::Regexp::Structure::Switch 0.088_01
-      PPIx::Regexp::Structure::Unknown 0.088_01
-      PPIx::Regexp::Support 0.088_01
-      PPIx::Regexp::Token 0.088_01
-      PPIx::Regexp::Token::Assertion 0.088_01
-      PPIx::Regexp::Token::Backreference 0.088_01
-      PPIx::Regexp::Token::Backtrack 0.088_01
-      PPIx::Regexp::Token::CharClass 0.088_01
-      PPIx::Regexp::Token::CharClass::POSIX 0.088_01
-      PPIx::Regexp::Token::CharClass::POSIX::Unknown 0.088_01
-      PPIx::Regexp::Token::CharClass::Simple 0.088_01
-      PPIx::Regexp::Token::Code 0.088_01
-      PPIx::Regexp::Token::Comment 0.088_01
-      PPIx::Regexp::Token::Condition 0.088_01
-      PPIx::Regexp::Token::Control 0.088_01
-      PPIx::Regexp::Token::Delimiter 0.088_01
-      PPIx::Regexp::Token::Greediness 0.088_01
-      PPIx::Regexp::Token::GroupType 0.088_01
-      PPIx::Regexp::Token::GroupType::Assertion 0.088_01
-      PPIx::Regexp::Token::GroupType::Atomic_Script_Run 0.088_01
-      PPIx::Regexp::Token::GroupType::BranchReset 0.088_01
-      PPIx::Regexp::Token::GroupType::Code 0.088_01
-      PPIx::Regexp::Token::GroupType::Modifier 0.088_01
-      PPIx::Regexp::Token::GroupType::NamedCapture 0.088_01
-      PPIx::Regexp::Token::GroupType::Script_Run 0.088_01
-      PPIx::Regexp::Token::GroupType::Subexpression 0.088_01
-      PPIx::Regexp::Token::GroupType::Switch 0.088_01
-      PPIx::Regexp::Token::Interpolation 0.088_01
-      PPIx::Regexp::Token::Literal 0.088_01
-      PPIx::Regexp::Token::Modifier 0.088_01
-      PPIx::Regexp::Token::NoOp 0.088_01
-      PPIx::Regexp::Token::Operator 0.088_01
-      PPIx::Regexp::Token::Quantifier 0.088_01
-      PPIx::Regexp::Token::Recursion 0.088_01
-      PPIx::Regexp::Token::Reference 0.088_01
-      PPIx::Regexp::Token::Structure 0.088_01
-      PPIx::Regexp::Token::Unknown 0.088_01
-      PPIx::Regexp::Token::Unmatched 0.088_01
-      PPIx::Regexp::Token::Whitespace 0.088_01
-      PPIx::Regexp::Tokenizer 0.088_01
-      PPIx::Regexp::Util 0.088_01
+      PPIx::Regexp::Constant::Inf 0.089
+      PPIx::Regexp::Dumper 0.089
+      PPIx::Regexp::Element 0.089
+      PPIx::Regexp::Lexer 0.089
+      PPIx::Regexp::Node 0.089
+      PPIx::Regexp::Node::Range 0.089
+      PPIx::Regexp::Node::Unknown 0.089
+      PPIx::Regexp::Structure 0.089
+      PPIx::Regexp::Structure::Assertion 0.089
+      PPIx::Regexp::Structure::Atomic_Script_Run 0.089
+      PPIx::Regexp::Structure::BranchReset 0.089
+      PPIx::Regexp::Structure::Capture 0.089
+      PPIx::Regexp::Structure::CharClass 0.089
+      PPIx::Regexp::Structure::Code 0.089
+      PPIx::Regexp::Structure::Main 0.089
+      PPIx::Regexp::Structure::Modifier 0.089
+      PPIx::Regexp::Structure::NamedCapture 0.089
+      PPIx::Regexp::Structure::Quantifier 0.089
+      PPIx::Regexp::Structure::RegexSet 0.089
+      PPIx::Regexp::Structure::Regexp 0.089
+      PPIx::Regexp::Structure::Replacement 0.089
+      PPIx::Regexp::Structure::Script_Run 0.089
+      PPIx::Regexp::Structure::Subexpression 0.089
+      PPIx::Regexp::Structure::Switch 0.089
+      PPIx::Regexp::Structure::Unknown 0.089
+      PPIx::Regexp::Support 0.089
+      PPIx::Regexp::Token 0.089
+      PPIx::Regexp::Token::Assertion 0.089
+      PPIx::Regexp::Token::Backreference 0.089
+      PPIx::Regexp::Token::Backtrack 0.089
+      PPIx::Regexp::Token::CharClass 0.089
+      PPIx::Regexp::Token::CharClass::POSIX 0.089
+      PPIx::Regexp::Token::CharClass::POSIX::Unknown 0.089
+      PPIx::Regexp::Token::CharClass::Simple 0.089
+      PPIx::Regexp::Token::Code 0.089
+      PPIx::Regexp::Token::Comment 0.089
+      PPIx::Regexp::Token::Condition 0.089
+      PPIx::Regexp::Token::Control 0.089
+      PPIx::Regexp::Token::Delimiter 0.089
+      PPIx::Regexp::Token::Greediness 0.089
+      PPIx::Regexp::Token::GroupType 0.089
+      PPIx::Regexp::Token::GroupType::Assertion 0.089
+      PPIx::Regexp::Token::GroupType::Atomic_Script_Run 0.089
+      PPIx::Regexp::Token::GroupType::BranchReset 0.089
+      PPIx::Regexp::Token::GroupType::Code 0.089
+      PPIx::Regexp::Token::GroupType::Modifier 0.089
+      PPIx::Regexp::Token::GroupType::NamedCapture 0.089
+      PPIx::Regexp::Token::GroupType::Script_Run 0.089
+      PPIx::Regexp::Token::GroupType::Subexpression 0.089
+      PPIx::Regexp::Token::GroupType::Switch 0.089
+      PPIx::Regexp::Token::Interpolation 0.089
+      PPIx::Regexp::Token::Literal 0.089
+      PPIx::Regexp::Token::Modifier 0.089
+      PPIx::Regexp::Token::NoOp 0.089
+      PPIx::Regexp::Token::Operator 0.089
+      PPIx::Regexp::Token::Quantifier 0.089
+      PPIx::Regexp::Token::Recursion 0.089
+      PPIx::Regexp::Token::Reference 0.089
+      PPIx::Regexp::Token::Structure 0.089
+      PPIx::Regexp::Token::Unknown 0.089
+      PPIx::Regexp::Token::Unmatched 0.089
+      PPIx::Regexp::Token::Whitespace 0.089
+      PPIx::Regexp::Tokenizer 0.089
+      PPIx::Regexp::Util 0.089
     requirements:
       Carp 0
       Encode 0
@@ -2742,13 +2764,13 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.008001
-  Parallel-Pipes-0.200
-    pathname: S/SK/SKAJI/Parallel-Pipes-0.200.tar.gz
+  Parallel-Pipes-0.201
+    pathname: S/SK/SKAJI/Parallel-Pipes-0.201.tar.gz
     provides:
-      Parallel::Pipes 0.200
-      Parallel::Pipes::App 0.200
+      Parallel::Pipes 0.201
+      Parallel::Pipes::App 0.201
     requirements:
-      Module::Build::Tiny 0.034
+      Module::Build::Tiny 0.052
       perl 5.008001
   Parallel-Prefork-0.18
     pathname: K/KA/KAZUHO/Parallel-Prefork-0.18.tar.gz
@@ -4066,17 +4088,6 @@ DISTRIBUTIONS
       Parse::LocalDistribution 0.08
       Parse::PMFile 0.15
       parent 0
-  Test-Pod-1.52
-    pathname: E/ET/ETHER/Test-Pod-1.52.tar.gz
-    provides:
-      Test::Pod 1.52
-    requirements:
-      ExtUtils::MakeMaker 0
-      File::Find 0
-      Pod::Simple 3.05
-      Test::Builder::Tester 1.02
-      Test::More 0.62
-      perl 5.008
   Test-Requires-0.11
     pathname: T/TO/TOKUHIROM/Test-Requires-0.11.tar.gz
     provides:

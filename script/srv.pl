@@ -9,7 +9,7 @@ use utf8;
 use v5.40;
 
 use Cwd;
-use List::Util 'any';
+use List::Util qw(any first);
 use Path::Tiny;
 use Const::Fast;
 use File::Basename;
@@ -20,9 +20,39 @@ use Syntax::Keyword::Dynamically;
 use Plack::Middleware::Auth::Basic;
 use Crypt::Argon2 qw(argon2id_pass argon2_verify);
 
+#role Frame::App::Static : does(Frame) {
+#    method startup {
+#    }
+#};
+
+class PublicFile : isa(Plack::App::File) {
+    use utf8;
+    use v5.40;
+
+    use File::Basename;
+    use File::Spec;
+    use Path::Tiny;
+    use Cwd;
+
+    #field $root : param;
+    #field $path : param = { path( $root . '/' . basename($path) ) };
+
+    ADJUST {
+        ...
+    }
+};
+
 class DirIndex : isa(Plack::App::Directory) {
 
+    use URI::Escape;
+    use Plack::Util;
+    use HTTP::Date;
     use Const::Fast;
+    use MIME::Types;
+    use List::Util qw(any first);
+
+    const our $dir_file =>
+"<tr><td class='name'><a href='%s'>%s</a></td><td class='size'>%s</td><td class='type'>%s</td><td class='mtime'>%s</td></tr>";
 
     const our $dir_page => <<'...';
 <!DOCTYPE html>
@@ -59,19 +89,91 @@ table { width:100%%; }
 </html>
 ...
 
+    field $mimetypes = MIME::Types->new;
+
     method BUILDARGS : common (@BUILDARGS) {
         @BUILDARGS;
     }
 
-    ADJUST {
-        $Plack::App::Direectory::dir_page = $DirIndex::dir_page;
-    };
+    # Think I'd rather this be a common method but its called with $self by
+    # Plack::App::File
+    method should_handle ($path) {
+        -d $path || -f $path;
+    }
 
-    $Plack::App::Direectory::dir_page = $dir_page;
+    method return_dir_redirect ($env) {
+        my $uri = Plack::Request->new($env)->uri;
+        return [
+            301,
+            [
+                'Location'       => $uri . '/',
+                'Content-Type'   => 'text/plain',
+                'Content-Length' => 8,
+            ],
+            ['Redirect'],
+        ];
+    }
 
     method serve_path : override ($env, $dir) {
-        $Plack::App::Direectory::dir_page = $dir_page;
-        Plack::App::Directory::serve_path( $self, $env, $dir );
+        return Plack::App::File::serve_path( $self, $env, $dir ) if -f $dir;
+        my $is_dir  = -d $dir;
+        my $dir_url = join '', $env->@{qw'SCRIPT_NAME PATH_INFO'};
+
+        my $uriendslash_re => qr!/$!;
+
+        return $self->return_dir_redirect($env)
+          unless $dir_url =~ $uriendslash_re;
+
+        my @files = ( [ "../", "Parent Directory", '', '', '' ] );
+
+        my $dh = DirHandle->new($dir);
+        my @children;
+
+        while ( my $ent = $dh->read ) {
+            next if $ent eq '.' or $ent eq '..';
+            push @children, $ent;
+        }
+
+        for my $basename ( sort { $a cmp $b } @children ) {
+
+            my $file = "$dir/$basename";
+            my $url  = $dir_url . $basename;
+
+            my $is_dir = -d $file;
+            my @stat   = stat _;
+
+            const my $PATHSEP_RE => qr!/!;
+
+            $url = join '/', map { uri_escape($_) } split qr/$PATHSEP_RE/, $url;
+
+            if ($is_dir) {
+                $basename .= "/";
+                $url      .= "/";
+            }
+
+            my $mime_type =
+              $is_dir
+              ? 'directory'
+              : ( first { $_ }
+                  ( $mimetypes->mimeTypeOf($file), 'text/plain' ) );
+
+            push @files,
+              [
+                $url, $basename, $stat[7], $mime_type,
+                HTTP::Date::time2str( $stat[9] )
+              ];
+        }
+
+        my $path  = Plack::Util::encode_html("Index of $env->{PATH_INFO}");
+        my $files = join "\n", map {
+            my $f = $_;
+            sprintf $dir_file, map Plack::Util::encode_html($_), @$f;
+
+        } @files;
+
+        my $page = sprintf $dir_page, $path, $path, $files;
+
+        [ 200, [ 'Content-Type' => 'text/html; charset=utf-8' ], [$page] ];
     }
 };
 
@@ -81,6 +183,10 @@ const our $MOUNTRE => qr/^(.+)(?:\:(.+))?$/;
 our ( $srvpath, $mount ) = $ARGV[-1] =~ $MOUNTRE;
 
 our $builder = Plack::Builder->new;
+
+method startup {
+    ...;
+}
 
 sub valid_user ( $user, $pass, $env ) {
     $user eq $ENV{SRV_USER}
@@ -128,10 +234,6 @@ unless (caller) {
     $runner->run( init->to_app );
 
     exit( $? // 0 );
-}
-
-method startup {
-    ...;
 }
 
 init
