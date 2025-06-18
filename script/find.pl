@@ -8,46 +8,53 @@ class Find::pl;
 use utf8;
 use v5.40;
 
-#...;
-
-package main;
-
-use utf8;
-use v5.40;
-
 use lib 'lib';
 
 use Cwd 'abs_path';
 use File::Basename;
 use File::Copy;
 use File::Find;
-use Getopt::Long;
+use Getopt::Long qw':config bundling auto_abbrev';
 use Time::HiRes 'gettimeofday';
-use List::AllUtils qw(any first);
+use List::AllUtils qw(any first uniq);
 use Const::Fast;
 use Data::Dumper;
 use Syntax::Keyword::Try;
+use Syntax::Keyword::Dynamically;
 use Path::Tiny;
+use Pod::Usage;
 
-use subs qw'cp epoch';
+use Dotfiles::p5;
+
+use subs qw'cp epoch dmsg';
 
 const our $DEBUG => $ENV{DEBUG} // 0;
 
-our %opts = (
+const our $FILETYPE_ISFILE => 'f';
+const our $FILETYPE_ISDIR  => 'd';
+const our $WANTEDALL_RE    => qr/.*/;
+
+field $argv : reader : param = \@ARGV;
+
+field $cliopts : param = {
 
     #type      => [],
     #extension => [],
     #exclude   => [],
-);
+};
 
-our $wanted;
-our @searchdirs;
+field $wanted : param     = $WANTEDALL_RE;
+field $searchdirs : param = ();
 
-sub epoch ( $sep = '' ) {
+#ADJUSTPARAMS($params) {
+
+#}
+
+method epoch : common ( $sep = '' ) {
     join $sep, gettimeofday;
 }
 
-sub cp ( $src, $dest ) {
+method cp ( $src, $dest ) {
     ( $src, $dest ) = map { $_ isa 'ARRAY' ? $_ : [$_] } ( $src, $dest );
 
     foreach my $srcf (@$src) {
@@ -73,7 +80,7 @@ sub cp ( $src, $dest ) {
     }
 }
 
-sub file_ext_match ( $basename, $testexts, $opts ) {
+method file_ext_match ( $basename, $testexts, $opts ) {
     state %exttest_re = ();
     return 1 unless $testexts && ref $testexts eq 'ARRAY';
     any {
@@ -82,14 +89,15 @@ sub file_ext_match ( $basename, $testexts, $opts ) {
     } $testexts->@*;
 }
 
-sub path_match ( $path, $wanted ) {
+method path_match( $path, $wanted //= $self->wanted ) {
     $path =~ $wanted;
 }
 
-sub filter_by_type ( $path, @types ) {
-    const my $typeallow_re => qr/^[efdlxsr]{1}$/;
+method filter_by_type ( $path, @types ) {
+    const my $typeallow_re => qr/^([efdlxsr]{1})$/;
+    const my $isfiledir_re => qr/^([fd]{1})$/;
 
-    $DEBUG && warn Dumper( { path => $path, types => \@types } );
+    dmsg( { path => $path, types => \@types } );
     return 1 unless scalar @types;
 
     my $file_allowed = 0;
@@ -101,59 +109,87 @@ sub filter_by_type ( $path, @types ) {
 # `-f && -l`, the former being an error (a fnode cannot be both a directory and
 # regular file) unless we are to make an exception for this (and possibly
 # other) cases
+# - does whether or not we "follow" a symlink matter? we will run into matches
+# that are also links to directories
 # - mark with some sort of modifier?
 #   = -t "type1|[|]type2|[||...]"
 # - think each combination through and hopefully find a pattern that already exists to copy/implement
 # - ...
 #
-    my $is_file      = undef;
-    my $is_directory = undef;
+    my $filetype;
 
     foreach my $type (
         @types = grep {
-            $DEBUG
-              && warn Dumper( { type => $_, } );
-            $typeallow_re
-        } @types
+            dmsg( { type => $_, } );
+            $_ =~ $typeallow_re
+        } uniq grep { $_ =~ $isfiledir_re } @types,
+        @types
       )
     {
-        $DEBUG
-          && warn Dumper(
-            { type => $type, type_valid => $type =~ /^f|d$/ ? 1 : 0 } );
+        my $filetest_evalstr = "-$type \$path ? '$type' : undef";
+        dmsg(
+            {
+                type             => $type,
+                type_valid       => [ $type =~ $typeallow_re ],
+                filetest_eval    => [ eval $filetest_evalstr ],
+                filetest_evalstr => $filetest_evalstr
+            }
+        );
 
-        if ( $type =~ /^f|d$/ ) {
-            $file_allowed = $type eq 'f' ? $is_file =
-              1 : $type eq 'd' ? $is_directory = 1 : undef;
-        }
+        if ( $file_allowed = eval $filetest_evalstr ) {
+            if ( $type =~ $isfiledir_re ) {
+                $filetype = $1;
 
-        if ( ($file_allowed) = "-$_ $path" ) {
+                dmsg {
+                    type         => $type,
+                    filetype     => $filetype,
+                    file_allowed => $file_allowed,
+                    path         => $path
+                };
+            }
             last;
         }
     }
 
-    undef unless $file_allowed;
+    return undef unless $file_allowed;
+    $filetype;
 }
 
-sub wanted ( $basename = $_ ) {
+method wanted ( $basename //= $_ ) {
     my ( $filename, $fname, $name, $base ) = ($basename) x 5;
     state %run_stash = ();
 
-    return 0
-      unless file_ext_match( $basename, $opts{extension}, \%opts );
+    my $filetype =
+      $self->filter_by_type( $File::Find::name, $$cliopts{type}->@* )
+      || return 0;
 
-    return 0 unless path_match( $File::Find::name, $wanted );
+    if ( $filetype eq 'f' ) {
+        return 0
+          unless $self->file_ext_match( $basename, $$cliopts{extension},
+            $cliopts );
+    }
 
-    return 0 unless filter_by_type( $File::Find::name, $opts{type}->@* );
+    return 0 unless $self->path_match( $File::Find::name, $wanted );
 
     my %stash = ( 'return' => [] );
     my ( $abs, $file, $path ) = ($File::Find::name) x 3;
     my ( $cwd, $pwd ) = ($File::Find::dir) x 2;
 
-    foreach my $exec ( $opts{'execute'}->@* ) {
+    foreach my $exec ( $$cliopts{'execute'}->@* ) {
+        state $firstrun //= 1;
+        $firstrun
+          && warn
+"Warning: -x is currently implemented in such a way that is unsafe for executing arbitrary code!";
         my ( $HOME, $home ) = ( $ENV{HOME} ) x 2;
-        my $epoch = epoch;
+        my $epoch = __PACKAGE__->epoch;
 
-        if ( my ($ret) = eval $exec ) {
+        # Lazy loaded file contents decoded as utf8 string
+        state sub text {
+            dmsg { caller => [ caller 0 ] };
+            path($File::Find::name)->slurp_utf8;
+        }
+
+        if ( my ($ret) = eval "use subs 'text'; $exec" ) {
             push $stash{'return'}->@*, $ret;
         }
 
@@ -163,19 +199,34 @@ sub wanted ( $basename = $_ ) {
     1;
 }
 
-sub run {
-    GetOptions(
-        \%opts,
-        'depth=i',
-        'unrestricted',
+method run ( $argv = $self->argv, %caller_opts ) {
+    dmsg(
+        {
+            argv       => \@ARGV,
+            cliopts    => $cliopts,
+            caller     => \%caller_opts,
+            wanted     => $wanted,
+            searchdirs => $searchdirs
+        }
+    );
+
+    Getopt::Long::GetOptionsFromArray(
+        $argv,
+        $cliopts,
+        'depth=i',         # TODO: Unimplemented
+        'unrestricted',    # TODO: Unimplemented
+        'recursive!',      # TODO: Unimplemented
         'type|t=s@',
         'extension|e=s@',
         'exclude|E=s@',
-        'execute|x=s@',
+        'execute|x=s@',    # TODO: Note in pod one can use backticks to execute
+                           # code in shell rather than as Perl
         'one-file-system',
-        '<>' => sub ($bare) {
-            if ($wanted) {
-                push @searchdirs, $bare if -d $bare;
+        'version' => sub { VersionMessage() },
+        'help'    => sub { HelpMessage() },
+        '<>'      => sub ($bare) {
+            if ( $wanted && $wanted ne $WANTEDALL_RE ) {
+                push @$searchdirs, $bare if -d $bare;
             }
             else {
                 $wanted = qr;$bare;;
@@ -183,24 +234,37 @@ sub run {
         }
     );
 
-    @searchdirs = ('.') unless scalar @searchdirs;
-    $wanted //= qr'.+';
+    dynamically $wanted = $caller_opts{wanted} // $wanted;
 
     foreach my $can_csv (qw(extension type exclude)) {
-        next unless $opts{$can_csv} isa 'ARRAY';
-        $opts{$can_csv} = [ split( /,/, join ',', $opts{$can_csv}->@* ) ];
+        next unless $$cliopts{$can_csv} isa 'ARRAY';
+        $$cliopts{$can_csv} =
+          [ split( /,/, join ',', $$cliopts{$can_csv}->@* ) ];
     }
 
-    $DEBUG && warn Dumper(
+    dmsg(
         {
             argv       => \@ARGV,
-            cliopts    => \%opts,
+            cliopts    => $cliopts,
+            caller     => \%caller_opts,
             wanted     => $wanted,
-            searchdirs => \@searchdirs
+            searchdirs => $searchdirs
         }
     );
 
-    find( { wanted => \&wanted }, @searchdirs );
+    find(
+        { wanted => sub { $self->wanted($_) } },
+        scalar @$searchdirs ? @$searchdirs : '.'
+    );
 }
 
-run
+1;
+
+package main;
+
+use utf8;
+use v5.40;
+
+#use Find::pl;
+
+Find::pl->new( argv => \@ARGV )->run
