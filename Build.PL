@@ -83,7 +83,6 @@ my %args = (
         'Test::CPAN::Meta' => '0',
         'Test::MinimumVersion::Fast' => '0',
         'Test::More' => '0.98',
-        'Test::PAUSE::Permissions' => '0',
         'Test::Spellunker' => '0',
     },
 
