@@ -1,9 +1,9 @@
 #!/usr/bin/env perl
-use Object::Pad;
+
+use Object::Pad ':experimental(:all)';
 
 package Find::pl;
-
-class Find::pl;
+class Find::pl #:isa(Dotfiles::p5);
 
 use utf8;
 use v5.40;

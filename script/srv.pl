@@ -222,7 +222,7 @@ sub init ( $path = path( $srvpath // getcwd ), $uri = $mount // undef ) {
       :   die "Path '$path' does not appear to be a file or directory.";
 
     $builder->mount( $mount => $app );
-    $builder->mount( '/www' => './www' );
+    $builder->mount( 'www' => 'www' );
     $builder;
 }
 

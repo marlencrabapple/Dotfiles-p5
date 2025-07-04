@@ -28,7 +28,7 @@ eval { use Devel::StackTrace::WithLexicals } if $DEBUG;
 
 use subs 'dmsg';
 
-$DEBUG && dmsg INC => \@INC;
+$DEBUG && dmsg { INC => \@INC };
 
 sub dmsg (@msgs) {
     $DEBUG || return '';

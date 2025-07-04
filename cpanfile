@@ -9,7 +9,7 @@ use Cwd 'abs_path';
 
 const our $PWD => abs_path;
 
-requires 'perl', 'v5.40';
+requires 'perl', 'v5.42';
 
 requires 'Object::Pad';
 requires 'Path::Tiny';
@@ -68,7 +68,7 @@ on 'test' => sub {
     requires 'Test::MinimumVersion::Fast';
 };
 
-use constant DEV_PREREQS => sub {
+const our $DEV_PREREQS => sub {
     requires 'App::cpm';
     requires 'Minilla';
     requires 'Minilla::Profile::ModuleBuildTiny';
@@ -82,5 +82,5 @@ use constant DEV_PREREQS => sub {
     requires 'ExtUtils::MakeMaker';
 };
 
-on 'build' => DEV_PREREQS;
-on 'develop' => DEV_PREREQS
+on 'build' => $DEV_PREREQS;
+on 'develop' => $DEV_PREREQS

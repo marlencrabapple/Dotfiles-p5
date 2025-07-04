@@ -56,7 +56,7 @@ my %args = (
         'TOML::Tiny' => '0',
         'Text::Markdown::Hoedown' => '0',
         'Time::HiRes' => '0',
-        'perl' => 'v5.40.0',
+        'perl' => 'v5.42.0',
     },
 
     recommends => {
