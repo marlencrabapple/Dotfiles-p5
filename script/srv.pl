@@ -6,7 +6,7 @@ package srv;
 class srv : does(Frame);
 
 use utf8;
-use v5.40;
+use v5.42;
 
 use Cwd;
 use List::Util qw(any first);
@@ -27,7 +27,7 @@ use Crypt::Argon2 qw(argon2id_pass argon2_verify);
 
 class PublicFile : isa(Plack::App::File) {
     use utf8;
-    use v5.40;
+    use v5.42;
 
     use File::Basename;
     use File::Spec;
@@ -49,6 +49,8 @@ class DirIndex : isa(Plack::App::Directory) {
     use HTTP::Date;
     use Const::Fast;
     use MIME::Types;
+    use Text::Xslate;
+    use Plack::App::File;
     use List::Util qw(any first);
 
     const our $dir_file =>
@@ -62,26 +64,12 @@ class DirIndex : isa(Plack::App::Directory) {
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link
   rel="stylesheet"
-  href="/www/bulma.min.css"
+  href="/www/css/bulma.min.css"
 >
-<style type='text/css'>
-table { width:100%%; }
-.name { text-align:left; }
-.size, .mtime { text-align:right; }
-.type { width:11em; }
-.mtime { width:15em; }
-</style>
-</head>
-<body>
-<h1>%s</h1>
-<hr />
-<table>
-  <tr>
-    <th class='name'>Name</th>
-    <th class='size'>Size</th>
-    <th class='type'>Type</th>
-    <th class='mtime'>Last Modified</th>
-  </tr>
+<link
+  rel="stylesheet"
+  href="/www/css/style.css"
+>
 %s
 </table>
 <hr />
@@ -164,18 +152,29 @@ table { width:100%%; }
               ];
         }
 
-        my $path  = Plack::Util::encode_html("Index of $env->{PATH_INFO}");
-        my $files = join "\n", map {
-            my $f = $_;
-            sprintf $dir_file, map Plack::Util::encode_html($_), @$f;
+        # my $path  = Plack::Util::encode_html("Index of $env->{PATH_INFO}");
+        # my $files = join "\n", map {
+        #     my $f = $_;
+        #     sprintf $dir_file, map Plack::Util::encode_html($_), @$f;
 
-        } @files;
+        # } @files;
 
-        my $page = sprintf $dir_page, $path, $path, $files;
+        # my $page = sprintf $dir_page, $path, $path, $files;
 
-        [ 200, [ 'Content-Type' => 'text/html; charset=utf-8' ], [$page] ];
+        # [ 200, [ 'Content-Type' => 'text/html; charset=utf-8' ], [$page] ];
+        
+        my $dirindex = $self->template('directory.html.tx', {
+            files => @files,
+            env => $self->env,
+            path =>$self->req->path_info
+        })
     }
 };
+
+
+#
+# Main appplication
+#
 
 const our $DEBUG   => $ENV{DEBUG};
 const our $MOUNTRE => qr/^(.+)(?:\:(.+))?$/;
@@ -185,7 +184,37 @@ our ( $srvpath, $mount ) = $ARGV[-1] =~ $MOUNTRE;
 our $builder = Plack::Builder->new;
 
 method startup {
-    ...;
+    my $r = $self->routes;
+
+        my ( $app, $mount ) =
+        -f $path ? $self->serve_file( $path, uri => $uri )
+      : -d $path ? $self->serve_directory( $path, uri => $uri )
+      :   die "Path '$path' does not appear to be a file or directory.";
+
+    my ( $app, $mount ) =
+        -f $path ? serve_file( $path, uri => $uri )
+      : -d $path ? serve_directory( $path, uri => $uri )
+      :   die "Path '$path' does not appear to be a file or directory.";
+
+    $r->get('/www'
+        , Plack::App::File->new(root => "./www")
+        ->to_app);
+
+    $r->post('/md2html', sub ($c) {
+        my $inputbody = $c->req->content_body;
+        $self->template('md2html.html.tx')
+    });
+
+    $r->get('/md2html/:id/:slug?', sub ($c, $id, $slug) {
+        my $document = $self->db->get_post_href($id);
+        
+        $self->template('md2html.html.tx', {
+            id => $id,
+            slug => $slug,
+            document => $document
+        })
+    });
+    $self
 }
 
 sub valid_user ( $user, $pass, $env ) {
@@ -216,24 +245,32 @@ sub init ( $path = path( $srvpath // getcwd ), $uri = $mount // undef ) {
         }
     ) unless $ENV{SRVPL_NOLOGIN};
 
-    my ( $app, $mount ) =
-        -f $path ? serve_file( $path, uri => $uri )
-      : -d $path ? serve_directory( $path, uri => $uri )
-      :   die "Path '$path' does not appear to be a file or directory.";
+    #my $assetroot = Plack::App::File->new(root => "./www")->to_app; 
+
+
 
     $builder->mount( $mount => $app );
-    $builder->mount( 'www' => 'www' );
+    #$builder->mount( '/www' => $assetroot );
     $builder;
 }
+
+package main;
+
+use utf8;
+use v5.42;
+
+use BS::Common;
+
+BS::Common::dmsg({ '*main::' => *main:: });
 
 unless (caller) {
     require Plack::Runner;
 
     my $runner = Plack::Runner->new;
     $runner->parse_options( qw(-s Frame::Server), @ARGV );
-    $runner->run( init->to_app );
+    $runner->run( srv->new->to_app );
 
     exit( $? // 0 );
 }
 
-init
+srv::init
