@@ -19,7 +19,6 @@ requires 'App::cpm';
 requires 'Carp';
 requires 'IPC::Run3';
 requires 'Path::Tiny';
-requires 'Getopt::Long';
 requires 'Text::Markdown::Hoedown';
 requires 'Data::Printer';
 requires 'DBI';
@@ -34,7 +33,6 @@ requires 'Syntax::Keyword::Defer';
 requires 'Syntax::Keyword::MultiSub';
 requires 'Syntax::Keyword::Dynamically';
 requires 'Data::Printer';
-requires 'Getopt::Long';
 requires 'Pod::Usage';
 requires 'Path::Tiny';
 requires 'File::chdir';
@@ -50,7 +48,6 @@ requires 'Struct::Dumb';
 requires 'Future::AsyncAwait';
 requires 'IO::Async';
 requires 'IO::Async::SSL';
-requires 'Const::Fast';
 
 requires 'Frame', '0.01.5',
   url  => "file://$PWD/vendor/Frame-0.01.5-TRIAL.tar.gz",
