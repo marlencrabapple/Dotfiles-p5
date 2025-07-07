@@ -1,7 +1,38 @@
 #!/usr/bin/env perl
+use Object::Pad;
 
-use v5.40;
+package epoch;
+class epoch;
+
+use lib 'lib';
+
+use utf8;
+use v5.42;
 
 use Time::HiRes;
+use Data::Dumper;
 
-say join '', Time::HiRes::gettimeofday
+use constant epoch => 
+  sub ($fmtstr, $eol = "\n") {
+    $eol =~ s/\\(.)?/$1/g;
+    warn Dumper({ fmtsrt => $fmtstr, eol => $eol }) if $ENV{DEBUG};
+    sprintf( "$fmtstr$eol" // "%d%d$eol"
+      , Time::HiRes::gettimeofday )
+  };
+
+method $epoch :common {
+  epoch->(@_)
+}
+
+package main;
+use Data::Dumper;
+
+my $caller = [caller 0];
+
+warn Dumper({ caller => $caller
+            , ARGV => \@ARGV })
+              if $ENV{DEBUG};
+
+printf epoch::epoch->($ARGV[0] // "%d%d", $ARGV[1] // "\n");
+#printf "\n\n"
+
