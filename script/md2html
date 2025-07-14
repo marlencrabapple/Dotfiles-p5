@@ -14,6 +14,15 @@ my %opts = (
 );
 
 sub run ($opts) {
+    my $mdstr;
+    if ( $ARGV[0] =~ s/$Dotfiles::p5::md2html::SEPRE// ) {
+        if ( my @mdarr = <<>> ) {
+            $mdstr = join "\n", map { chomp $_; $_ } (@mdarr);
+        }
+
+        #Dotfiles::p5::dmsg({ mdin => $mdin, mdstr => $mdstr });
+    }
+    
     GetOptions(
         $opts,
         'css|stylesheet|style=s',

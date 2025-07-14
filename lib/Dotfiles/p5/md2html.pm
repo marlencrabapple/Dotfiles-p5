@@ -14,13 +14,14 @@ use Text::Markdown::Hoedown;
 
 use Dotfiles::p5;
 
+const our $SEPRE => qr/^-{1,2}$/;
+const our $FILEEXT_RE => qr/\.(md|mkd)$/i;
+
 field $queue :param = [];
 field $opts :param = {};
 
 method md2html :common ( $mdin = undef, %args ) {
     my ( $mdfile, $mdstr, $out );
-
-    const state $SEPRE => qr/^\s*-{1}\s*$/;
 
     if ( -e $mdin ) {
         $mdfile = path($mdin);
@@ -28,13 +29,7 @@ method md2html :common ( $mdin = undef, %args ) {
         Dotfiles::p5::dmsg( { mdin => $mdin, mdfile => $mdfile } );
     }
     
-    if ( $mdin =~ s/$SEPRE// ) {
-        if ( my @mdarr = <<>> ) {
-            $mdstr = join "\n", map { chomp $_; $_ } (@mdarr);
-        }
 
-        Dotfiles::p5::dmsg({ mdin => $mdin, mdstr => $mdstr });
-    }
 
     if ( $args{css} ) {
         $out =
@@ -43,11 +38,11 @@ method md2html :common ( $mdin = undef, %args ) {
           : "<style>$args{css}</style>";
     }
 
-    const our $FILEEXT_RE => qr/\.(md|mkd)$/i;
+    
 
     if ( !$mdfile || $mdin =~ $FILEEXT_RE ) {
         $out .= markdown(
-            encode( 'UTF-8', $mdstr // $mdin ),
+            encode( 'UTF-8', $mdstr || $mdin ),
             html_options => HOEDOWN_HTML_HARD_WRAP | HOEDOWN_HTML_ESCAPE,
             extensions   => HOEDOWN_EXT_TABLES | HOEDOWN_EXT_FENCED_CODE |
               HOEDOWN_EXT_FOOTNOTES | HOEDOWN_EXT_AUTOLINK |

@@ -36,6 +36,9 @@ sub run ($argv, $len = scalar @$argv) {
 	  , 'values'
 	  , 'format|fmtstr|printf'
 	  , 'current_values'
+	  , 'head=d',
+	  , 'tail=d',
+	  , 'lines|context=d'
 	  , 'run_values=s%' # incremental,block,run
 	  , 'file_values',
 	  , '<>' => sub ($barearg) {
@@ -66,10 +69,12 @@ sub run ($argv, $len = scalar @$argv) {
         }
 
         push @file_env, "$i: $envvar"
-  
+  	if ($cliopts{lines} >= 0) {
+		push @context, $file_env[scalar @file_env];
+		if $cliopts{lines} == 0
+		$cliopts{lines}--
+	}
       }
-
-      if (my (@matched) = ($line =~ $F))
     }
 
     return map {
