@@ -1,16 +1,17 @@
 # Maintainer: Ian Bradley <crabapp@hikki.tech>
-pkgname=perl-app-bs
-_distname=App-BS
-pkgver=0
+pkgname=perl-dotfiles-p5
+_distname=Dotfiles-p5
+pkgver=0.01
 pkgrel=1
-pkgdesc="Build system for PKGBUILD based Linux distributions"
+pkgdesc="A collection of sane defaults and utility scripts for platforms with a complete Perl 5 distribution"
 arch=(x86_64 x86_64_v3 aarch64)
 license=('Artistic-1.0-Perl' 'GPL-1.0-or-later')
-depends=('perl' 'arch-rebuild-order' 'devtools' 'pacman-contrib' 'pacutils')
-makedepends=('perl-syntax-keyword-try' 'perl-cpanel-json-xs' 'perl-module-build' 'perl-module-' 'perl-dbi' 'cpanminus' 'perl-inline-c' 'perl-path-tiny' 'perl-net-ssleay')
+depends=('perl' 'arch-rebuild-order' 'devtools' 'pacman-contrib' 'pacutils' 'perl-frame')
+makedepends=('perl-syntax-keyword-try' 'perl-cpanel-json-xs' 'perl-module-build' 'perl-module-' 'perl-dbi' 'cpanminus' 'perl-inline-c' 'perl-path-tiny' 'perl-net-ssleay' 'perl-dist-milla')
 optdepends=('perl-cpanel-json-xs: Using Cpanel-JSON-XS')
 options=('!emptydirs')
-url="https://github.com/marlencrabapple/App-bs"
+_commit=
+url="https://github.com/marlencrabapple/Dotfiles-p5.git#commit=$_commit"
 
 _commit=fc5432ef1450850999ee99a55602756b5d951db3
 source=($pkgname::git+$url#commit=$_commit)
@@ -19,7 +20,7 @@ sha512sum=('cd3937afa78831f80a2ad5abab6c51b9e82fca4c31e5856ea208d598db5dc867')
 validpgpkeys=(4D8733704B740FC4B330EF5E8FFAD8B7BA73987)
 
 prepare() {
-  cd "$_distname/src/$_distname"
+  cd "$srcdir/$pkgname"
 
   unset PERL5LIB PERL_LOCAL_LIB_ROOT
   export PERL5LIB="$_distname/src/$_distname/local/lib/perl5"
@@ -35,17 +36,17 @@ prepare() {
 }
 
 build() {
-  cd "$_distname/src/$_distname"
+  cd "$srcdir/$pkgname"
   ./Build build
 }
 
 check() {
-  cd "$_distname/src/$_distname"
+  cd "$srcdir/$pkgname"
   ./Build testall
 }
 
 package() {
-  cd "$_distname/src/$_distname"
+  cd "$srcdir/$pkgname"
 
   ./Build install
   find "${pkgdir}" -name '.packlist' -delete

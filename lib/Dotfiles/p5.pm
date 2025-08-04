@@ -1,8 +1,8 @@
-#use Object::Pad ':experimental(:all)';
+use Object::Pad ':experimental(:all)';
 
 package Dotfiles::p5;
 
-#class Dotfiles::p5 : abstract;
+class Dotfiles::p5 : abstract;
 
 use utf8;
 use v5.40;
