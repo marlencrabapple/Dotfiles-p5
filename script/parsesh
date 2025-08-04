@@ -17,20 +17,27 @@ const our $DEBUG => $ENV{DEBUG} // 0;
 
 # This really should be improved with backreferences...
 const our $SHVAR_PTN => qr!
+  (?:\s*:?\s*)?
   (?:\$\{)?
     ([A-Z_]+
-     [A-Z0-9]*
+     [A-Z0-9\-]*
      [_A-Z0-9]+)
   \}?
-  (?:([+=\-]{1,2})
+  (?:([:+=\-]{1,2})
   ((["'])?
     ([.]+)
   (["'])?)?)?
-!x;
+!ix;
 
 sub run ($argv, $len = scalar @$argv) {
   my @queue;
+  my @stdin;
   my %cliopts = ();
+
+  while(my $line = <>) { 
+    chomp $line;
+    push @stdin, $line;
+  }
   
   GetOptionsFromArray($argv, \%cliopts
 	  , 'line-numbers'

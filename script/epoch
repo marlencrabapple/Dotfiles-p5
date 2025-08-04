@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-use Object::Pad;
+use Object::Pad ':experimental(:all)';
 
 package epoch;
 class epoch;
@@ -7,8 +7,9 @@ class epoch;
 use lib 'lib';
 
 use utf8;
-use v5.42;
+use v5.40;
 
+use Getopt::Long;
 use Time::HiRes;
 use Data::Dumper;
 
@@ -25,13 +26,23 @@ method $epoch :common {
 }
 
 package main;
-use Data::Dumper;
 
+use utf8;
+use v5.40;
+
+use Data::Dumper;
+use GetOpt::Long;
+
+use constant DEBUG => $ENV{EPOCH_DEBUG} // $ENV{EPOCH_DBG} // $ENV{DEBUG};
+
+my $sep    = '.'
+my $fmtstr = '%d%d';
+
+if ($$ENV
 my $caller = [caller 0];
 
 warn Dumper({ caller => $caller
-            , ARGV => \@ARGV })
-              if $ENV{DEBUG};
+            , ARGV   => \@ARGV }) if $ENV{DEBUG};
 
 printf epoch::epoch->($ARGV[0] // "%d%d", $ARGV[1] // "\n");
 #printf "\n\n"

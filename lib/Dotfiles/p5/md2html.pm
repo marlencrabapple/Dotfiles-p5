@@ -4,7 +4,7 @@ package Dotfiles::p5::md2html;
 role Dotfiles::p5::md2html;
 
 use utf8;
-use v5.42;
+use v5.40;
 
 use Encode qw(encode decode);
 use Path::Tiny;
@@ -28,8 +28,6 @@ method md2html :common ( $mdin = undef, %args ) {
         $mdstr  = $mdfile->slurp_utf8;
         Dotfiles::p5::dmsg( { mdin => $mdin, mdfile => $mdfile } );
     }
-    
-
 
     if ( $args{css} ) {
         $out =
@@ -37,8 +35,6 @@ method md2html :common ( $mdin = undef, %args ) {
           ? path( $args{css} )->slurp_utf8
           : "<style>$args{css}</style>";
     }
-
-    
 
     if ( !$mdfile || $mdin =~ $FILEEXT_RE ) {
         $out .= markdown(
@@ -56,7 +52,6 @@ method md2html :common ( $mdin = undef, %args ) {
     }
 
     $args{out}
-      ? sub { path( $args{out} )->spew_utf8($out); exit $? }
-      ->()
-      : $out;
+        ? sub { path( $args{out} )->spew_utf8($out); exit $? }->()
+        : $out;
 }

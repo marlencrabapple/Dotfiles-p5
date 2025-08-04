@@ -10,9 +10,15 @@
 \bBUILD.COM$
 \bbuild.com$
 ^MANIFEST\.SKIP
-\binc/bulma
-/blocal
-/bdist
-/bvendor
+^inc
 # Avoid archives of this distribution
 \bDotfiles-p5-[\d\.\_]+
+
+^.+.pem$
+^.+.sqlite*$
+^local
+^.carmel
+^vendor
+^.vscode
+^.perl-version$
+^.zed

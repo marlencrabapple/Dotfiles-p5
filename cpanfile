@@ -9,7 +9,7 @@ use Cwd 'abs_path';
 
 const our $PWD => abs_path;
 
-requires 'perl', 'v5.42';
+requires 'perl', 'v5.40';
 
 requires 'Object::Pad';
 requires 'Path::Tiny';

@@ -69,7 +69,7 @@ sub run ($argv, $len = scalar @$argv) {
   
       }
 
-      if (my (@matched) = ($line =~ $F))
+      #if (my (@matched) = ($line =~ $F))
     }
 
     return map {
