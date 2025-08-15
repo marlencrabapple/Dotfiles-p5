@@ -1,37 +1,79 @@
 #!/usr/bin/env perl
+use Object::Pad ':experimental(:all)';
+
+package md2html;
+use lib 'lib';
+
+class md2html : does(Dotfiles::p5::md2html) : does(Dotfiles::p5::Base);
 
 use utf8;
 use v5.40;
 
-use lib 'lib';
-
 use Time::HiRes 'gettimeofday';
-use Getopt::Long qw(:config no_ignore_case bundling);
-use Dotfiles::p5::md2html;
+use Getopt::Long qw(GetOptionsFromArray :config no_ignore_case bundling);
 
-my %opts = (
-    filename => 'md2html_' . join ' ', gettimeofday
-);
+field $queue : param : reader = [];
+field $argv : param = \@ARGV;
+field $cliopts : param(dest) = {
+    charset => 'UTF-8',
+    css     => 'body {}'
 
-sub run ($opts) {
-    my $mdstr;
-    if ( $ARGV[0] =~ s/$Dotfiles::p5::md2html::SEPRE// ) {
-        if ( my @mdarr = <<>> ) {
-            $mdstr = join "\n", map { chomp $_; $_ } (@mdarr);
-        }
+    # filename => 'md2html_' . join ' ',
+    # gettimeofday
+};
 
-        #Dotfiles::p5::dmsg({ mdin => $mdin, mdstr => $mdstr });
-    }
-    
-    GetOptions(
-        $opts,
+field $env = {%$cliopts};
+
+ADJUSTPARAMS($params) {
+
+    GetOptionsFromArray(
+        $argv, $cliopts,
         'css|stylesheet|style=s',
         'out|o=s',
         '<>' => sub ($in) {
-            say Dotfiles::p5::md2html->md2html($in, %opts)
+            Dotfiles::p5::Base::dmsg(
+                {
+                    params => $params,
+                    self   => $self
+                }
+            );
+            push $self->queue->@*, $in;
         }
-    )
+    );
+
+    push $self->queue->@*, *STDIN;
+
+    Dotfiles::p5::Base::dmsg(
+        { md2html_symbols => \%md2html::, self => $self } );
 }
 
-run(\%opts)
+method $run (%opts) {
+    my $outh = $$cliopts{out} // *STDOUT;
+    my @err;
+
+    foreach my $in ( $self->queue->@* ) {
+        if ( my $html = __PACKAGE__->md2html( $in, %opts ) ) {
+            say $outh $html;
+        }
+        else {
+            push @err, $?;
+        }
+    }
+}
+
+method run : common ($argv = \@ARGV, %opts) {
+    my $self = $class->new( dest => $opts{cliopts} //= {} );
+    Dotfiles::p5::Base::dmsg(
+        argv => $argv,
+        opts => \%opts,
+        ( 'Dotfiles::p5_symboles' => %Dotfiles::p5:: )
+    );
+    $self->$run(%opts);
+}
+
+package main;
+
+use v5.40;
+
+md2html->run()
 

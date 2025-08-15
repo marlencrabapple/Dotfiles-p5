@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/marlencrabapple/Dotfiles-p5/actions/workflows/test.yml/badge.svg)](https://github.com/marlencrabapple/Dotfiles-p5/actions)
+[![Actions Status](https://github.com/marlencrabapple/Dotfiles-p5/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/marlencrabapple/Dotfiles-p5/actions?workflow=test)
 # NAME
 
 Dotfiles::p5 - It's new $module

@@ -1,0 +1,98 @@
+#!/usr/bin/env perl
+use Object::Pad ':experimental(:all)';
+
+package App::ppan::CLI;
+
+class App::ppan::CLI;
+
+use utf8;
+use v5.40;
+
+use File::chdir;
+use Getopt::Long;
+use IPC::Run3;
+
+field $globalopts : param       = {};
+field $cmdopts    : param       = {};
+field $runopts    : param(dest) = {
+    %$globalopts, %$cmdopts,
+    global  => $globalopts,
+    cmdopts => $cmdopts
+};
+
+method $cpanm_installdeps ( $cpanfile, %opts ) {
+
+}
+
+method cpanm_installdeps ( $cpanfile, %opts ) {
+    my $installdir = $opts{installdir} // $$runopts{installdir};
+
+    if ( $cpanfile isa 'ARRAY' ) {
+        foreach my $file (@$cpanfile) {
+            try {
+                if ( $file isa 'HASH' ) {
+                    __SUB__->(
+                        $$file{path}, %opts,
+                        map { %$_ } $file->%{qw(opts options)}
+                    );
+                }
+                else {
+                    __SUB__->( $file, %opts );
+                }
+            }
+            catch ($e) {
+                warn $e
+            }
+        }
+    }
+    else {
+        my $inpath = path($cpanfile);
+        my ( $path, $parentdir );
+
+        if ( $inpath->is_dir ) {
+            $path = path("$inpath/$$runopts{cpanfile}");
+
+            unless ( $path->is_file ) {
+
+                # try {
+
+                # }
+                # catch ($e) {
+
+                # }
+
+                die "Error: cpanfile at '$path' is not a file.";
+            }
+
+            #$installdir //= $parentdir
+            ...
+
+            #chdir($dir);
+        }
+        else {
+            $parentdir = $inpath->parent;
+            $path      = $inpath;
+        }
+
+        $CWD = $installdir;
+
+        #cpanm([
+    }
+
+    return $installdir;
+}
+
+sub cpanm ( $args, $packages = [], %opts ) {
+
+    #run3([qw(cpanm --mirror), $mirror, --cascade --verbose
+}
+
+sub run ( $argv, %opts ) {
+
+    #GetOptionsFromArray($argv,
+}
+
+run( \@ARGV, asdf => "fdsa" )
+
+#PERL5_CPANM_OPT="cpanm --mirror=${CPAN_MIRROR:-${DARKPAN:-https://localhost:4515}} --mirror-only${PERL5_CPANM_OPT:+ }"
+#cpanm --mirror=${CPAN_MIRROR:-${DARKPAN:-https://localhost:4515}} --mirror-only "$@"

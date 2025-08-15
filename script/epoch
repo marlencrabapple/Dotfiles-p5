@@ -1,83 +1,40 @@
 #!/usr/bin/env perl
-use Object::Pad ':experimental(:all)';
-
-use lib 'lib';
+use Object::Pad;
 
 package epoch;
 
-class epoch : isa(Dotfiles::p5);
+class epoch;
+
+use lib 'lib';
 
 use utf8;
 use v5.40;
 
+use Exporter 'import';
+
 use Time::HiRes;
-use Const::Fast::Exporter;
+use Data::Dumper;
 
-use Dotfiles::p5;
-
-const our $DEBUG => $ENV{EPOCH_DEBUG} // $ENV{EPOCH_DBG} // $ENV{DEBUG};
-
-field $delim       = " ";
-field $epoch_epoch = [];
-field $sep         = '.';
-field $fmtstr      = ["%d$sep%d"];
-field $eol         = "\n";
-field $at          = time;
-
-ADJUSTPARAMS($params) {
-    GetOptions(
-        'seperator=s'           => \$sep,
-        'fmtstr=s'              => $fmtstr,
-        'delimiter'             => \$delim,
-        'eol=s'                 => \$eol,
-        'since|from=s'          => $epoch_epoch,
-        'in|at|timw|date|epoch' => $at,
-        '<>'                    => sub ($barearg) {
-            state $delim_def = shift @$fmtstr;
-            push @$fmtstr, $barearg;
-
-            Dotfiles::p5->dmsg(
-                {
-                    barearg   => $barearg,
-                    delim_def => $delim_def,
-                    fmgstr    => \@$fmtstr,
-                }
-            );
-        }
-    );
-}
+use constant epoch => sub ( $fmtstr, $eol = "\n" ) {
+    $eol =~ s/\\(.)?/$1/g;
+    warn Dumper( { fmtsrt => $fmtstr, eol => $eol } ) if $ENV{DEBUG};
+    sprintf( "$fmtstr$eol" // "%d%d$eol", Time::HiRes::gettimeofday );
+};
 
 method $epoch : common {
     epoch->(@_);
 }
 
-method epoch ( $fmtstr, $sep = '.', $delim = ' ', $eol = "\n" ) {
-
-}
-
 package main;
+use Data::Dumper;
 
-use utf8;
-use v5.40;
+my $caller = [ caller 0 ];
 
-use Getopt::Long qw':config bundling auto_abbrev';
-
-our $tsgen = epoch->new( argv => \@ARGV );
-our $cli   = $tsgen->cliopts;
-
-Dotfiles::p5->dmsg(
+warn Dumper(
     {
-        caller => [ caller 0 ],
+        caller => $caller,
         ARGV   => \@ARGV
     }
-);
+) if $ENV{DEBUG};
 
-sub main {
-    while ( my ($epoch) = $tsgen->nextts ) {
-        $epoch->write;
-
-        #printf epoch::epoch->( $fmtstr // "%d$sep%d", $delim, $eol );
-    }
-}
-
-main
+printf epoch::epoch->( $ARGV[0] // "%d%d", $ARGV[1] // "\n" );
