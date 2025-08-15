@@ -51,7 +51,6 @@ my %args = (
         'Struct::Dumb' => '0',
         'Syntax::Keyword::Defer' => '0',
         'Syntax::Keyword::Dynamically' => '0',
-        'Syntax::Keyword::MultiSub' => '0',
         'Syntax::Keyword::Try' => '0',
         'TOML::Tiny' => '0',
         'Text::Markdown::Hoedown' => '0',
@@ -82,7 +81,7 @@ my %args = (
     test_requires => {
         'Test::CPAN::Meta' => '0',
         'Test::MinimumVersion::Fast' => '0',
-        'Test::More' => '0.98',
+        'Test::More' => '0',
         'Test::Spellunker' => '0',
     },
 

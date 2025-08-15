@@ -3,9 +3,9 @@
 use Object::Pad ':experimental(:all)';
 
 package Find::pl;
-class Find::pl #:isa(Dotfiles::p5);
+class Find::pl    #:isa(Dotfiles::p5);
 
-use utf8;
+  use utf8;
 use v5.40;
 
 use lib 'lib';
@@ -43,7 +43,7 @@ field $cliopts : param = {
     #exclude   => [],
 };
 
-field $wanted : param     = $WANTEDALL_RE;
+field $wanted     : param = $WANTEDALL_RE;
 field $searchdirs : param = ();
 
 #ADJUSTPARAMS($params) {

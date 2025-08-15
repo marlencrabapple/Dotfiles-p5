@@ -19,6 +19,7 @@
 ^local
 ^.carmel
 ^vendor
+^author
 ^.vscode
 ^.perl-version$
 ^.zed

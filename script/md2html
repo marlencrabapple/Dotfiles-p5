@@ -1,4 +1,9 @@
 #!/usr/bin/env perl
+use Object::Pad ':experimental(:all)';
+
+package md2html;
+
+class md2html : does(Dotfiles::p5::md2html) : does(Dotfiles::p5::Base);
 
 use utf8;
 use v5.40;
@@ -6,32 +11,63 @@ use v5.40;
 use lib 'lib';
 
 use Time::HiRes 'gettimeofday';
-use Getopt::Long qw(:config no_ignore_case bundling);
-use Dotfiles::p5::md2html;
+use Getopt::Long qw(GetOptionsFromArray :config no_ignore_case bundling);
 
-my %opts = (
-    filename => 'md2html_' . join ' ', gettimeofday
-);
+field $queue : param : reader = [];
+field $argv : param = \@ARGV;
+field $cliopts : param(dest) = {
+    charset => 'UTF-8',
+    css     => 'body {}'
 
-sub run ($opts) {
-    my $mdstr;
-    if ( $ARGV[0] =~ s/$Dotfiles::p5::md2html::SEPRE// ) {
-        if ( my @mdarr = <<>> ) {
-            $mdstr = join "\n", map { chomp $_; $_ } (@mdarr);
-        }
+    # filename => 'md2html_' . join ' ',
+    # gettimeofday
+};
 
-        #Dotfiles::p5::dmsg({ mdin => $mdin, mdstr => $mdstr });
-    }
-    
-    GetOptions(
-        $opts,
+field $env = {%$cliopts};
+
+ADJUSTPARAMS($params) {
+
+    Dotfiles::p5::Base::dmsg(
+        { md2html_symbols => \%md2html::, self => $self } );
+
+    GetOptionsFromArray(
+        $argv, $cliopts,
         'css|stylesheet|style=s',
         'out|o=s',
         '<>' => sub ($in) {
-            say Dotfiles::p5::md2html->md2html($in, %opts)
+            __PACKAGE__::dmsg( { params => $params, self => $self } );
+            push $self->queue->@*, $in;
         }
-    )
+    );
+
+    push $self->queue->@*, *STDIN
 }
 
-run(\%opts)
+method $run (%opts) {
+    my @err;
+    foreach my $in ( $self->queue->@* ) {
+        if ( my $html = __PACKAGE__->md2html( $in, %opts ) ) {
+            ...;
+        }
+        else {
+            push @err, $?;
+        }
+    }
+}
+
+method run : common ($argv = \@ARGV, %opts) {
+    my $self = $class->new( dest => $opts{cliopts} //= {} );
+    $class->dmsg(
+        argv => $argv,
+        opts => \%opts,
+        ( 'Dotfiles::p5_symboles' => %Dotfiles::p5:: )
+    );
+    $self->$run(%opts);
+}
+
+package main;
+
+use v5.40;
+
+md2html->run()
 
