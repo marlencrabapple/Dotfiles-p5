@@ -3,6 +3,9 @@
 ^MYMETA\.
 
 # Avoid Module::Build generated and utility files.
+\bBS
+\b.build
+\b_build
 \bBuild$
 \bBuild.bat$
 \b_build

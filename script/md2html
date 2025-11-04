@@ -64,9 +64,11 @@ method $run (%opts) {
 method run : common ($argv = \@ARGV, %opts) {
     my $self = $class->new( dest => $opts{cliopts} //= {} );
     Dotfiles::p5::Base::dmsg(
-        argv => $argv,
-        opts => \%opts,
-        ( 'Dotfiles::p5_symboles' => %Dotfiles::p5:: )
+        {
+            argv              => $argv,
+            opts              => \%opts,
+            '%Dotfiles::p5::' => {%Dotfiles::p5::}
+        }
     );
     $self->$run(%opts);
 }

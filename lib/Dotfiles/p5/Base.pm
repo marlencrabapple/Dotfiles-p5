@@ -25,7 +25,7 @@ BEGIN {
     our @EXPORT = qw(dmsg exec __pkgfn__ const);
 }
 
-const our $DEBUG   => ( any { $_ } @ENV{qw(BS_DEBUG DEBUG)} ) || 0;
+our $DEBUG => ( any { $_ } @ENV{qw(BS_DEBUG DEBUG)} ) || 0;
 const our $TRIM_RE => qr/\s*(.+)\s*\n*/i;
 
 eval {

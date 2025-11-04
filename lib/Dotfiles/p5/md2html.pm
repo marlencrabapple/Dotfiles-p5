@@ -23,8 +23,8 @@ const our $FILEEXT_RE => qr/\.(md|mkd)$/i;
 method md2html : common ( $mdin = undef, %args ) {
     my ( $mdfile, $mdstr, @mdarr, $out );
 
-    if ( -e $mdin ) {
-        tie @mdarr, 'Tie::File', $mdin;
+    if ( $mdfile = path($mdin)->assert( sub { $_->exists } ) ) {
+        tie @mdarr, 'Tie::File', $mdfile->filehandle;
         $mdstr = join "\n", @mdarr;
 
         Dotfiles::p5::Base::dmsg(
