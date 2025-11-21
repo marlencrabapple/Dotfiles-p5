@@ -53,7 +53,11 @@ sub add_file ( $file, %opts ) {
 our %runopts = ( join => "\n", delim => "\n", unique => 1 );
 
 sub run ( $argv = \@ARGV, %opts ) {
-    push $opts{dest}->@*, %runopts;
+
+    #$opts{dest}->%{ keys %runopts };
+    foreach my ( $k, $v ) (%runopts) {
+        $opts{dest}->{$k} = $v;
+    }
 
     GetOptionsFromArray(
         $argv,
@@ -65,7 +69,7 @@ sub run ( $argv = \@ARGV, %opts ) {
         'input-pattern|regexp=s',
         'fmtstr|out-format=s',
         '<>' => sub ($barearg) {
-            dmsg( { ARGV => $argv, runopts => \%runopts } );
+            Dotfiles::p5::Base::dmsg( { ARGV => $argv, runopts => \%runopts } );
 
             $barearg = path( abs_path($barearg) );
 
@@ -75,7 +79,7 @@ sub run ( $argv = \@ARGV, %opts ) {
         }
     );
 
-    foreach my $file (@$argv) {
+    foreach my $file (@input) {
         my $abspath = abs_path($file);
         my $path    = path($abspath);
         push @out, map {
@@ -84,7 +88,12 @@ sub run ( $argv = \@ARGV, %opts ) {
         } $path->lines_utf8;
     }
 
-    say join "\n", @out = uniq @out;
+    my $out =
+      $opts{outfile} ? path( $opts{outfile} )->filehandle('>') : *STDOUT;
+
+    say $out join "\n", @out = uniq @out;
 }
 
-run( \@ARGV )
+our %cliopts = ();
+
+run( \@ARGV, dest => \%cliopts )
