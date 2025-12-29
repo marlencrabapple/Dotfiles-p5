@@ -44,13 +44,8 @@ requires 'IO::Async::SSL';
 requires 'Devel::Trace';
 requires 'Devel::REPL';
 
-requires 'Frame', '0.01.5',
-  dist   => 'CRABAPP/Frame-0.01.5-TRIAL.tar.gz',
-  mirror => 'http://pi5i-i.lan:9002/';
-
-requires 'FFmpeg::Inline', '0.01',
-  dist   => 'CRABAPP/FFmpeg-Inline-0.01.tar.gz',
-  mirror => 'http://pi5i-i.lan:9002/';
+requires 'Frame', '0.01.5';
+requires 'FFmpeg::Inline', '0.01';
 
 on 'test' => sub {
     requires 'Test::More';
