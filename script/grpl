@@ -1,0 +1,49 @@
+#!/usr/bin/env perl
+
+use utf8;
+use v5.40;
+
+use Path::Tiny;
+use Data::Dumper::Names;
+use List::Util qw'any first';
+use Const::Fast;
+
+sub grpl ($search, @in) {
+    my $lineno    = $ENV{LINENO}                                       // 1;
+    my $stripnul  = any { $_ } @ENV{qw(STRIPNUL CLEANBIN NONOPRINT)} // 1;
+    
+    my $search_re = qr/$search/;
+    @in = map { path( $_ =~ s/[\r\n]+$//r ) } @in; #( scalar @ARGV ? @ARGV : <> );
+    
+    const our $sayfn => scalar @in > 1;
+
+    foreach my $in (@in) {
+        my $i = 0;
+        
+        state $saymatch //= sub ($line_aref) {
+            say $lineno ? join q!:!, @$line_aref : $$line_aref[1];
+        };
+
+        say "$in:" if $sayfn;
+        
+        $saymatch->($_) for 
+          grep { $$_[1] =~ /$search_re/g }
+          map {
+            my $line = $_;
+            $i++;
+            
+            chomp $line;
+            $line =~ s/[^[:print:]]//g;
+            
+            [ $i, $line ]
+          } $in->lines;
+
+        say ""
+    }
+}
+
+sub run {
+  grpl(shift @ARGV, @ARGV)
+}
+
+run
