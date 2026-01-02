@@ -1,0 +1,100 @@
+#!/usr/bin/env perl
+use Object::Pad ':experimental(:all)';
+
+package fdupes::human;
+
+class fdupes::human : does(BS::Common);
+
+use v5.40;
+
+use Const::Fast;
+use IPC::Run3;
+use List::Util;
+use Cwd;
+use Path::Tiny;
+use Digest::SHA;
+use Data::Dumper;
+use Syntax::Keyword::Defer;
+
+const our $TRIM_RE => qr/^[\s\r\n]*(.*)[\s\r\n]*$/;
+
+field $indir : param(in);
+field $processed = {};
+field $env       = {};    #= { %ENV, %$cliopts };
+
+ADJUSTPARAMS($param) {
+    $indir =
+      path( Cwd::abs_path($indir) )->assert( sub { $_->exists } );
+}
+
+method open : common ($path) {
+    path( Cwd::abs_path($path) )->assert( sub { $_->exists } );
+}
+
+method outh ($line) {
+    state $curr;
+    state $curr_digest_sha_sha256hex;
+
+    # say $line;
+    $line =~ s/$TRIM_RE/$1/g;
+    if ( !$line || $line eq '' || $line =~ /^[\s\r\n]$/ ) {
+        # TODO: Filesize saving stuff
+        say "" if $curr;
+        $curr = undef;
+
+        return
+    }
+
+    if ( my $path = __CLASS__->open($line) ) {
+
+
+        if ( !$curr ) {
+            $curr = $path->digest;
+
+            $$processed{$curr} = [$path];return
+        }
+        elsif ( scalar $$processed{$curr}->@* <= 1)
+        {
+            say "▶　SHA256: $curr:";
+            say "|_ $processed->{$curr}[0]";
+        }
+        push $$processed{$curr}->@*, $path;
+
+        BS::Common::dmsg(
+            $line,
+            $path,
+            $curr,
+
+        );
+        say "|_ $line";}
+    }
+
+
+
+method errh ($line) {
+    chomp $line;
+    say STDERR $line;
+}
+
+method $run (%opts) {
+    my @args = qw(N r);
+    push @args, 'd' if $opts{delete} // %$env{delete};
+    run3(
+        [ 'fdupes', ( '-' . join '', @args ), Cwd::abs_path($indir) ],
+        undef,
+        sub { $self->outh($_) },
+        sub { $self->errh($_) }
+    );
+}
+
+method run : common ($argv = \@ARGV, $dest = {}, %opts) {
+    my $app = $class->new( in => shift @$argv, cliopts => $dest, %opts );
+    say STDERR Dumper( { app => $app } );
+    $app->$run( asdf => 1 );
+    $app;
+}
+
+package main;
+use Data::Dumper;
+my $app = fdupes::human->run;
+
