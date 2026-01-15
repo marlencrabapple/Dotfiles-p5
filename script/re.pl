@@ -1,44 +1,55 @@
 #!/usr/bin/env perl
-
 package CRABAPP::repl;
 
-#
-# TODO: Replace with profile for Devel::REPL
-#
-#
 use utf8;
 use v5.40;
 
+use lib 'lib';
+
+use Devel::REPL;
+
+our @plugins =
+qw(History LexEnv Colors Commands DDS Packages ShowClass Timing CompletionDriver::Globals DumpHistory OutputCache Nopaste Peek FancyPrompt FindVariable Completion CompletionDriver::INC CompletionDriver::LexEnv CompletionDriver::Keywords CompletionDriver::Methods MultiLine::PPI);
+
+# sub repl($repl //= Devel::REPL->new) {
+our $repl = Devel::REPL->new;
+  $repl->load_plugin($_) for @plugins;
+
+  $repl->lexical_environment->do(<<'crabappenv');
 use Object::Pad ':experimental(:all)';
+
+package CRABAPP::PERL::REPL;
+
+class CRABAPP::PERL::REPL;
+
+use utf8;
+use v5.40;
+
 use Path::Tiny;
 use List::Util;
 use Cwd;
 use Digest::SHA;
-use File::Find;
 use Tie::File;
 use List::SomeUtils;
 use List::UtilsBy;
 use Const::Fast;
 use JSON::MaybeXS;
-use Data::Dumper;
-use Data::Printer;
-use IPC::Run3;
-use lib 'lib';
+use TOML::Tiny;
+use Net::SSLeay;
+use HTTP::Tinyish;
 
-#use Dotfiles::p5::Base 'dmsg';
-use Devel::REPL;
+use IPC::Nosh;
+use IPC::Nosh::IO;
 
-our $repl = Devel::REPL->new;
-our @plugins =
-  qw(History LexEnv Colors Commands DDS Packages ShowClass Timing  CompletionDriver::Globals DumpHistory OutputCache Nopaste Peek FancyPrompt FindVariable)
-  ;    #ReadlineHistory);
+our $asdf = "fdsa";
+$ENV{DEBUG} = 1;
+dmsg( \%:: );
 
-# Dotfiles::p5::Base::dmsg( { repl => $repl } );
+package main;
+my $aaa = "123";
+our $bbb = "321";
+crabappenv
 
-$repl->load_plugin($_) for @plugins;
+$repl->run;
 
-# Dotfiles::p5::Base::dmsg( { repl => $repl, load_plugin => \@plugins } );
-
-our $ret = $repl->run;
-
-# Dotfiles::p5::Base::dmsg( { repl => $repl, run_ret => $ret } );
+# repl
