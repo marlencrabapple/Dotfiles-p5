@@ -21,10 +21,10 @@ use Getopt::Long
 
 field $envvars   : param = [];
 field $outfmt    : param //= 'export';    # export,values,toml,json,env
-field $separator : param = " ";
+field $separator : param = "\n";
 field %safe = ();
-field $prune     : param : reader = [];
-field $debug     : param = 0;
+field $prune : param : reader = [];
+field $debug : param = 0;
 
 method cli : common ($argv = \@ARGV) {
     my %clidest = ( envvars => [], prune => [] );
@@ -44,18 +44,18 @@ method cli : common ($argv = \@ARGV) {
     );
 
     my $self = $class->new(%clidest);
-    my $res  = $self->run;
+    my $res  = $self->fmt;
     say $res;
 
-    return $self
+    return $self;
 }
 
-method run {
+method fmt {
     my %seen;
     my %env;
 
     my $outstr;
-     my %safe;
+    my %safe;
 
     foreach my ( $name, $val ) (
         map  { ( $_, [ split /\s/, $ENV{$_} =~ s/[\s\t\r\n]+/ /rg ] ) }
@@ -102,27 +102,28 @@ method run {
 
         $val = [@valout];
 
-        foreach my ($k, $v) (%$safe) {
-            push @$val, map { ("-$k" => $_) } @$v
+        foreach my ( $k, $v ) (%$safe) {
+            push @$val, map { ( "-$k" => $_ ) } @$v;
         }
 
         $env{$name} = $val;
-        dmsg($safe, $val);
+        dmsg( $safe, $val );
 
         if ( $outfmt =~ /export|env/ ) {
             my $common = qq{name="};
             $common .= join ' ', @$val;
-            $common .='"';
+            $common .= '"';
 
             if ( $outfmt eq 'export' ) {
                 $outstr .= qq[export $name="] . ( join ' ', @$val ) . '"';
+                $outstr .= $separator;
             }
             elsif ( $outfmt eq 'env' ) {
                 $outstr .= $common;
             }
         }
         elsif ( $outfmt eq 'values' ) {
-            $outstr .= join $separator, @$val
+            $outstr .= join $separator, @$val;
         }
 
         $outstr .= "\n";
