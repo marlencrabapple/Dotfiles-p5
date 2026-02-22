@@ -1,0 +1,20 @@
+# fd-bymtime
+
+use Path::Tiny;
+use v5.40;
+
+use Getopts::Long
+
+field %found;
+field @in;
+
+field %clispec;
+field %clidest;
+
+ADJUST (:$argv //= \@ARGV) {
+ GetOptionsFromArray($argv, $clidest, __CLASS__->$clispecq2getoptslong(\%clispec))
+}
+
+method :common clispec2getoptslong ($clispec, %opts) {
+
+}

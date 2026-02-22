@@ -1,0 +1,61 @@
+#!/usr/bin/env perl
+use Object::Pad ':experimental(:all)';
+
+package gpgprint;
+
+class gpgprint;
+
+use utf8;
+use v5.40;
+
+use Path::Tiny;
+use IPC::Run3;
+use Const::Fast;
+use Getopt::Long qw(GetOptionsFromArray :config no_ignore_case auto_abbrev);
+
+use lib 'lib';
+
+use Dotfiles::p5::IO;
+
+# const our $field_allow = (uid)
+# const our $
+
+const our $email_re  => qr//;
+const our $uid_re    => qr//;
+const our $fpr_re    => qr//;
+const our $id_re     => qr//;
+const our $idlong_re => qr//;
+
+our $fmtstr = '%n <%e> %f';
+our @fields = qw(name email fpr);
+our @input;
+
+GetOptions(
+    'fmtstr=s',
+    'input=s{1,}',
+    'fields=s{1,}',
+    'verify',
+    'ascii-armor|asciiarmor|aa',
+    '<>' => sub ($barearg) {
+        push @input, $barearg;
+    }
+);
+
+sub gpgprint {
+    foreach my $input (@input) {
+        run3( [] );
+    }
+}
+
+sub fingerprint ($gpgout) {
+    $gpgout =~ s/[\s\t]+Key fingerprint = (.+)/$1/;
+    my @gpg = $gpgout =~ /([A-Z0-9]+)/g;
+}
+
+method run ( $argv, %opts ) {
+
+}
+
+package main;
+
+gpgprint->run( \@ARGV )

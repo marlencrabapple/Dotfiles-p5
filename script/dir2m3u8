@@ -1,0 +1,113 @@
+#!/usr/bin/env perl
+
+use Object::Pad ':experimental(:all)';
+
+package dir2m3u8;
+
+class dir2m3u8;
+
+use v5.42;
+
+use Syntax::Keyword::Try;
+use Const::Fast;
+use List::Util 'all';
+use IPC::Nosh;
+use IPC::Nosh::IO;
+
+const our @videoext    => qw(mp4 flv wmv m4v mkv mov avi);
+const our @audioext    => qw(mp3 aac m4a flac opus ogg ape wav wv dst dff);
+const our %GROUP_ALLOW => ( video => \@videoext, audio => \@audioext );
+
+field $ext_aref      : param(ext);
+field $pattern       : param;
+field $location_aref : param(location);
+field $group_aref    : param(group);
+
+ADJUST {
+    die unless all { dir2m3u8->group_allow($_) } @$group_aref;
+    foreach my $path (@$location_aref) {
+        try {
+            $path = path($path)->assert(
+                sub {
+                    $_->is_dir;
+                }
+            )
+        }
+        catch ($e) {
+            fatal($e)
+        }
+    }
+}
+
+method group_allow : common {
+
+}
+
+method $run {
+
+}
+
+method searchdir : common (%opt) {
+    $class->new(%opt);
+}
+
+package dir2m3u8::CLI;
+
+use v5.42;
+
+use Path::Tiny;
+use Syntax::Keyword::Defer;
+use Getopt::Long;
+use IPC::Nosh::IO;
+use Cwd;
+use Const::Fast;
+use Net::SSLeay;
+
+const our %CLIDEFAULT => (
+    location => [getcwd],
+    pattern  => qr/.+/
+);
+
+# const %MIMEGROUP => (video => [])
+# const our $MIMEGROUP_ALLOW => qr//
+
+sub main {
+    my %cliopt = (
+        location => \$CLIDEFAULT{location},
+        pattern  => \$CLIDEFAULT{pattern}
+    );
+
+    GetOptions(
+        \%cliopt,
+        'extensions=s@',
+        'pattern|regexp|search=@',
+        'location|searchpath|directory|path=s@',
+        'mimegroup|mediatype|group=s@',
+        sub ($barearg) {
+            state $count = 0;
+            defer { $count++ }
+
+            my $duperr = sub ($key) {
+                fatal(  "'$key' and positional argument "
+                      . ( $count + 1 )
+                      . " cannot be set at the same time. Please use one or the other."
+                ) unless $cliopt{$key} == $CLIDEFAULT{$key};
+            };
+
+            if ( $count == 0 ) {   # search pattern in $cliopt{pattern} is undef
+                duperr('pattern');
+                $cliopt{pattern} = qr/$barearg/;
+            }
+            elsif ( $count >= 1 ) {
+                duperr('location');    # search location
+                push $cliopt{location}->@*, path($barearg);
+            }
+
+        }
+    );
+
+    my $self = dir2m3u8->searchdir(%cliopt);
+
+    dmsg($self);
+}
+

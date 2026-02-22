@@ -1,0 +1,53 @@
+#!/usr/bin/env perl
+
+use v5.40;
+
+use IPC::Nosh;
+use IPC::Nosh::IO;
+use Getopt::Long qw(GetOptionsFromArray :config no_ignore_case auto_abbrev);
+
+use lib 'lib';
+
+our $cliopt = { gpgdir => $ENV{GPGHOMEDIR}, separator => ' ' };
+
+sub gpgfpr ($in) {
+    my $run = run(
+        [ qw(gpg --verbose --fingerprint), $in ],
+        out => sub ($line) {
+            say $line;
+        },
+        autochomp => 1
+    );
+
+    my @fpr =
+      map { chomp $_; join "", $_ =~ s/(?:Key fingerprint = |\s)//gr }
+      grep { /^\s*Key fingerprint/ } ( $run->out->@* );
+    say join $$cliopt{separator}, @fpr;
+}
+
+sub cli ( $argv = \@ARGV ) {
+
+    GetOptionsFromArray(
+        $argv, $cliopt,
+        'gpgdir|gnupghome=s',
+        'separator=s',
+        '<>' => sub ($barearg) {
+            gpgfpr($barearg);
+        }
+    );
+
+    # my $backslash = quotemeta '\\';
+    # $$cliopt{separator} =~ s!$backslash{1}(.+)!$1!g;
+    say $$cliopt{separator};
+    dmsg $cliopt;
+}
+
+cli( \@ARGV );
+dmsg $cliopt
+
+# for gpgid in "$@"; do
+#   gpg --verbose --fingerprint $gpgid 2>/dev/null \
+#    | head -n2 \
+#    | tail -n1 \
+#    | perl -Mv5.40 -MIPC::Nosh::IO \
+#      -e 'my @fpr; push @fpr, map { chomp $_; join "", $_ =~ s/(?:Key fingerprint = |\s)//gr } (<>); say join " ", @fpr; dmsg(\@fpr)'; done
