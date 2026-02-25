@@ -2,44 +2,98 @@
 
 use v5.40;
 
-use IPC::Nosh;
+use Syntax::Keyword::Dynamically;
+use IPC::Run3;
 use IPC::Nosh::IO;
 use Getopt::Long qw(GetOptionsFromArray :config no_ignore_case auto_abbrev);
+use Const::Fast;
+
+use JSON::MaybeXS;
+use TOML::Tiny qw(to_toml);
 
 use lib 'lib';
 
-our $cliopt = { gpgdir => $ENV{GPGHOMEDIR}, separator => ' ' };
+const our $fieldmap => { grip => 'Keygrip', fpr => 'Key fingerprint' };
+
+our $cliopt = {
+    gpgdir    => $ENV{GPGHOMEDIR},
+    separator => ",",
+    format    => undef,
+    field     => []
+};
 
 sub gpgfpr ($in) {
-    my $run = run(
-        [ qw(gpg --verbose --fingerprint), $in ],
-        out => sub ($line) {
-            say $line;
-        },
-        autochomp => 1
+
+    # my $run = run(
+    #     [ qw(gpg --verbose --fingerprint), $in ],
+    #     out => sub ($line) {
+    #         say $line;
+    #     },
+    #     autochomp => 1
+    # );
+    #my @fpr;
+    my %field =
+      map { $_ => [] } grep { defined $$fieldmap{$_} } $$cliopt{field}->@*;
+
+    dynamically $ENV{GNUPGHOME} = $$cliopt{gpgdir};
+    run3(
+        [ qw(gpg --verbose --with-keygrip --fingerprint), $in ],
+        \undef,
+        sub ($line) {
+            chomp $line;
+            foreach my ( $key, $res ) (%field) {
+                my $search = $$fieldmap{$key};
+                push $res->@*, join "", ( $_ =~ s/(?:$search = |\s)//gr )
+                  if $line =~ /^\s*$search/;
+            }
+        }
     );
 
-    my @fpr =
-      map { chomp $_; join "", $_ =~ s/(?:Key fingerprint = |\s)//gr }
-      grep { /^\s*Key fingerprint/ } ( $run->out->@* );
-    say join $$cliopt{separator}, @fpr;
+    # info "$$fieldmap{$_}:\n"
+    #   . join( $$cliopt{separator}, map { "  $_" } $field{$_}->@* ) . "\n"
+    #   for keys %field;
+
+    \%field;
 }
 
 sub cli ( $argv = \@ARGV ) {
 
+    my %out;
+
     GetOptionsFromArray(
         $argv, $cliopt,
         'gpgdir|gnupghome=s',
+        'field=s@',
         'separator=s',
+        'format=s',
         '<>' => sub ($barearg) {
-            gpgfpr($barearg);
+            $out{$barearg} = gpgfpr($barearg);
         }
     );
+
+    $$cliopt{field}->@* = map { split /,/, $_ } $$cliopt{field}->@*;
+    $$cliopt{field} = ['fpr'] unless scalar $$cliopt{field}->@*;
 
     # my $backslash = quotemeta '\\';
     # $$cliopt{separator} =~ s!$backslash{1}(.+)!$1!g;
     say $$cliopt{separator};
     dmsg $cliopt;
+
+    if ( $$cliopt{format} eq 'json' ) {
+        say encode_json( \%out );
+    }
+    elsif ( $$cliopt{format} eq 'toml' ) {
+        say to_toml( \%out );
+    }
+    else {
+        foreach my ( $in, $field ) (%out) {
+            say $in;
+            foreach my ( $k, $v ) (%$field) {
+                say "$k=" . join $$cliopt{separator}, @$v;
+            }
+        }
+    }
+
 }
 
 cli( \@ARGV );
