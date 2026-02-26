@@ -19,7 +19,8 @@ our $cliopt = {
     gpgdir    => $ENV{GPGHOMEDIR},
     separator => ",",
     format    => undef,
-    field     => []
+    field     => [],
+    label     => 1
 };
 
 sub gpgfpr ($in) {
@@ -34,6 +35,7 @@ sub gpgfpr ($in) {
     #my @fpr;
     my %field =
       map { $_ => [] } grep { defined $$fieldmap{$_} } $$cliopt{field}->@*;
+    my @err;
 
     dynamically $ENV{GNUPGHOME} = $$cliopt{gpgdir};
     run3(
@@ -46,18 +48,19 @@ sub gpgfpr ($in) {
                 push $res->@*, join "", ( $_ =~ s/(?:$search = |\s)//gr )
                   if $line =~ /^\s*$search/;
             }
-        }
+        },
+        \@err,
     );
 
     # info "$$fieldmap{$_}:\n"
     #   . join( $$cliopt{separator}, map { "  $_" } $field{$_}->@* ) . "\n"
     #   for keys %field;
 
-    \%field;
+    $$cliopt{label} ? \%field : [ values %field ];
 }
 
 sub cli ( $argv = \@ARGV ) {
-
+    my @in;
     my %out;
 
     GetOptionsFromArray(
@@ -66,32 +69,54 @@ sub cli ( $argv = \@ARGV ) {
         'field=s@',
         'separator=s',
         'format=s',
+        'label!',
         '<>' => sub ($barearg) {
-            $out{$barearg} = gpgfpr($barearg);
+            push @in, $barearg;
         }
     );
 
     $$cliopt{field}->@* = map { split /,/, $_ } $$cliopt{field}->@*;
     $$cliopt{field} = ['fpr'] unless scalar $$cliopt{field}->@*;
 
+    foreach my $in (@in) {
+        $out{$in} = gpgfpr($in);
+    }
+
     # my $backslash = quotemeta '\\';
     # $$cliopt{separator} =~ s!$backslash{1}(.+)!$1!g;
-    say $$cliopt{separator};
-    dmsg $cliopt;
+    #say $$cliopt{separator};
+    #dmsg $cliopt;
+
+    my $toencode = $$cliopt{label} ? \%out : [ values %out ];
+    dmsg $toencode, \%out;
 
     if ( $$cliopt{format} eq 'json' ) {
-        say encode_json( \%out );
+        my $json = JSON::MaybeXS->new( utf8 => 1, pretty => 1 );
+        say $json->encode($toencode);
     }
     elsif ( $$cliopt{format} eq 'toml' ) {
-        say to_toml( \%out );
+        say to_toml($toencode);
     }
     else {
+        my @out;
         foreach my ( $in, $field ) (%out) {
-            say $in;
-            foreach my ( $k, $v ) (%$field) {
-                say "$k=" . join $$cliopt{separator}, @$v;
-            }
+            push @out,
+              (
+                $$cliopt{label}
+                ? "$in\n  "
+                : ""
+              )
+              . join "\n  ", map {
+                (
+                    $$cliopt{label}
+                    ? "$_="
+                    : ""
+                  )
+                  . join ",", $$field{$_}->@*
+              } keys %$field;
         }
+
+        say join "\n", @out;
     }
 
 }
