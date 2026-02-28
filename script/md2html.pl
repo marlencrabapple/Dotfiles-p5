@@ -18,7 +18,6 @@ use Text::Markdown::Hoedown;
 field $encoding_in = 'UTF-8';
 field $encoding_out { $encoding_in }
 
-# TODO: allow configuration
 field $html_options { HOEDOWN_HTML_HARD_WRAP | HOEDOWN_HTML_ESCAPE }
 field $extensions {
     HOEDOWN_EXT_TABLES | HOEDOWN_EXT_FENCED_CODE | HOEDOWN_EXT_FOOTNOTES |
@@ -67,8 +66,6 @@ use Path::Tiny;
 use IPC::Nosh::IO;
 
 const our $NO_FILENAME => '-';
-
-#field $parser;
 
 field $infile : reader = [];
 field $outfile = [];
