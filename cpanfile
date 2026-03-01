@@ -1,17 +1,10 @@
 use utf8;
 use v5.40;
 
-requires 'Const::Fast';
-requires 'Cwd';
-
-use Const::Fast;
-use Cwd 'abs_path';
-
-const our $PWD => abs_path;
-
 requires 'perl', 'v5.40';
 
 requires 'Object::Pad';
+requires 'Const::Fast';
 requires 'Path::Tiny';
 requires 'Getopt::Long';
 requires 'List::AllUtils';
@@ -44,8 +37,15 @@ requires 'IO::Async::SSL';
 requires 'Devel::Trace';
 requires 'Devel::REPL';
 
-requires 'Frame', '0.01.5';
-requires 'FFmpeg::Inline', '0.01';
+use constant CPAN_MIRROR => ( mirror => 'https://ppan.softsrv.net/~CRABAPP' );
+
+sub { requires shift, CPAN_MIRROR }
+  ->($_) for qw(Frame FFmpeg::Inline IPC::Nosh App::md2html);
+
+#requires 'Frame';
+#requires 'FFmpeg::Inline';
+#requires 'App::md2html';
+#requires 'IPC::Nosh';
 
 on 'test' => sub {
     requires 'Test::More';
@@ -54,7 +54,7 @@ on 'test' => sub {
     requires 'Test::MinimumVersion::Fast';
 };
 
-const our $DEV_PREREQS => sub {
+use constant DEV_PREREQS => sub {
     requires 'App::cpm';
     requires 'Minilla';
     requires 'Minilla::Profile::ModuleBuildTiny';
@@ -68,5 +68,5 @@ const our $DEV_PREREQS => sub {
     requires 'ExtUtils::MakeMaker';
 };
 
-on 'build' => $DEV_PREREQS;
-on 'develop' => $DEV_PREREQS
+on 'build' => DEV_PREREQS;
+on 'develop' => DEV_PREREQS
