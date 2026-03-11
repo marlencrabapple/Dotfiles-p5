@@ -21,7 +21,8 @@ use Getopt::Long
 
 field $envvars   : param = [];
 field $outfmt    : param //= 'export';    # export,values,toml,json,env
-field $separator : param = "\n";
+field $separator : param = " ";
+field $delim     : param(delimeter) : reader(delimeter) = "\n";
 field %safe = ();
 field $prune : param : reader = [];
 field $debug : param = 0;
@@ -64,6 +65,7 @@ method fmt {
     {
         my @noprune;
         my $safe = $safe{$name} = {};
+        %seen = ();
 
         foreach my $flag (@$prune) {
             foreach my ( $op, $var ) ( $flag =~ /^(\+|-)?(.+)$/ ) {
@@ -126,7 +128,7 @@ method fmt {
             $outstr .= join $separator, @$val;
         }
 
-        $outstr .= "\n";
+        $outstr .= $delim;
     }
 
     return $outstr if $outstr;
