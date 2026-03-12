@@ -37,7 +37,8 @@ requires 'IO::Async::SSL';
 requires 'Devel::Trace';
 requires 'Devel::REPL';
 
-use constant CPAN_MIRROR => ( mirror => 'https://ppan.softsrv.net/~CRABAPP' );
+#use constant CPAN_MIRROR => ( mirror => 'https://ppan.softsrv.net/~CRABAPP' );
+use constant CPAN_MIRROR => ( mirror => 'https://cincotuf.lan:15151' );
 
 sub { requires shift, CPAN_MIRROR }
   ->($_) for qw(Frame FFmpeg::Inline IPC::Nosh App::md2html);

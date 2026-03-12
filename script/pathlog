@@ -1,0 +1,103 @@
+#!/usr/bin/env perl
+
+package pathlog;
+
+use utf8;
+use v5.40;
+
+use List::Util 'first';
+use IPC::Nosh::IO;
+use Path::Tiny;
+use Syntax::Keyword::Defer;
+use Getopt::Long qw(GetOptionsFromArray :config no_ignore_case auto_abbrev);
+use Const::Fast;
+
+#const our $PATH_PLATFORM_KEY_RE => qr//;
+use constant PATHNORM => {
+    absolute => {
+        re   => qr/^abs(?:olute)?$/,
+        code => sub ($in) { $in->absolute }
+    },
+    relative => {
+        re   => qr/^rel(?:altive)?$/,
+        code => sub ( $in, $relbase = "./" ) {
+            $in->relative($relbase);
+        }
+    },
+    prepend => {
+        re   => qr/^pre(?:pend)?$/,
+        code => sub ( $in, $pre ) { $pre . $in }
+      }
+
+#, qr/(?:platform|os|target)/ => sub ($platform, $in) {
+#   const our $ALLOWED => (qr/(u|lin)?nix/, qr/darwin|mac(os)?|apple/, qr/win(dows)?/
+#};
+};
+
+my %cliopt = (
+    outfile => './writein-' . time . '.txt',
+    paths   => [qw(absolute)]
+);
+
+our %pathnorm = ();
+
+GetOptions(
+    \%cliopt,    #' writethrough | write -contents = s{,}',,
+    'paths|normalize-paths=s' => sub ( $cb, $val ) {
+
+        my ( $opt, $arg ) = split /=/, $val;
+
+        my $pathnorm_k =
+          first { ( $opt =~ PATHNORM->{$_}{re} ) ? $_ : undef }
+          keys PATHNORM->%*;
+
+        # dmsg( $cb, $val, $opt, $arg, $pathnorm_k );
+
+        err "'$opt' is not a valid value for paths|normalize-paths.\n"
+          . "Allowed values: "
+          . ( join ',', keys PATHNORM->%* ) . '.'
+          unless $pathnorm_k;
+
+        $pathnorm{$pathnorm_k} = $arg // undef;
+
+    },
+
+    'outfile|writeto|writeas=s',
+    'uniq!'
+);
+
+our %cksum   = ();
+our $outpath = path( $cliopt{outfile} );
+
+dmsg( $outpath, \%pathnorm, \%cliopt );
+
+# TODO: handle input from stdin
+
+foreach my $in (@ARGV) {
+    $in = path($in);
+
+    if ( $cliopt{uniq} ) {
+        my $digest = $in->digest;
+
+        $cksum{$digest} //= [];
+        push $cksum{$digest}->@*, $in;
+
+        dmsg $cksum{$digest};
+    }
+
+    foreach my ( $name, $arg ) (%pathnorm) {
+        my @arg = grep { $_ } ($arg);
+        dmsg( $name, \@arg );
+
+        $in =
+          PATHNORM->{$name}{code}->( $in, @arg );
+    }
+
+    $outpath->append_utf8("$in\n");
+
+    info ""
+      . ( join "/", map { s/(.{10,})/$1.../r } split /[\/]+/, "$in" )
+      . " >> $outpath";
+}
+
+success "Lines Processed: " . scalar @ARGV;
