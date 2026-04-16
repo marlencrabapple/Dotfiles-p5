@@ -25,7 +25,11 @@ field $separator : param = " ";
 field $delim     : param(delimeter) : reader(delimeter) = "\n";
 field %safe = ();
 field $prune : param : reader = [];
-field $debug : param = 0;
+field $debug : param //= $ENV{DEBUG};
+
+ADJUST {
+    dmsg $self
+}
 
 method cli : common ($argv = \@ARGV) {
     my %clidest = ( envvars => [], prune => [] );
@@ -34,7 +38,7 @@ method cli : common ($argv = \@ARGV) {
         \%clidest,
         'envvars|vars|filterenv|filter-vars=s{1}',
         'prune=s{1,}',
-        'outfmt|printfmt|as=s',
+        'outfmt|printfmt|format|fmt|as=s',
         'separator=s',
         'delimeter=s',
         'debug',

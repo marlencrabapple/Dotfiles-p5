@@ -38,15 +38,15 @@ requires 'Devel::Trace';
 requires 'Devel::REPL';
 
 #use constant CPAN_MIRROR => ( mirror => 'https://ppan.softsrv.net/~CRABAPP' );
-use constant CPAN_MIRROR => ( mirror => 'https://cincotuf.lan:15151' );
+#use constant CPAN_MIRROR => ( mirror => 'https://cincotuf.lan:15151' );
 
-sub { requires shift, CPAN_MIRROR }
-  ->($_) for qw(Frame FFmpeg::Inline IPC::Nosh App::md2html);
+#sub { requires shift, CPAN_MIRROR }
+#  ->($_) for qw(Frame FFmpeg::Inline IPC::Nosh App::md2html);
 
-#requires 'Frame';
-#requires 'FFmpeg::Inline';
-#requires 'App::md2html';
-#requires 'IPC::Nosh';
+requires 'Frame', '0.1.6.0';
+requires 'FFmpeg::Inline';
+requires 'App::md2html';
+requires 'IPC::Nosh';
 
 on 'test' => sub {
     requires 'Test::More';
