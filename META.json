@@ -80,7 +80,7 @@
             "Devel::Trace" : "0",
             "FFmpeg::Inline" : "0",
             "File::chdir" : "0",
-            "Frame" : "0",
+            "Frame" : "v0.1.6.0",
             "Future::AsyncAwait" : "0",
             "Getopt::Long" : "0",
             "HTTP::Tinyish" : "0",
