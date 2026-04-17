@@ -6,7 +6,7 @@ use utf8;
 use v5.40;
 
 use List::Util 'first';
-use IPC::Nosh::IO;
+use IPC::Nosh::Common;
 use Path::Tiny;
 use Syntax::Keyword::Defer;
 use Getopt::Long qw(GetOptionsFromArray :config no_ignore_case auto_abbrev);
@@ -53,7 +53,7 @@ GetOptions(
 
         # dmsg( $cb, $val, $opt, $arg, $pathnorm_k );
 
-        err "'$opt' is not a valid value for paths|normalize-paths.\n"
+        error "'$opt' is not a valid value for paths|normalize-paths.\n"
           . "Allowed values: "
           . ( join ',', keys PATHNORM->%* ) . '.'
           unless $pathnorm_k;
