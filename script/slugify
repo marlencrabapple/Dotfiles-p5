@@ -1,0 +1,13 @@
+#!/usr/bin/env perl
+
+package slugify;
+
+use v5.40;
+
+sub slugify( $in, %opt ) {
+    $opt{replace} //= '_';
+    ( $in =~ s/[^a-z0-9_.+=-]+/$opt{replace}/gir );
+}
+
+die "No input provided." unless scalar @ARGV;
+say $_ for map { slugify( $_, $ENV{SLUGIFY_REPLACE} ) } @ARGV
