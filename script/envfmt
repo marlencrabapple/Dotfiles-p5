@@ -55,6 +55,18 @@ method cli : common ($argv = \@ARGV) {
     return $self;
 }
 
+method resovle_var_glob {
+    ...;
+}
+
+method resolve_var_regexp ($re) {
+    grep { $_ =~ $re } keys %ENV;
+}
+
+method resolve_var {
+    ...;
+}
+
 method fmt {
     my %seen;
     my %env;

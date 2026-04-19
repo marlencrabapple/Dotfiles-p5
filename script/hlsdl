@@ -1,0 +1,94 @@
+#!/usr/bin/env perl
+use Object::Pad ':experimental(:all)';
+
+package hlsdl::cli;
+
+use lib 'lib';
+
+class hlsdl::cli : does(Dotfiles::p5::Base);
+
+use v5.40;
+
+use IPC::Nosh;
+use IPC::Nosh::Common;
+use Path::Tiny;
+use Getopt::Long qw(GetOptionsFromArray :config no_ignore_case auto_abbrev);
+
+field $input : param;
+field $output : param { hlsdl::cli->slugify($input) . '.mp4' };
+field $ext_picky         : param(extension_picky)            = 0;
+field $ext_allow         : param(allowed_extensions)         = 'ALL';
+field $ext_allow_segment : param(allowed_segment_extensions) = 'ALL';
+
+#field $ffmpeg_opt : param                     = [];
+field $ffmpeg_bin : param = 'ffmpeg';
+
+method cli : common ($argv = \@ARGV, %opt) {
+    my %clidest = ();
+
+    GetOptionsFromArray(
+        $argv,
+        \%clidest,
+        'help|?',
+        'input:s',
+        'output:s',
+        'extension_picky|extenzion-picky|-ext-picky!',
+        'allowed_extensions|allow-extensions:s',
+        'allowed_segment_extensions:s',
+        '<>' => sub ($file) {
+            state $i //= 0;
+
+            my $key =
+                $i == 0 ? 'input'
+              : $i == 1 ? 'output'
+              :           fatal "Too many positional arguments.";
+
+            fatal "--$key already has a value." if $clidest{$key};
+
+            $clidest{$key} = $file;    #path($file);
+            $i++;
+        }
+    );
+    dmsg $argv, \%clidest, \%opt;
+    my $self = hlsdl::cli->new(%clidest);
+    dmsg $self;
+    $self->run_ffmpeg;
+}
+
+method run_ffmpeg {
+
+# $ffmpeg, $allowed_extensions ? -allowed_extensions., $input, qw(-c copy -movflags +faststart), $output
+    my @ffcli = $ffmpeg_bin;
+
+    push @ffcli, ( '-extension_picky',            $ext_picky );
+    push @ffcli, ( '-allowed_extensions',         $ext_allow ) if $ext_allow;
+    push @ffcli, ( '-allowed_segment_extensions', $ext_allow_segment )
+      if $ext_allow_segment;
+    push @ffcli,
+      ( '-i', $input, qw(-c copy -movflags +faststart -f mp4), $output );
+
+    dmsg \@ffcli;
+
+    my $run = run(
+        \@ffcli,
+
+        #on => {
+        #    line => sub ($line) { say $line },
+        #e    err  => sub { error shift }
+        #},
+        out       => sub ($line) { say $line },
+        err       => sub ($line) { say STDERR $line },
+        autoflush => 1,
+        autochomp => 1
+    );
+
+    dmsg $run;
+
+    $run;
+}
+
+package hlsdl;
+
+use v5.40;
+
+hlsdl::cli->cli;
