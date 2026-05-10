@@ -4,7 +4,7 @@ use v5.40;
 
 use Syntax::Keyword::Dynamically;
 use IPC::Run3;
-use IPC::Nosh::IO;
+use IPC::Nosh::Common;
 use Getopt::Long qw(GetOptionsFromArray :config no_ignore_case auto_abbrev);
 use Const::Fast;
 

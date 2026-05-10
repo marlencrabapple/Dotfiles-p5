@@ -1,0 +1,141 @@
+#!/usr/bin/env perl
+use Object::Pad ':experimental(:all)';
+
+package envfmt;
+
+class envfmt;
+
+use utf8;
+use v5.40;
+
+use lib 'lib';
+
+use List::Util qw'uniq any';
+use Const::Fast;
+use IPC::Nosh;
+use IPC::Nosh::IO;
+use JSON::MaybeXS;
+use TOML::Tiny;
+use Getopt::Long
+  qw(GetOptionsFromArray :config no_ignore_case auto_abbrev passthrough long_prefix_pattern=--?);
+
+field $envvars   : param = [];
+field $outfmt    : param //= 'export';    # export,values,toml,json,env
+field $separator : param = "\n";
+field %safe = ();
+field $prune : param : reader = [];
+field $debug : param = 0;
+
+method cli : common ($argv = \@ARGV) {
+    my %clidest = ( envvars => [], prune => [] );
+    GetOptionsFromArray(
+        $argv,
+        \%clidest,
+        'envvars|vars|filterenv|filter-vars=s{1}',
+        'prune=s{1,}',
+        'outfmt|printfmt|as=s',
+        'separator=s',
+        'delimeter=s',
+        'debug',
+        '<>' => sub ($varin) {
+            chomp $varin;
+            push $clidest{envvars}->@*, $varin;
+        }
+    );
+
+    my $self = $class->new(%clidest);
+    my $res  = $self->fmt;
+    say $res;
+
+    return $self;
+}
+
+method fmt {
+    my %seen;
+    my %env;
+
+    my $outstr;
+    my %safe;
+
+    foreach my ( $name, $val ) (
+        map  { ( $_, [ split /\s/, $ENV{$_} =~ s/[\s\t\r\n]+/ /rg ] ) }
+        grep { $ENV{$_} } ( scalar @$envvars ? @$envvars : keys %ENV )
+      )
+    {
+        my @noprune;
+        my $safe = $safe{$name} = {};
+
+        foreach my $flag (@$prune) {
+            foreach my ( $op, $var ) ( $flag =~ /^(\+|-)?(.+)$/ ) {
+                if ( $op eq '-' ) {
+                    my ($nodash) = ( $var =~ s/^-?(.+)/$1/r );
+                    push @noprune, "$nodash=s@";
+                    $$safe{$nodash} = undef;
+                }
+            }
+
+            GetOptionsFromArray( $val, $safe, @noprune );
+        }
+
+        my @valout = ();
+
+        foreach my $val (@$val) {
+            my @pair;
+            @pair = map { $_ //= '' } split /=/, $val, 1;
+
+            if ( scalar @pair == 1 ) {
+                if ( my @_pair = $val =~ /^(-O)([1-3]|s){1}$/ ) {
+                    @pair = @_pair;
+                }
+                else {
+                    push @pair, '';
+                }
+            }
+
+            $seen{ join "", @pair } = ( $seen{ join "", @pair } // 0 ) + 1;
+
+            push @valout, $val
+              if ( any { $_ eq "-$pair[0]" } @$prune )
+              || ( $seen{ join "", @pair } <= 1 );
+
+        }
+
+        $val = [@valout];
+
+        foreach my ( $k, $v ) (%$safe) {
+            push @$val, map { ( "-$k" => $_ ) } @$v;
+        }
+
+        $env{$name} = $val;
+        dmsg( $safe, $val );
+
+        if ( $outfmt =~ /export|env/ ) {
+            my $common = qq{name="};
+            $common .= join ' ', @$val;
+            $common .= '"';
+
+            if ( $outfmt eq 'export' ) {
+                $outstr .= qq[export $name="] . ( join ' ', @$val ) . '"';
+                $outstr .= $separator;
+            }
+            elsif ( $outfmt eq 'env' ) {
+                $outstr .= $common;
+            }
+        }
+        elsif ( $outfmt eq 'values' ) {
+            $outstr .= join $separator, @$val;
+        }
+
+        $outstr .= "\n";
+    }
+
+    return $outstr if $outstr;
+
+    return encode_json( \%env ) if $outfmt eq 'json';
+    return to_toml( \%env )     if $outfmt eq 'toml';
+
+}
+
+package main;
+
+envfmt->cli( \@ARGV )
