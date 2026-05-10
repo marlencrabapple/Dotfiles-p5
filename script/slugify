@@ -10,4 +10,4 @@ sub slugify( $in, %opt ) {
 }
 
 die "No input provided." unless scalar @ARGV;
-say $_ for map { slugify( $_, $ENV{SLUGIFY_REPLACE} ) } @ARGV
+say $_ for map { slugify( $_, replace => $ENV{SLUGIFY_REPLACE} ) } (@ARGV)
