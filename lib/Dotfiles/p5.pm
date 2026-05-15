@@ -7,7 +7,7 @@ class Dotfiles::p5 : does(Dotfiles::p5::Base);
 use utf8;
 use v5.40;
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 __END__
 

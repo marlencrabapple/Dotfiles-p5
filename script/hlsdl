@@ -49,9 +49,12 @@ method cli : common ($argv = \@ARGV, %opt) {
             $i++;
         }
     );
+
     dmsg $argv, \%clidest, \%opt;
+
     my $self = hlsdl::cli->new(%clidest);
     dmsg $self;
+
     $self->run_ffmpeg;
 }
 

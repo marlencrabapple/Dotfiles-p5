@@ -46,19 +46,3 @@ method callstack : common {
     @callstack;
 }
 
-sub truthy ( $value, $no_warn = undef, %permit ) {
-    $value;
-}
-
-sub issha1 ($str) {
-    if ( $str =~ /^[[:alnum:]]{40}$/ ) {
-        say "'$str' is a valid SHA1 checksum.";
-        return 1;
-    }
-    undef;
-}
-
-method slugify : common ( $in, %opt ) {
-    $opt{replace} //= ( $ENV{SLUGIFY_REPLACE} // '_' );
-    ( $in =~ s/[^a-z0-9_.+=-]+/$opt{replace}/gir );
-}

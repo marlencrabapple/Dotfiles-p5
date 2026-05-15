@@ -1,13 +1,44 @@
-#!/usr/bin/env perl
+# #!/usr/bin/env perl
+use Object::Pad ':experimental(:all)';
+
+# package Dotfiles::p5::slugify;
+
+# class Dotfiles::p5::slugify;
 
 package slugify;
 
+class slugify : does(Dotfiles::p5::Base);
+
 use v5.40;
 
-sub slugify( $in, %opt ) {
-    $opt{replace} //= '_';
-    ( $in =~ s/[^a-z0-9_.+=-]+/$opt{replace}/gir );
+use Const::Fast;
+use IPC::Nosh::Common;
+use Getopt::Long qw(GetOptionsFromArray :config no_ignore_case auto_abbrev);
+
+our %cliopt = ();
+
+field $replace : param;
+field $concat  : param;
+field $cliopt;
+
+sub flag_optval ( $optspec, $val //= "" ) {
+    dmsg $optspec;
+    $$cliopt{ $optspec->key }->$* = $concat_defualt;
 }
 
-die "No input provided." unless scalar @ARGV;
-say $_ for map { slugify( $_, replace => $ENV{SLUGIFY_REPLACE} ) } (@ARGV)
+sub from_cli ( $argv //= \@ARGV ) {
+    GetOptionsFromArray(
+        \$argv,
+        \%cliopt,
+        'concat|join'  => \&flag_optval,
+        'replace-with' => \&flag_optval,
+    );
+}
+
+package slugify::cli;
+
+my $slugify = slugify::from_cli( \@ARGV );
+$slugify->
+
+  # die "No input provided." unless scalar @ARGV;
+  # say $_ for map { slugify( $_, replace => $ENV{SLUGIFY_REPLACE} ) } (@ARGV)
